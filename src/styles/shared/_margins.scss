@@ -1,0 +1,29 @@
+@for $i from 1 to 30 {
+  .-mt-#{$i * 2} {
+    margin-top: 2px * $i;
+  }
+}
+
+@for $i from 1 to 30 {
+  .-mr-#{$i * 2} {
+    margin-right: 2px * $i;
+  }
+}
+
+@for $i from 1 to 30 {
+  .-mb-#{$i * 2} {
+    margin-bottom: 2px * $i;
+  }
+}
+
+@for $i from 1 to 30 {
+  .-ml-#{$i * 2} {
+    margin-left: 2px * $i;
+  }
+}
+
+@for $i from 1 to 30 {
+  .-m-#{$i * 2} {
+    margin: 2px * $i;
+  }
+}
