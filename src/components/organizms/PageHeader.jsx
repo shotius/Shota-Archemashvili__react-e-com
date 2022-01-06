@@ -1,19 +1,22 @@
 import { Component } from 'react';
+import icon from '../../assets/icons/shoppingIcon.svg';
 
 export class PageHeader extends Component {
   render() {
     return (
-      <div className="-center ">
+      <div className="header -center">
         <div className="page_wrap_out -justify-between -position-relative">
-          <div className='-justify-between navigation '>
-            <p className='text__regular'>woman</p>
-            <p className='text__regular'>men</p>
-            <p className='text__regular'>kids</p>
+          <div className="-justify-between nav">
+            <button className=" nav__btn--active nav__btn  btn">woman</button>
+            <button className="btn nav__btn">men</button>
+            <button className="btn nav__btn">kids</button>
           </div>
-          <h1 className='-position-absolute -center-absolute'>rect</h1>
-          <div className='-justify-between'>
-            <div className='-mx-10'>$</div>
-            <div>basket</div>
+          <div className="-position-absolute -center-absolute btn__shopping">
+            <img src={icon} alt="button for shopping" />
+          </div>
+          <div className="-justify-between">
+            <div className="text__regular -mx-10">$</div>
+            <p className="text__regular">basket</p>
           </div>
         </div>
       </div>
