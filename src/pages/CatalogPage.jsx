@@ -1,7 +1,12 @@
 import { Component } from 'react';
+import { PublicLayout } from '../components/templates/PublicLayout';
 
 export class CatalogPage extends Component {
   render() {
-    return <h1 className="header header--center -mt-40">Catalog Page</h1>;
+    return (
+      <PublicLayout>
+        <h1 className="header header--center -mt-40">Catalog Page</h1>
+      </PublicLayout>
+    );
   }
 }

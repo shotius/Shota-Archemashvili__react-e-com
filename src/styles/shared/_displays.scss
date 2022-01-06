@@ -1,0 +1,29 @@
+.-flex {
+  display: flex;
+}
+
+$positions: 'center', 'space-between', "space-around";
+
+@each $pos in $positions {
+  .justify-#{$pos} {
+    display: flex;
+    justify-content: $pos;
+  }
+}
+
+
+.-center {
+  @include center;
+}
+
+.-justify-between {
+  @include space-between;
+}
+
+.-position-relative {
+  position: relative;
+}
+
+.-center-absolute {
+  @include center-absolute
+}

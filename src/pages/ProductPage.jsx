@@ -1,9 +1,12 @@
-import {Component} from 'react'
+import { Component } from 'react';
+import { PublicLayout } from '../components/templates/PublicLayout';
 
 export class ProductPage extends Component {
   render() {
     return (
-      <h1>ProductPage</h1>
-    )
+      <PublicLayout>
+        <h1>ProductPage</h1>
+      </PublicLayout>
+    );
   }
 }

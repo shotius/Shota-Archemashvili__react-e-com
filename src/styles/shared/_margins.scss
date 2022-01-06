@@ -23,6 +23,18 @@
 }
 
 @for $i from 1 to 30 {
+  .-mx-#{$i * 2} {
+    margin: 0px 2px * $i;
+  }
+}
+
+@for $i from 1 to 30 {
+  .-my-#{$i * 2} {
+    margin: 2px * $i 0px;
+  }
+}
+
+@for $i from 1 to 30 {
   .-m-#{$i * 2} {
     margin: 2px * $i;
   }

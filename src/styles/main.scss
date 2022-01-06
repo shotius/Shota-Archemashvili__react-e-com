@@ -3,9 +3,20 @@
 
 // abstract
 @import './abstact/variables';
+@import './abstact/mixins';
 
 // components
 @import './components/typography';
+@import './components/pageheader';
+
 
 // shared
 @import './shared/margins';
+@import './shared/paddings';
+@import './shared/displays';
+@import './shared/colors';
+
+
+// layout 
+@import './layout/wrappers';
+
