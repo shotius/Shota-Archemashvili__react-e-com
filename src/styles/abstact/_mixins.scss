@@ -31,3 +31,17 @@ $positions: 'center', 'space-between';
   font-size: 1.6rem;
   background-color: transparent;
 }
+
+@mixin popover {
+  position: absolute;
+  visibility: hidden;
+  opacity: 0;
+  top: 90%;
+  transition: all $mouse;
+  z-index: -10;
+  &--opened {
+    visibility: visible;
+    opacity: 1;
+    z-index: $popover;
+  }
+}

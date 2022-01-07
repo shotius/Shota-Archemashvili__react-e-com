@@ -1,44 +1,58 @@
-.header .nav {
-  &__btn {
-    padding: 2.5rem 2rem;
-    cursor: pointer;
-    background-color: transparent;
-    text-transform: uppercase;
-    &:hover {
-      background-color: $lightGray;
-      opacity: 0.9;
+.header {
+  position: fixed; 
+  top: 0;
+  width: 100%;
+  background-color: white;
+  z-index: 1000;
+  .nav {
+    &__btn {
+      padding: 2.5rem 2rem;
+      cursor: pointer;
+      background-color: transparent;
+      text-transform: uppercase;
+      &:hover {
+        background-color: $lightGray;
+        opacity: 0.9;
+      }
+      &--active {
+        color: $green;
+        font-weight: 600;
+        border-bottom: 2px solid;
+      }
     }
-    &--active {
-      color: $green;
-      font-weight: 600;
-      border-bottom: 2px solid;
+    &__btn_dropdown {
+      position: relative;
+      bottom: -5px;
+      transition: all $mouse;
+      &--opened {
+        transform: rotate(180deg);
+      }
+    }
+
+    &__btn_currency {
+      @include center;
+      padding: 0rem 1rem;
+      &:hover {
+        background-color: transparent;
+      }
+    }
+    &__btn_basket {
+      padding: 0rem 1rem;
+      &:hover {
+        background-color: transparent;
+      }
     }
   }
-  &__btn_dropdown {
-    position: relative;
-    bottom: -5px;
-    transition: all 0.2s;
-    &--opened {
-      transform: rotate(180deg);
-    }
+  &__btn_shopping {
+    @include center-absolute;
+    position: absolute;
+    margin-top: 4px;
   }
+
   &__btn_group {
     @include center;
     align-self: stretch;
     align-items: stretch;
     position: relative;
-  }
-  &__btn_currency {
-    @include center;
-    padding: 0rem 1rem;
-    &:hover {
-      background-color: transparent;
-    }
-  }
-  &__btn_basket {
-    padding: 0rem 2rem;
-    &:hover {
-      background-color: transparent;
-    }
   }
 }

@@ -1,28 +1,14 @@
 .currency_popover {
-  position: absolute;
-  visibility: hidden;
-  opacity: 0;
+  @include popover;
   width: 115px;
   box-shadow: 0 0.2rem 1.5rem rgba(0, 0, 0, 0.06);
   padding: 0.8rem 0px;
-  box-sizing: border-box;
-  top: 90%;
-  left: 0px;
-  z-index: 10;
   background-color: white;
-  transition: all 0.2s;
-  &--active {
-    visibility: visible;
-    opacity: 1;
-  }
 }
 
-.popover_overlay {
-  z-index: 1;
-  position: fixed;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  background-color: transparent;
+.basket_popover {
+  @include popover;
+  background-color: white;
+  top: 100%;
+  padding: 1.6rem;
 }

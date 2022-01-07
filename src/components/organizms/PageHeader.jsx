@@ -4,32 +4,40 @@ import dropdownIcon from '../../assets/icons/dropdownIcon.svg';
 import basketIcon from '../../assets/icons/basketIcon.svg';
 import dolarIcon from '../../assets/icons/dolarIcon.svg';
 import { CurrencyPopover } from './CurrencyPopover';
+import { BasketPopover } from './BasketPopover';
 
 export class PageHeader extends Component {
   constructor(props) {
     super(props);
-    this.state = { isOpen: false };
+    this.state = { isCurrencyOpen: false, isBasketOpen: false };
     this.handleCurrencyToggle = this.handleCurrencyToggle.bind(this);
+    this.handeBasketToggle = this.handeBasketToggle.bind(this);
   }
 
   handleCurrencyToggle() {
-    this.setState({ isOpen: !this.state.isOpen });
+    this.setState({ isCurrencyOpen: !this.state.isCurrencyOpen });
+  }
+
+  handeBasketToggle() {
+    this.setState({ isBasketOpen: !this.state.isBasketOpen });
   }
 
   render() {
+    const { isBasketOpen, isCurrencyOpen } = this.state;
     return (
       <div className="header -center">
         <div className="page_wrapper--outer -justify-between -position-relative">
-          <div className="-justify-between nav">
+          <div className="header__nav">
             <button className="nav__btn--active nav__btn btn">woman</button>
             <button className="btn nav__btn">men</button>
             <button className="btn nav__btn">kids</button>
           </div>
-          <button className="btn -position-absolute -center-absolute">
+
+          <button className="header__btn_shopping btn ">
             <img src={shoppingBagIcon} alt="button for shopping" />
           </button>
 
-          <div className="nav__btn_group">
+          <div className="header__btn_group">
             <button
               className="text__regular btn nav__btn_currency"
               onClick={this.handleCurrencyToggle}
@@ -38,16 +46,23 @@ export class PageHeader extends Component {
               <img
                 src={dropdownIcon}
                 className={`nav__btn_dropdown ${
-                  this.state.isOpen && 'nav__btn_dropdown--opened'
+                  isCurrencyOpen && 'nav__btn_dropdown--opened'
                 }`}
                 alt="currentcy change dropwdown"
               />
             </button>
             <CurrencyPopover
-              isOpen={this.state.isOpen}
+              isOpen={isCurrencyOpen}
               onClose={this.handleCurrencyToggle}
             />
-            <button className="text__regular btn nav__btn_basket">
+            <BasketPopover
+              onClose={this.handeBasketToggle}
+              isOpen={isBasketOpen}
+            />
+            <button
+              className="text__regular btn nav__btn_basket"
+              onClick={this.handeBasketToggle}
+            >
               <img src={basketIcon} alt="basket icon" />
             </button>
           </div>

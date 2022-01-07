@@ -6,7 +6,7 @@ export class PublicLayout extends Component {
     return (
       <div>
         <PageHeader />
-        <div>{this.props.children}</div>
+        <div style={{ paddingTop: 80 }}>{this.props.children}</div>
       </div>
     );
   }

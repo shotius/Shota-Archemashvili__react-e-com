@@ -10,7 +10,7 @@ export class CurrencyPopover extends Component {
       <>
         <PopoverOverlay isOpen={isOpen} cb={onClose}/>
         <div
-          className={`currency_popover ${isOpen && 'currency_popover--active'}`}
+          className={`currency_popover ${isOpen && 'currency_popover--opened'}`}
         >
           <div className="v-stack ">
             <button className="btn btn_rect" onClick={onClose}>$ USD</button>
