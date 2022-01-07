@@ -27,3 +27,7 @@ $positions: 'center', 'space-between', "space-around";
 .-center-absolute {
   @include center-absolute
 }
+
+.-position-absolute {
+  position: absolute;
+}

@@ -1,4 +1,7 @@
-.page_wrap_out {
-  max-width: 1200px;
-  width: 100%;
+.page_wrapper {
+  &--outer {
+    max-width: 1264px;
+    padding: 0px 3.2rem;
+    width: 100%;
+  }
 }

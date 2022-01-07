@@ -1,6 +1,15 @@
-
-.btn__shopping {
-  transform: translateY(40px);
-  margin-top: 13px;
+.btn {
+  @include reset-button;
   cursor: pointer;
+  &:active {
+    background-color: lightgray;
+  }
+  &:hover {
+    background-color: $lightGray;
+  }
+}
+
+.btn_shopping {
+  // transform: translateY(40px);
+  // margin-top: 13px;
 }
