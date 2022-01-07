@@ -1,0 +1,23 @@
+.-zIndex-zero {
+  z-index: $zero;
+}
+
+.-zIndex-base {
+  z-index: $base;
+}
+
+.-zIndex-popover {
+  z-index: $popover;
+}
+
+.-zIndex-dropdown {
+  z-index: $dropdown;
+}
+
+.-zIndex-overlay {
+  z-index: $overlay;
+}
+
+.-zIndex-modal {
+  z-index: $modal;
+}

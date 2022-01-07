@@ -1,6 +1,6 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
-import { PopoverOverlay } from '../molecules/Overlay';
+import { PopoverOverlay } from '../../molecules/overlays/Overlay';
 
 export class CurrencyPopover extends Component {
 
@@ -10,7 +10,7 @@ export class CurrencyPopover extends Component {
       <>
         <PopoverOverlay isOpen={isOpen} cb={onClose}/>
         <div
-          className={`currency_popover ${isOpen && 'currency_popover--opened'}`}
+          className={`currency_popover ${isOpen && 'currency_popover--opened'} -zIndex-modal`}
         >
           <div className="v-stack ">
             <button className="btn btn_rect" onClick={onClose}>$ USD</button>

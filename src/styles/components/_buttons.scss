@@ -1,12 +1,6 @@
 .btn {
   @include reset-button;
   cursor: pointer;
-  &:active {
-    background-color: lightgray;
-  }
-  &:hover {
-    background-color: $lightGray;
-  }
 }
 
 .btn_rect {

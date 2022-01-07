@@ -10,6 +10,13 @@ $mouse: 0.2s;
 $leopart: 0.1s;
 
 
-// z-indexes;
+// z indexes;
+$zero: 0;
+$base: 1;
 $popover: 10;
+$dropdown: 30;
+$overlay: 50;
+$modal: 100;
 
+// box shadows
+$shadownSmall: 0 0.2rem 1.5rem rgba(0, 0, 0, 0.06);

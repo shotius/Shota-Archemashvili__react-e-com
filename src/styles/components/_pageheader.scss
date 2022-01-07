@@ -1,9 +1,9 @@
 .header {
-  position: fixed; 
+  position: fixed;
   top: 0;
   width: 100%;
   background-color: white;
-  z-index: 1000;
+  z-index: $modal;
   .nav {
     &__btn {
       padding: 2.5rem 2rem;
@@ -46,7 +46,13 @@
   &__btn_shopping {
     @include center-absolute;
     position: absolute;
-    margin-top: 4px;
+    margin-top: 2px;
+    &:hover {
+      background-color: white;
+    }
+    &:active {
+      background-color: white;
+    }
   }
 
   &__btn_group {

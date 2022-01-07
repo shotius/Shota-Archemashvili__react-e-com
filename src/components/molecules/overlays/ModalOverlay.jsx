@@ -1,6 +1,7 @@
 import { Component } from 'react';
 import ReactDom from 'react-dom';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 // Modal overlay is defined int the portal
 const modalOverlayRoot = document.getElementById('modal-overlay');
@@ -15,16 +16,19 @@ export class ModalOverlay extends Component {
   componentDidMount() {
     modalOverlayRoot.appendChild(this.el);
     this.el.onclick = this.props.cb;
-    this.el.className = `${this.props.isOpen && 'overlay'} ${
-      this.props.isColored && 'overlay--gray'
-    }`;
+
+    this.el.className = classNames({
+      overlay: this.props.isOpen,
+      'overlay--gray': this.props.isColored,
+    });
   }
 
   // on update overlay should get new props
   componentDidUpdate() {
-    this.el.className = `${this.props.isOpen && 'overlay'} ${
-      this.props.isColored && 'overlay--gray'
-    }`;
+    this.el.className = classNames({
+      overlay: this.props.isOpen,
+      'overlay--gray': this.props.isColored,
+    });
   }
 
   // remove child on unmount

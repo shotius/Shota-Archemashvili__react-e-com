@@ -1,15 +1,17 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
+import cn from 'classnames';
 
 export class PopoverOverlay extends Component {
   render() {
     const { isOpen, cb, isColored } = this.props;
-    return (
-      <div
-        className={`${isOpen && 'overlay'} ${isColored && 'overlay--gray'}`}
-        onClick={cb}
-      />
-    );
+
+    const className = cn({
+      overlay: isOpen,
+      'overlay--gray': isColored,
+    });
+
+    return <div className={className} onClick={cb} />;
   }
 }
 

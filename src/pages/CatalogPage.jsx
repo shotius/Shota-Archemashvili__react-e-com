@@ -5,7 +5,7 @@ export class CatalogPage extends Component {
   render() {
     return (
       <PublicLayout>
-        <h1 className="heading heading--center -mt-40">Catalog Page</h1>
+        <h1 className="heading heading--center">Catalog Page</h1>
       </PublicLayout>
     );
   }
