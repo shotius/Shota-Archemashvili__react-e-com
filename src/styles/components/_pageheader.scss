@@ -14,20 +14,31 @@
       border-bottom: 2px solid;
     }
   }
-  &__btn_currency {
-    @include center;
-    padding: 0rem 1rem;
-  }
   &__btn_dropdown {
     position: relative;
     bottom: -5px;
+    transition: all 0.2s;
+    &--opened {
+      transform: rotate(180deg);
+    }
   }
   &__btn_group {
     @include center;
     align-self: stretch;
     align-items: stretch;
+    position: relative;
+  }
+  &__btn_currency {
+    @include center;
+    padding: 0rem 1rem;
+    &:hover {
+      background-color: transparent;
+    }
   }
   &__btn_basket {
     padding: 0rem 2rem;
+    &:hover {
+      background-color: transparent;
+    }
   }
 }

@@ -4,7 +4,7 @@ import icon from '../../assets/icons/shoppingIcon.svg';
 export class ShoppingButton extends Component {
   render() {
     return (
-      <div className="-position-absolute -center-absolute btn_shopping">
+      <div className="-position-absolute -center-absolute btn">
         <img src={icon} alt="shopping button" />
       </div>
     );
