@@ -1,11 +1,10 @@
-.page_wrapper {
-  &--outer {
+.container {
+  &--lg {
     max-width: 1264px;
     padding: 0px 3.2rem;
     width: 100%;
   }
 }
-
 
 .v-stack {
   display: flex;

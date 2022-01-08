@@ -6,4 +6,7 @@
 .btn_rect {
   width: 100%;
   padding: 1rem;
+  &:hover {
+    background-color: $lightGray;
+  }
 }

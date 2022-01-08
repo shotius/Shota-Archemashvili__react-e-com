@@ -1,41 +1,41 @@
-@for $i from 1 to 30 {
-  .-mt-#{$i * 2} {
-    margin-top: 2px * $i;
+@each $i in $nums {
+  .-mt-#{$i} {
+    margin-top: 1px * $i;
   }
 }
 
-@for $i from 1 to 30 {
-  .-mr-#{$i * 2} {
-    margin-right: 2px * $i;
+@each $i in $nums {
+  .-mr-#{$i} {
+    margin-right: 1px * $i;
   }
 }
 
-@for $i from 1 to 30 {
-  .-mb-#{$i * 2} {
-    margin-bottom: 2px * $i; 
+@each $i in $nums {
+  .-mb-#{$i} {
+    margin-bottom: 1px * $i;
   }
 }
 
-@for $i from 1 to 30 {
-  .-ml-#{$i * 2} {
-    margin-left: 2px * $i;
+@each $i in $nums {
+  .-ml-#{$i} {
+    margin-left: 1px * $i;
   }
 }
 
-@for $i from 1 to 30 {
-  .-mx-#{$i * 2} {
-    margin: 0px 2px * $i;
+@each $i in $nums {
+  .-mx-#{$i} {
+    margin: 0px 1px * $i;
   }
 }
 
-@for $i from 1 to 30 {
-  .-my-#{$i * 2} {
-    margin: 2px * $i 0px;
+@each $i in $nums {
+  .-my-#{$i} {
+    margin: 1px * $i 0px;
   }
 }
 
-@for $i from 1 to 30 {
-  .-m-#{$i * 2} {
-    margin: 2px * $i;
+@each $i in $nums {
+  .-m-#{$i} {
+    margin: 1px * $i;
   }
 }

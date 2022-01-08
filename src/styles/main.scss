@@ -11,6 +11,7 @@
 @import './components/buttons';
 @import "./components/popovers";
 @import "./components/overlays";
+@import "./components//aspectratio";
 
 
 // shared
@@ -21,5 +22,8 @@
 @import './shared/zIndexes';
 
 // layout 
-@import './layout/wrappers';
+@import './layout/containers';
+
+// pages
+@import "./pages/catalog"
 

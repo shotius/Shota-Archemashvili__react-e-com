@@ -24,8 +24,8 @@ export class PageHeader extends Component {
   render() {
     const { isBasketPopoverOpen, isCurrencyOpen } = this.state;
     return (
-      <div className="header -center">
-        <div className="page_wrapper--outer -justify-between -position-relative">
+      <div className="header -center_content">
+        <div className="container--lg -justify-between -position-relative">
           <ButtonGroup>
             <Button className="nav__btn--active nav__btn">woman</Button>
             <Button className="nav__btn">men</Button>
