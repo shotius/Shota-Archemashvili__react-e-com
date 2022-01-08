@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import { Heading } from '../../atoms/Heading';
 import { AspectRatio } from '../../molecules/AspectRatio';
 import classNames from 'classnames';
+import basketIcon from '../../../assets/icons/basketLarge.svg';
+import { Button } from '../../atoms/buttons/Button';
 
 export class CatalogCard extends Component {
   constructor(props) {
@@ -33,6 +35,10 @@ export class CatalogCard extends Component {
       'catalog-card__pic--hovered': this.state.isHovered,
     });
 
+    const bsktBtnClass = classNames('catalog-card__btn-basket', '-bg--green', {
+      'catalog-card__btn-basket--visible': this.state.isHovered,
+    });
+
     return (
       <div
         className="catalog-card"
@@ -41,17 +47,19 @@ export class CatalogCard extends Component {
         onMouseLeave={this.handleMouseOut}
       >
         <div className="v-stack v-stack--spacing-20">
-          <AspectRatio ratio={356 / 338}>
-          {/* <div className="catalog-card__price-container"> */}
-            <img
-              src={product.picture}
-              alt="card pic"
-              className={imgClassName}
-              width="100%"
-              
-            />
-          {/* </div> */}
-          </AspectRatio>
+          <div className="catalog-card__picture-container">
+            <AspectRatio ratio={356 / 338}>
+              <img
+                src={product.picture}
+                alt="card pic"
+                className={imgClassName}
+                width="100%"
+              />
+            </AspectRatio>
+            <Button className={bsktBtnClass}>
+              <img src={basketIcon} alt="add to basket" />
+            </Button>
+          </div>
           <div className="catalog-card__description">
             <Heading className="catalog-card__heading">{product.title}</Heading>
             <Heading className="catalog-card__price">

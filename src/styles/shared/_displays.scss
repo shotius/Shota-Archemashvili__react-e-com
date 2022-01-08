@@ -31,3 +31,7 @@ $positions: 'center', 'space-between', "space-around";
 .-position-absolute {
   position: absolute;
 }
+
+.-round {
+  border-radius: 100%;
+}

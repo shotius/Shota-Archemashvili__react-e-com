@@ -5,17 +5,10 @@
   transition: $mouse;
   &:hover {
     box-shadow: $shadowMedium;
-    transform: translateY(-1px);
   }
 
-  &__heading {
-    font-size: 1.8rem;
-    font-weight: 300;
-    line-height: 2.88rem;
-  }
-  &__price {
-    font-size: 1.8rem;
-    font-weight: 500;
+  &__picture-container {
+    position: relative;
   }
   &__pic {
     transition: all $mouse;
@@ -26,11 +19,35 @@
       transform: scale(1.025);
     }
   }
-  &__price-container {
-    width: 100%;
-    max-height: 358px;
-    // padding: 2px;
-    overflow: hidden;
-
+  &__btn-basket {
+    background-color: $green;
+    border-radius: 100%;
+    padding: 1.6rem 1.6rem 1.2rem;
+    position: absolute;
+    right: 1.6rem;
+    transform: translateY(-50%);
+    opacity: 0;
+    transition: opacity $mouse ease-out;
+    visibility: hidden;
+    &:hover {
+      background-color: lighten($green, 5%);
+    }
+    &:active {
+      transform: scale(0.985) translateY(-50%);
+      opacity: 1;
+    }
+    &--visible {
+      opacity: 1;
+      visibility: visible;
+    }
+  }
+  &__heading {
+    font-size: 1.8rem;
+    font-weight: 300;
+    line-height: 2.88rem;
+  }
+  &__price {
+    font-size: 1.8rem;
+    font-weight: 500;
   }
 }
