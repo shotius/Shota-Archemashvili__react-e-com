@@ -28,19 +28,23 @@ export class AspectRatio extends Component {
     }
 
     // give content 100% width
-    innerEl.style.width = '100%';
     this.updateDimensions(innerEl);
     // update element on window resize
     window.addEventListener('resize', () => this.updateDimensions(innerEl));
   }
 
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.updateDimensions);
+  }
+
   updateDimensions(element) {
-    // give max width to fit in the container
-    element.style.maxWidth = this.props.maxWidth;
-    // give the maxHeight depending based its width
-    element.style.height = `${
-      parseInt(element.clientWidth) / this.props.ratio
-    }px`;
+    // update container dimensions
+    this.ref.current.style.height = `${Math.round(
+      this.ref.current.parentNode.clientWidth / this.props.ratio
+    )}px`;
+
+    element.style.maxWidth = '100%';
+    element.style.height = '100%';
   }
 
   render() {
@@ -49,11 +53,9 @@ export class AspectRatio extends Component {
     });
 
     return (
-      <div className={aspectClassName} style={{}}>
-        <div className="aspect-ratio__wrapper">
-          <div className="aspect-ratio__content" ref={this.ref}>
-            {this.props.children}
-          </div>
+      <div className={aspectClassName}>
+        <div className="aspect-ratio__content" ref={this.ref}>
+          {this.props.children}
         </div>
       </div>
     );

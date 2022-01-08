@@ -1,16 +1,9 @@
 .aspect-ratio {
-  &--full {
-    width: 100%;
-  }
-  &__wrapper {
-    position: relative;
-    width: 100%;
-  }
-  &__content {
-    height: '100%';
-    left: 0;
-    position: 'absolute';
-    top: 0;
-    width: '100%';
-  }
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  // &__content {
+
+  // }
 }

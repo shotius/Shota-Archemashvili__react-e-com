@@ -1,0 +1,13 @@
+.catalog-card {
+  flex-basis: 32%;
+  padding: 1.6rem;
+  &__heading {
+    font-size: 1.8rem;
+    font-weight: 300;
+    line-height: 2.88rem;
+  }
+  &__price {
+    font-size: 1.8rem;
+    font-weight: 500;
+  }
+}
