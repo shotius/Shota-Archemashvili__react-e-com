@@ -43,8 +43,21 @@ export class AspectRatio extends Component {
       this.ref.current.parentNode.clientWidth / this.props.ratio
     )}px`;
 
-    element.style.maxWidth = '100%';
-    element.style.height = '100%';
+    const naturalRatio = element.naturalWidth / element.naturalHeight;
+
+
+    console.log('natural: ', naturalRatio, "--> ",  naturalRatio * 1.4);
+    console.log('ratio: ', this.props.ratio);
+    console.log('----------');
+
+    if (this.props.ratio  > naturalRatio * 1.4) {
+      console.log('here')
+      element.style.maxHeight = 'none';
+      element.style.height = 'auto';
+    } else {
+      element.style.maxWidth = '100%';
+      element.style.height = '100%';
+    }
   }
 
   render() {

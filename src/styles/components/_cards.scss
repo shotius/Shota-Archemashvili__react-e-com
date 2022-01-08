@@ -1,6 +1,13 @@
 .catalog-card {
   flex-basis: 32%;
   padding: 1.6rem;
+  cursor: pointer;
+  transition: $mouse;
+  &:hover {
+    box-shadow: $shadowMedium;
+    transform: translateY(-1px);
+  }
+
   &__heading {
     font-size: 1.8rem;
     font-weight: 300;
@@ -9,5 +16,21 @@
   &__price {
     font-size: 1.8rem;
     font-weight: 500;
+  }
+  &__pic {
+    transition: all $mouse;
+    &--hovered {
+      transform: scale(1.01);
+    }
+    &:hover {
+      transform: scale(1.025);
+    }
+  }
+  &__price-container {
+    width: 100%;
+    max-height: 358px;
+    // padding: 2px;
+    overflow: hidden;
+
   }
 }
