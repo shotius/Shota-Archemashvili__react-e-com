@@ -18,13 +18,16 @@ export class AspectRatio extends Component {
       throw Error('Aspect ratio expects one child');
     }
 
-    // get the first child
+    // get the first child in aspect ratio
     const innerEl = this.ref.current.children[0];
 
     // if maxWidth is not provided
     if (!this.props.maxWidth) {
       innerEl.style.maxWidth = '100%';
       innerEl.style.maxHeight = '100%';
+    } else {
+      this.ref.current.style.height = this.props.maxWidth;
+      this.ref.current.style.width = this.props.maxWidth;
     }
 
     // give content 100% width
@@ -37,36 +40,61 @@ export class AspectRatio extends Component {
     window.removeEventListener('resize', this.updateDimensions);
   }
 
+  /** Function sets dimannsions to the proveded element */
   updateDimensions(element) {
-    // update container dimensions
-    this.ref.current.style.height = `${Math.round(
-      this.ref.current.parentNode.clientWidth / this.props.ratio
-    )}px`;
+    // update content wrapper container dimensions if maxWidth is not specified
+    // otherwise it will rewrite maxWidth dimension
+    if (!this.props.maxWidth) {
+      console.log('parent width: ', this.ref.current.parentNode.clientWidth);
+      this.ref.current.style.height = `${Math.round(
+        this.ref.current.parentNode.clientWidth / this.props.ratio
+      )}px`;
+    }
 
-    const naturalRatio = element.naturalWidth / element.naturalHeight;
-
-
-    console.log('natural: ', naturalRatio, "--> ",  naturalRatio * 1.4);
-    console.log('ratio: ', this.props.ratio);
-    console.log('----------');
-
-    if (this.props.ratio  > naturalRatio * 1.4) {
-      console.log('here')
-      element.style.maxHeight = 'none';
-      element.style.height = 'auto';
+    // if there is an image in the aspect ratio
+    if (element.tagName === 'IMG') {
+      this.setImageDimensions(element);
     } else {
-      element.style.maxWidth = '100%';
+      // else just width and height
+      element.style.width = '100%';
       element.style.height = '100%';
     }
   }
 
+  /** Function waits to the image load and assignes dimensions */
+  setImageDimensions(img) {
+    // wait to load event to have a natural sizes
+    img.onload = () => {
+      const naturalRatio = img.naturalWidth / img.naturalHeight;
+
+      // if image is just long then it is expected, crop the bottom to fit in the div
+      if (this.props.ratio > naturalRatio * 1.4) {
+        img.style.maxHeight = 'none';
+        img.style.height = 'auto';
+        img.style.width = '100%';
+      } else if (this.props.ratio < naturalRatio * 1.4) {
+        // if the image ratio  is wider when it is expected fit it
+        img.style.height = '100%';
+        img.style.maxWidth = 'none';
+        img.style.width = 'auto';
+      } else {
+        // else if image natural ratio is bias to to our ration fit in the aspect ratio
+        img.style.width = '100%';
+        img.style.height = '100%';
+      }
+    };
+  }
+
   render() {
+    const { maxWidth, ...rest } = this.props;
+
+    // console.log('aspectProps: ', rest)
     const aspectClassName = classNames('aspect-ratio', {
-      'aspect-ratio--full': this.props.maxWidth,
+      'aspect-ratio--full': maxWidth,
     });
 
     return (
-      <div className={aspectClassName}>
+      <div className={aspectClassName} {...rest}>
         <div className="aspect-ratio__content" ref={this.ref}>
           {this.props.children}
         </div>

@@ -5,14 +5,16 @@ import { AspectRatio } from '../../molecules/AspectRatio';
 import classNames from 'classnames';
 import basketIcon from '../../../assets/icons/basketLarge.svg';
 import { Button } from '../../atoms/buttons/Button';
+import { withNavigation } from '../../../utils/HOC/withNavigation';
 
-export class CatalogCard extends Component {
+class CatalogCard extends Component {
   constructor(props) {
     super(props);
     this.state = { isHovered: false };
     this.cardRef = createRef();
     this.handleMouseOut = this.handleMouseOut.bind(this);
     this.handleMouseOver = this.handleMouseOver.bind(this);
+    this.handleNavigation = this.handleNavigation.bind(this);
   }
 
   handleMouseOver() {
@@ -22,10 +24,19 @@ export class CatalogCard extends Component {
   }
 
   handleMouseOut() {
-    console.log('out');
     this.setState({
       isHovered: false,
     });
+  }
+
+  handleNavigation() {
+    const { id } = this.props.product;
+    this.props.navigate(`/catalog/${id}`);
+  }
+
+  handleProductAddClick(e) {
+    if (e.stopPropagation) e.stopPropagation();
+    console.log('clicked');
   }
 
   render() {
@@ -43,6 +54,7 @@ export class CatalogCard extends Component {
       <div
         className="catalog-card"
         ref={this.ref}
+        onClick={this.handleNavigation}
         onMouseEnter={this.handleMouseOver}
         onMouseLeave={this.handleMouseOut}
       >
@@ -56,7 +68,10 @@ export class CatalogCard extends Component {
                 width="100%"
               />
             </AspectRatio>
-            <Button className={bsktBtnClass}>
+            <Button
+              className={bsktBtnClass}
+              onClick={this.handleProductAddClick}
+            >
               <img src={basketIcon} alt="add to basket" />
             </Button>
           </div>
@@ -74,8 +89,11 @@ export class CatalogCard extends Component {
 
 CatalogCard.propTypes = {
   product: PropTypes.shape({
+    id: PropTypes.string,
     picture: PropTypes.string,
     title: PropTypes.string,
     price: PropTypes.number,
   }).isRequired,
 };
+
+export default withNavigation(CatalogCard);

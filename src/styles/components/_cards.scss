@@ -20,25 +20,28 @@
     }
   }
   &__btn-basket {
+    position: absolute;
     background-color: $green;
     border-radius: 100%;
-    padding: 1.6rem 1.6rem 1.2rem;
-    position: absolute;
+    width: 52px;
+    height: 52px;
     right: 1.6rem;
     transform: translateY(-50%);
     opacity: 0;
-    transition: opacity $mouse ease-out;
+    transition: opacity $rabbit ease-out;
     visibility: hidden;
     &:hover {
       background-color: lighten($green, 5%);
     }
     &:active {
-      transform: scale(0.985) translateY(-50%);
-      opacity: 1;
+      filter: brightness(90%);
     }
     &--visible {
       opacity: 1;
       visibility: visible;
+    }
+    img {
+      @include center-absolute;
     }
   }
   &__heading {

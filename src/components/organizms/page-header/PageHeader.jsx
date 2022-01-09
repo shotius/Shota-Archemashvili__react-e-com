@@ -1,11 +1,12 @@
 import { Component } from 'react';
 import shoppingBagIcon from '../../../assets/icons/shoppingIcon.svg';
+import { withNavigation } from '../../../utils/HOC/withNavigation';
 import { Button } from '../../atoms/buttons/Button';
 import { ButtonGroup } from '../../molecules/ButtonGroup';
 import { BasketButton } from '../buttons/BasketButton';
 import { CurrencySwitcher } from '../buttons/CurrencySwitcher';
 
-export class PageHeader extends Component {
+class PageHeader extends Component {
   constructor(props) {
     super(props);
     this.state = { isCurrencyOpen: false, isBasketPopoverOpen: false };
@@ -32,7 +33,10 @@ export class PageHeader extends Component {
             <Button className="nav__btn">kids</Button>
           </ButtonGroup>
 
-          <Button className="header__btn_shopping">
+          <Button
+            className="header__btn_shopping"
+            onClick={() => this.props.navigate('/catalog')}
+          >
             <img src={shoppingBagIcon} alt="button for shopping" />
           </Button>
 
@@ -51,3 +55,5 @@ export class PageHeader extends Component {
     );
   }
 }
+
+export default withNavigation(PageHeader);
