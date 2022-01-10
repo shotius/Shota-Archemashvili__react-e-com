@@ -11,7 +11,7 @@ export class BasketButton extends Component {
     return (
       <>
         <BasketPopover onClose={onToggle} isOpen={isOpen} />
-        <Button className="text__regular nav__btn_basket" onClick={onToggle}>
+        <Button className="text--regular nav__btn_basket" onClick={onToggle}>
           <img src={basketIcon} alt="basket icon" />
         </Button>
       </>

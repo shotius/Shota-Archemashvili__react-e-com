@@ -1,16 +1,30 @@
 .heading {
   font-size: 4.2rem;
-  margin: 0; 
+  margin: 0;
   color: $black;
-  line-height: 28.8px;
+  line-height: 29px;
+  padding:3px 0px;
   &--center {
     width: 100%;
     text-align: center;
   }
+  &--main {
+    font-weight: 600;
+    font-size: 3rem;
+  }
+  &--secondary {
+    font-weight: 400;
+    font-size: 3rem;
+  }
 }
 
-.text__regular {
-  padding: 1rem 0px;
-  font-size: 1.6rem;
-  color: $black
+.text {
+  &--regular {
+    padding: 1rem 0px;
+    font-size: 1.6rem;
+    color: $black;
+    line-height: 2.59rem;
+    font-weight: 400;
+    font-family: 'Roboto', sans-serif;
+  }
 }

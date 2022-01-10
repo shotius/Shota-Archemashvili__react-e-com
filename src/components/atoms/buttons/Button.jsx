@@ -10,7 +10,7 @@ export class Button extends Component {
 
   render() {
     const { isHovered, isPressed } = this.state;
-    const { onClick } = this.props;
+    const { onClick, style } = this.props;
 
     const btnClass = cn('btn', this.props.className, {
       '--pressed': isPressed,
@@ -18,7 +18,7 @@ export class Button extends Component {
     });
 
     return (
-      <button className={btnClass} onClick={onClick}>
+      <button className={btnClass} onClick={onClick} style={style}>
         {this.props.children}
       </button>
     );

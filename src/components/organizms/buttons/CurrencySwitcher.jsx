@@ -16,7 +16,7 @@ export class CurrencySwitcher extends Component {
 
     return (
       <>
-        <Button className="text__regular nav__btn_currency" onClick={onToggle}>
+        <Button className="text--regular nav__btn_currency" onClick={onToggle}>
           <img src={dolarIcon} alt="currency icon" />
           <img
             src={dropdownIcon}

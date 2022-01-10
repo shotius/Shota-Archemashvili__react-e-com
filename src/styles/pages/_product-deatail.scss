@@ -1,3 +1,7 @@
+$font-size: 16px;
+$line-height: 1.4;
+$lines-to-show: 3;
+
 .product-page {
   padding-top: 3rem;
   &__container {
@@ -25,9 +29,54 @@
       }
     }
   }
-  &__description {
+  .pr-details {
     flex-basis: 40%;
     height: 500px;
-    background-color: lightgray;
+    display: flex;
+    &__container {
+      display: flex;
+      flex-direction: column;
+      gap: 4rem;
+      max-width: 290px;
+      width: 100%;
+    }
+    &__headings {
+      h1 {
+        text-overflow: ellipsis;
+        overflow: hidden;
+      }
+    }
+    &__section-heading {
+      display: block;
+      font-size: 1.6rem;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+    &__btn-group {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+    }
+    &__price {
+      font-size: 24px;
+      font-weight: 700;
+    }
+    &__description {
+      display: block; /* Fallback for non-webkit */
+      display: -webkit-box;
+      padding-top: 0px;
+      min-height: $font-size * $line-height * $lines-to-show; /* Fallback for non-webkit */
+      max-height: $font-size * $line-height * $lines-to-show; /* Fallback for non-webkit */
+      margin: 0 auto;
+      font-size: $font-size;
+      line-height: $line-height;
+      -webkit-line-clamp: $lines-to-show;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      &--hidden {
+        display: none;
+      }
+    }
   }
 }

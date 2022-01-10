@@ -1,0 +1,6 @@
+1. more than 5 photos in the slider
++ 2. long heading on the product
++ 3. long description on the product page
+4. out of stock
+5. disabled button
+6. basket
