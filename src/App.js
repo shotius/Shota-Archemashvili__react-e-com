@@ -1,7 +1,7 @@
 import { CatalogPage } from './pages/CatalogPage';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { BasketPage } from './pages/BasketPage';
-import { ProductPage } from './pages/ProductPage';
+import ProductPage from './pages/ProductPage';
 import { ErrorPage } from './pages/ErrorPage';
 
 function App() {

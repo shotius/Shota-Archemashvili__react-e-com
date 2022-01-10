@@ -1,12 +1,12 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
-import dolarIcon from '../../../assets/icons/dolarIcon.svg';
 import dropdownIcon from '../../../assets/icons/dropdownIcon.svg';
 import classNames from 'classnames';
-import { CurrencyPopover } from '../popovers/CurrencyPopover';
+import CurrencyPopover from '../popovers/CurrencyPopover';
 import { Button } from '../../atoms/buttons/Button';
+import { connect } from 'react-redux';
 
-export class CurrencySwitcher extends Component {
+class CurrencySwitcher extends Component {
   render() {
     const { isOpen, onToggle } = this.props;
 
@@ -17,7 +17,7 @@ export class CurrencySwitcher extends Component {
     return (
       <>
         <Button className="text--regular nav__btn_currency" onClick={onToggle}>
-          <img src={dolarIcon} alt="currency icon" />
+          <p className="text--regular -pr-4">{this.props.currency}</p>
           <img
             src={dropdownIcon}
             className={className}
@@ -34,3 +34,9 @@ CurrencySwitcher.propTypes = {
   isOpen: PropTypes.bool.isRequired,
   onToggle: PropTypes.func.isRequired,
 };
+
+const mapStateToProps = (state) => ({
+  currency: state.globals.currency,
+});
+
+export default connect(mapStateToProps)(CurrencySwitcher);

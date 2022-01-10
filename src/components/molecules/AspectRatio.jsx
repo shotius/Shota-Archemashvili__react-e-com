@@ -45,7 +45,6 @@ export class AspectRatio extends Component {
     // update content wrapper container dimensions if maxWidth is not specified
     // otherwise it will rewrite maxWidth dimension
     if (!this.props.maxWidth) {
-      console.log('parent width: ', this.ref.current.parentNode.clientWidth);
       this.ref.current.style.height = `${Math.round(
         this.ref.current.parentNode.clientWidth / this.props.ratio
       )}px`;

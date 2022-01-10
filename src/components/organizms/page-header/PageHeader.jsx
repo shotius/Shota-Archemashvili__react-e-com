@@ -4,7 +4,7 @@ import { withNavigation } from '../../../utils/HOC/withNavigation';
 import { Button } from '../../atoms/buttons/Button';
 import { ButtonGroup } from '../../molecules/ButtonGroup';
 import { BasketButton } from '../buttons/BasketButton';
-import { CurrencySwitcher } from '../buttons/CurrencySwitcher';
+import CurrencySwitcher from '../buttons/CurrencySwitcher';
 
 class PageHeader extends Component {
   constructor(props) {

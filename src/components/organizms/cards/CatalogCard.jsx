@@ -6,6 +6,7 @@ import classNames from 'classnames';
 import basketIcon from '../../../assets/icons/basketLarge.svg';
 import { Button } from '../../atoms/buttons/Button';
 import { withNavigation } from '../../../utils/HOC/withNavigation';
+import { connect } from 'react-redux';
 
 class CatalogCard extends Component {
   constructor(props) {
@@ -78,7 +79,8 @@ class CatalogCard extends Component {
           <div className="catalog-card__description">
             <Heading className="catalog-card__heading">{product.title}</Heading>
             <Heading className="catalog-card__price">
-              ${product.price && product.price.toFixed(2)}
+              {this.props.currency}
+              {product.price && product.price.toFixed(2)}
             </Heading>
           </div>
         </div>
@@ -96,4 +98,8 @@ CatalogCard.propTypes = {
   }).isRequired,
 };
 
-export default withNavigation(CatalogCard);
+const mapStateToProps = (state) => ({
+  currency: state.globals.currency,
+});
+
+export default withNavigation(connect(mapStateToProps)(CatalogCard));

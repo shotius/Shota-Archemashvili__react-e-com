@@ -4,6 +4,7 @@ import { PublicLayout } from '../components/templates/PublicLayout';
 import { Heading } from '../components/atoms/Heading';
 import { Button } from '../components/atoms/buttons/Button';
 import classNames from 'classnames';
+import { connect } from 'react-redux';
 
 const thumbs = [
   'https://cdn.shopify.com/s/files/1/0087/6193/3920/products/DD1381200_DEOA_2_720x.jpg?v=1612816087',
@@ -13,16 +14,11 @@ const thumbs = [
   'https://images.canadagoose.com/image/upload/w_480,c_scale,f_auto,q_auto:best/v1576016107/product-image/2409L_61_a.jpg',
 ];
 
-export class ProductPage extends Component {
+class ProductPage extends Component {
   constructor(props) {
     super(props);
     this.state = { selectedImage: thumbs[0], showDesc: false };
     this.handleShowDescription = this.handleShowDescription.bind(this);
-  }
-
-  componentDidMount() {
-    document.body.style.overflowY = 'scroll';
-    console.log('document: ', document.body.style);
   }
 
   handleThumbClick(thumb) {
@@ -94,7 +90,9 @@ export class ProductPage extends Component {
                   <Heading className="pr-details__section-heading -pb-10">
                     price:
                   </Heading>
-                  <Heading className="pr-details__price">$50.00</Heading>
+                  <Heading className="pr-details__price">
+                    {this.props.currency}50.00
+                  </Heading>
                 </div>
                 <Button className="btn--primary">add to card</Button>
                 <div className={descriptiongClass}>
@@ -152,3 +150,9 @@ export class ProductPage extends Component {
     );
   }
 }
+
+const mapStateToProps = (state) => ({
+  currency: state.globals.currency,
+});
+
+export default connect(mapStateToProps)(ProductPage);
