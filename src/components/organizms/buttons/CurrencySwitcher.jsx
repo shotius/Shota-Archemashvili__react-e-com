@@ -5,10 +5,11 @@ import classNames from 'classnames';
 import CurrencyPopover from '../popovers/CurrencyPopover';
 import { Button } from '../../atoms/buttons/Button';
 import { connect } from 'react-redux';
+import { getCurrencyIcon } from '../../../utils/getCurrencyIcon';
 
 class CurrencySwitcher extends Component {
   render() {
-    const { isOpen, onToggle } = this.props;
+    const { isOpen, onToggle, currency } = this.props;
 
     const className = classNames('nav__btn_dropdown', {
       'nav__btn_dropdown--opened': isOpen,
@@ -17,7 +18,7 @@ class CurrencySwitcher extends Component {
     return (
       <>
         <Button className="text--regular nav__btn_currency" onClick={onToggle}>
-          <p className="text--regular -pr-4">{this.props.currency}</p>
+          <p className="text--regular -pr-4">{getCurrencyIcon(currency)}</p>
           <img
             src={dropdownIcon}
             className={className}

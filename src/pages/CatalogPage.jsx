@@ -2,49 +2,45 @@ import { Component } from 'react';
 import { Heading } from '../components/atoms/Heading';
 import CatalogCard from '../components/organizms/cards/CatalogCard';
 import { PublicLayout } from '../components/templates/PublicLayout';
+import { withApollo } from '@apollo/client/react/hoc';
+import { SINGLE_CATEGORY } from '../graphql/SINGLE_CATEGORY';
 
-const damnProducts = [
-  {
-    id: '1',
-    picture:
-      'https://cdn.shopify.com/s/files/1/0087/6193/3920/products/DD1381200_DEOA_2_720x.jpg?v=1612816087',
-    title: 'Apollo Running Short',
-    price: 50,
-  },
-  {
-    id: '2',
-    picture:
-      'https://images.canadagoose.com/image/upload/w_480,c_scale,f_auto,q_auto:best/v1576016107/product-image/2409L_61_a.jpg',
-    title: 'Apollo Running Short',
-    price: 50,
-  },
-  {
-    id: '3',
-    picture:
-      'https://images-na.ssl-images-amazon.com/images/I/510VSJ9mWDL._SL1262_.jpg',
-    title: 'Apollo Running Short',
-    price: 50,
-  },
-  {
-    id: '4',
-    picture:
-      'https://cdn.shopify.com/s/files/1/0087/6193/3920/products/DD1381200_DEOA_2_720x.jpg?v=1612816087',
-    title: 'Apollo Running Short',
-    price: 50,
-  },
-];
+class CatalogPage extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { data: [], loading: true };
+  }
+  componentDidMount = async () => {
+    const { client } = this.props;
 
-export class CatalogPage extends Component {
+    const res = await client.query({
+      query: SINGLE_CATEGORY,
+      variables: { category: { title: 'tech' } },
+    });
+    if (!res.loading) {
+      this.setState({ loading: false });
+      this.setState({ data: res.data.category.products });
+    }
+  };
+
   render() {
+    const { data, loading } = this.state;
+
     return (
       <PublicLayout>
         <div className="catalog">
           <div className="catalog__container">
             <Heading className="catalog__header">Catalog Page</Heading>
             <div className="catalog__list">
-              {damnProducts.map((product) => (
-                <CatalogCard key={product.id} product={product} />
-              ))}
+              {loading ? (
+                <p>Loading ...</p>
+              ) : !data.length ? (
+                <p>no products</p>
+              ) : (
+                data.map((product) => (
+                  <CatalogCard key={product.id} product={product} />
+                ))
+              )}
             </div>
           </div>
         </div>
@@ -52,3 +48,5 @@ export class CatalogPage extends Component {
     );
   }
 }
+
+export default withApollo(CatalogPage);

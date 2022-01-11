@@ -4,3 +4,5 @@
 4. out of stock
 5. disabled button
 6. basket
+7. navigation buttons
+8. fix aspect ration for wider pictures

@@ -7,6 +7,7 @@ import basketIcon from '../../../assets/icons/basketLarge.svg';
 import { Button } from '../../atoms/buttons/Button';
 import { withNavigation } from '../../../utils/HOC/withNavigation';
 import { connect } from 'react-redux';
+import { getCurrencyIcon } from '../../../utils/getCurrencyIcon';
 
 class CatalogCard extends Component {
   constructor(props) {
@@ -41,8 +42,14 @@ class CatalogCard extends Component {
   }
 
   render() {
-    const { product } = this.props;
+    const { product, currency } = this.props;
 
+    // choose correct price from price array
+    const price = product.prices.find(
+      (price) => price.currency === currency
+    ).amount;
+
+    // class names
     const imgClassName = classNames('catalog-card__pic', {
       'catalog-card__pic--hovered': this.state.isHovered,
     });
@@ -61,9 +68,9 @@ class CatalogCard extends Component {
       >
         <div className="v-stack v-stack--spacing-20">
           <div className="catalog-card__picture-container">
-            <AspectRatio ratio={356 / 338}>
+            <AspectRatio ratio={356 / 338} maxWidth="350px">
               <img
-                src={product.picture}
+                src={product.gallery[0]}
                 alt="card pic"
                 className={imgClassName}
                 width="100%"
@@ -77,10 +84,10 @@ class CatalogCard extends Component {
             </Button>
           </div>
           <div className="catalog-card__description">
-            <Heading className="catalog-card__heading">{product.title}</Heading>
+            <Heading className="catalog-card__heading">{product.name}</Heading>
             <Heading className="catalog-card__price">
-              {this.props.currency}
-              {product.price && product.price.toFixed(2)}
+              {getCurrencyIcon(currency)}
+              {price}
             </Heading>
           </div>
         </div>
@@ -92,9 +99,15 @@ class CatalogCard extends Component {
 CatalogCard.propTypes = {
   product: PropTypes.shape({
     id: PropTypes.string,
-    picture: PropTypes.string,
-    title: PropTypes.string,
-    price: PropTypes.number,
+    gallery: PropTypes.arrayOf(PropTypes.string),
+    name: PropTypes.string,
+    prices: PropTypes.arrayOf(
+      PropTypes.shape({
+        currency: PropTypes.string,
+        amount: PropTypes.number,
+      })
+    ),
+    inStock: PropTypes.bool,
   }).isRequired,
 };
 

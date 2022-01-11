@@ -1,7 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initalState = {
-  currency: '$',
+  currency: 'USD', // "GBP", "AUD" , "JPY", "RUB"
+  category: 'tech',
 };
 
 export const globalSlice = createSlice({
@@ -11,9 +12,12 @@ export const globalSlice = createSlice({
     setCurrency: (state, action) => {
       state.currency = action.payload;
     },
+    setCategory: (state, action) => {
+      state.category = action.payload;
+    },
   },
 });
 
-export const { setCurrency } = globalSlice.actions;
+export const { setCurrency, setCategory } = globalSlice.actions;
 
 export default globalSlice.reducer;
