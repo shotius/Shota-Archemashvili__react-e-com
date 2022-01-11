@@ -58,37 +58,54 @@ class CatalogCard extends Component {
       'catalog-card__btn-basket--visible': this.state.isHovered,
     });
 
+    const overlayClass = classNames('catalog-card__out-of-stock-overlay', {
+      'catalog-card__out-of-stock-overlay--active': product.inStock,
+    });
+
+    const catalogWrapperClass = classNames('catalog-card__wrapper', {
+      'catalog-card__wrapper--disabled': product.inStock,
+    });
+
     return (
-      <div
-        className="catalog-card"
-        ref={this.ref}
-        onClick={this.handleNavigation}
-        onMouseEnter={this.handleMouseOver}
-        onMouseLeave={this.handleMouseOut}
-      >
-        <div className="v-stack v-stack--spacing-20">
-          <div className="catalog-card__picture-container">
-            <AspectRatio ratio={356 / 338} maxWidth="350px">
-              <img
-                src={product.gallery[0]}
-                alt="card pic"
-                className={imgClassName}
-                width="100%"
-              />
-            </AspectRatio>
-            <Button
-              className={bsktBtnClass}
-              onClick={this.handleProductAddClick}
-            >
-              <img src={basketIcon} alt="add to basket" />
-            </Button>
-          </div>
-          <div className="catalog-card__description">
-            <Heading className="catalog-card__heading">{product.name}</Heading>
-            <Heading className="catalog-card__price">
-              {getCurrencyIcon(currency)}
-              {price}
-            </Heading>
+      <div className="catalog-card">
+        <div className={overlayClass}>
+          <Heading className="heading--secondary -color--black">
+            Out of Stock
+          </Heading>
+        </div>
+        <div
+          className={catalogWrapperClass}
+          ref={this.ref}
+          onClick={this.handleNavigation}
+          onMouseEnter={this.handleMouseOver}
+          onMouseLeave={this.handleMouseOut}
+        >
+          <div className="v-stack v-stack--spacing-20">
+            <div className="catalog-card__picture-container">
+              <AspectRatio ratio={356 / 338} maxWidth="350px">
+                <img
+                  src={product.gallery[0]}
+                  alt="card pic"
+                  className={imgClassName}
+                  width="100%"
+                />
+              </AspectRatio>
+              <Button
+                className={bsktBtnClass}
+                onClick={this.handleProductAddClick}
+              >
+                <img src={basketIcon} alt="add to basket" />
+              </Button>
+            </div>
+            <div className="catalog-card__description">
+              <Heading className="catalog-card__heading">
+                {product.name}
+              </Heading>
+              <Heading className="catalog-card__price">
+                {getCurrencyIcon(currency)}
+                {price}
+              </Heading>
+            </div>
           </div>
         </div>
       </div>

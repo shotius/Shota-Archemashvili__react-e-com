@@ -1,12 +1,41 @@
 .catalog-card {
-  flex-basis: 32%;
-  padding: 1.6rem;
   cursor: pointer;
   transition: $mouse;
-  &:hover {
-    box-shadow: $shadowMedium;
-  }
+  position: relative;
 
+  &__wrapper {
+    flex-basis: 32%;
+    padding: 1.6rem;
+    &:hover {
+      box-shadow: $shadowMedium;
+    }
+    &--disabled {
+      opacity: 0.6;
+    }
+  }
+  &__out-of-stock-overlay {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background-color: transparent;
+    z-index: 1;
+    cursor: initial;
+    
+    &--active {
+      display: block;
+    }
+    h1 {
+      position: relative;
+      top: 45%;
+      text-align: center;
+      display: block;
+      color: black;
+      opacity: .4;
+    }
+  }
   &__picture-container {
     position: relative;
   }
