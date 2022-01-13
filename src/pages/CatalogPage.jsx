@@ -10,9 +10,23 @@ class CatalogPage extends Component {
     super(props);
     this.state = { data: [], loading: true };
   }
+
   componentDidMount = async () => {
     const category = this.props.params.category;
+    this.updateCatalog(category);
+  };
 
+  componentDidUpdate(prevProps) {
+    const category = this.props.params.category;
+    const prevCategory = prevProps.params.category;
+
+    // if category state changed fetch new category
+    if (prevCategory !== category) {
+      this.updateCatalog(category);
+    }
+  }
+
+  updateCatalog = async (category) => {
     const res = await productServices.getSingleCategory(category);
 
     if (!res.loading) {
