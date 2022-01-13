@@ -59,7 +59,7 @@ class PageHeader extends Component {
           {/* Logo */}
           <Button
             className="header__btn_shopping"
-            onClick={() => this.props.navigate('/catalog')}
+            onClick={() => this.props.navigate(`/catalog/${selectedCategory}`)}
           >
             <img src={shoppingBagIcon} alt="button for shopping" />
           </Button>

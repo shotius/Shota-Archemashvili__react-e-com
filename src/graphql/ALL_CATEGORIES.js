@@ -1,6 +1,6 @@
 import { gql } from '@apollo/client';
 
-export const ALL_PRODUCTS = gql`
+export const ALL_CATEGORY_PRODUCTS = gql`
   query GetCurrency {
     categories {
       name

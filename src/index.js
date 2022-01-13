@@ -9,7 +9,7 @@ import './styles/main.scss';
 
 import GlobalApp from './config';
 
-const client = GlobalApp.apolloClient
+const client = GlobalApp.apolloClient;
 
 ReactDOM.render(
   <React.StrictMode>

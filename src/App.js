@@ -5,12 +5,14 @@ import ProductPage from './pages/ProductPage';
 import { ErrorPage } from './pages/ErrorPage';
 
 function App() {
+
   return (
     <>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Navigate to="/catalog" replace />} />
-          <Route path="/catalog" element={<CatalogPage />} />
+          <Route path="/" element={<Navigate to="/catalog/tech" replace />} />
+          <Route path="/catalog" element={<Navigate to="/catalog/tech" replace />} />
+          <Route path="/catalog/:category" element={<CatalogPage />} />
           <Route path="/catalog/:category/:productId" element={<ProductPage />} />
           <Route path="/basket" element={<BasketPage />} />
           <Route path="*" element={<ErrorPage />} />

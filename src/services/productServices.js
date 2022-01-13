@@ -2,10 +2,17 @@ import GlobalApp from '../config';
 import { PARTIAL_SINGLE_PRODUCT } from '../graphql/PARTIAL_SINGLE_PRODUCT';
 import { SINGLE_PRODUCT } from '../graphql/SINGLE_PRODUCT';
 import { SINGLE_CATEGORY } from '../graphql/SINGLE_CATEGORY';
+import { ALL_CATEGORY_PRODUCTS } from '../graphql/ALL_CATEGORIES';
 
 const client = GlobalApp.apolloClient;
 
-// Get product with all
+/** Reading from the server  */
+
+/**
+ * @description Get product with all properties
+ * @param {id} id 
+ * @returns {Product}
+ */
 const getSinglProduct = async (id) => {
   const response = await client.query({
     query: SINGLE_PRODUCT,
@@ -19,7 +26,11 @@ const getSinglProduct = async (id) => {
   }
 };
 
-// Get product
+/**
+ * @description function returns single product with specific properties
+ * @param {string} id 
+ * @returns {Product}
+ */
 const getPartialProduct = async (id) => {
   const response = await client.query({
     query: PARTIAL_SINGLE_PRODUCT,
@@ -33,6 +44,21 @@ const getPartialProduct = async (id) => {
   }
 };
 
+/**
+ * @description function returns all products in all categories
+ * @returns {Product}
+ */
+const getAllCategoryProducts = async () => {
+  return await client.query({
+    query: ALL_CATEGORY_PRODUCTS,
+  });
+};
+
+/**
+ * @description function fetches single category with all products
+ * @param {string} category
+ * @returns Category
+ */
 const getSingleCategory = async (category) => {
   return await client.query({
     query: SINGLE_CATEGORY,
@@ -40,9 +66,13 @@ const getSingleCategory = async (category) => {
   });
 };
 
-// ** Reading from cache
+/** Reading from cache */
 
-// get all products from the cache
+/**
+ * @description get all products of a single category from the cache
+ * @param {string} category
+ * @returns {Product[]}
+ */
 const getCachedCategory = async (category) => {
   const response = await client.readQuery({
     query: SINGLE_CATEGORY,
@@ -56,10 +86,16 @@ const getCachedCategory = async (category) => {
   }
 };
 
-const getProductFromCache = async ({id, category}) => {
+/**
+ * @description function returns single product from the cache
+ * @param {string} id
+ * @param {string} category
+ * @returns {Product}
+ */
+const getProductFromCache = async ({ id, category }) => {
   try {
     const products = await getCachedCategory(category);
-    
+
     if (products) {
       return products.find((product) => product.id === id);
     } else {
@@ -71,6 +107,8 @@ const getProductFromCache = async ({id, category}) => {
 };
 
 const productServices = {
+  getAllCategoryProducts,
+  getSingleCategory,
   getSinglProduct,
   getPartialProduct,
   getCachedCategory,

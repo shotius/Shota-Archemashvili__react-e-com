@@ -2,8 +2,8 @@ import { Component } from 'react';
 import { Heading } from '../components/atoms/Heading';
 import CatalogCard from '../components/organizms/cards/CatalogCard';
 import { PublicLayout } from '../components/templates/PublicLayout';
-import { withApollo } from '@apollo/client/react/hoc';
-import { SINGLE_CATEGORY } from '../graphql/SINGLE_CATEGORY';
+import productServices from '../services/productServices';
+import { withParams } from '../utils/HOC/withParams';
 
 class CatalogPage extends Component {
   constructor(props) {
@@ -11,12 +11,9 @@ class CatalogPage extends Component {
     this.state = { data: [], loading: true };
   }
   componentDidMount = async () => {
-    const { client } = this.props;
+    const category = this.props.params.category;
 
-    const res = await client.query({
-      query: SINGLE_CATEGORY,
-      variables: { category: { title: 'tech' } },
-    });
+    const res = await productServices.getSingleCategory(category);
 
     if (!res.loading) {
       this.setState({ loading: false });
@@ -50,4 +47,4 @@ class CatalogPage extends Component {
   }
 }
 
-export default withApollo(CatalogPage);
+export default withParams(CatalogPage);
