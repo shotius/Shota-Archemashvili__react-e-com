@@ -8,6 +8,7 @@ import { Button } from '../../atoms/buttons/Button';
 import { withNavigation } from '../../../utils/HOC/withNavigation';
 import { connect } from 'react-redux';
 import { getCurrencyIcon } from '../../../utils/getCurrencyIcon';
+import { CATALOG_ROUTE } from '../../../config/constants';
 
 class CatalogCard extends Component {
   constructor(props) {
@@ -33,7 +34,7 @@ class CatalogCard extends Component {
 
   handleNavigation() {
     const { id, category } = this.props.product;
-    this.props.navigate(`/catalog/${category}/${id}`);
+    this.props.navigate(`${CATALOG_ROUTE}/${category}/${id}`);
   }
 
   handleProductAddClick(e) {
@@ -59,11 +60,11 @@ class CatalogCard extends Component {
     });
 
     const overlayClass = classNames('catalog-card__out-of-stock-overlay', {
-      'catalog-card__out-of-stock-overlay--active': product.inStock,
+      'catalog-card__out-of-stock-overlay--active': !product.inStock,
     });
 
     const catalogWrapperClass = classNames('catalog-card__wrapper', {
-      'catalog-card__wrapper--disabled': product.inStock,
+      'catalog-card__wrapper--disabled': !product.inStock,
     });
 
     return (

@@ -8,6 +8,7 @@ import { BasketButton } from '../buttons/BasketButton';
 import CurrencySwitcher from '../buttons/CurrencySwitcher';
 import { setCategory } from '../../../redux/features/globalState/globalSlice';
 import classNames from 'classnames';
+import { CATALOG_ROUTE } from '../../../config/constants';
 
 class PageHeader extends Component {
   constructor(props) {
@@ -27,7 +28,7 @@ class PageHeader extends Component {
 
   render() {
     const { isBasketPopoverOpen, isCurrencyOpen } = this.state;
-    const { category: selectedCategory, setCategory } = this.props;
+    const { category: selectedCategory, setCategory, navigate } = this.props;
 
     const clothesButtonClass = classNames('nav__btn', {
       'nav__btn--active': selectedCategory === 'clothes',
@@ -44,13 +45,19 @@ class PageHeader extends Component {
           <ButtonGroup>
             <Button
               className={clothesButtonClass}
-              onClick={() => setCategory('clothes')}
+              onClick={() => {
+                setCategory('clothes');
+                navigate(`${CATALOG_ROUTE}/clothes`);
+              }}
             >
               Clothes
             </Button>
             <Button
               className={techButtonClass}
-              onClick={() => setCategory('tech')}
+              onClick={() => {
+                setCategory('tech');
+                navigate(`${CATALOG_ROUTE}/tech`);
+              }}
             >
               Tech
             </Button>
@@ -59,7 +66,7 @@ class PageHeader extends Component {
           {/* Logo */}
           <Button
             className="header__btn_shopping"
-            onClick={() => this.props.navigate(`/catalog/${selectedCategory}`)}
+            onClick={() => navigate(`${CATALOG_ROUTE}/${selectedCategory}`)}
           >
             <img src={shoppingBagIcon} alt="button for shopping" />
           </Button>

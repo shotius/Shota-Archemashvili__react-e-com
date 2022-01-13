@@ -1,4 +1,5 @@
 import { ApolloClient, InMemoryCache } from '@apollo/client';
+import { BACKEND_URL } from './constants';
 
 class GlobalApp {
   constructor() {
@@ -10,7 +11,7 @@ class GlobalApp {
       return this.client;
     }
     const client = new ApolloClient({
-      uri: 'http://localhost:4000/',
+      uri: BACKEND_URL,
       cache: new InMemoryCache(),
     });
     return client;

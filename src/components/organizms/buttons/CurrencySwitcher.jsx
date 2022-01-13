@@ -17,8 +17,8 @@ class CurrencySwitcher extends Component {
 
     return (
       <>
-        <Button className="text--regular nav__btn_currency" onClick={onToggle}>
-          <p className="text--regular -pr-4">{getCurrencyIcon(currency)}</p>
+        <Button className="nav__btn_currency" onClick={onToggle}>
+          <p className="text text--big -pr-4">{getCurrencyIcon(currency)}</p>
           <img
             src={dropdownIcon}
             className={className}
