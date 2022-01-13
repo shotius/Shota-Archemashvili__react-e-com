@@ -17,7 +17,7 @@ class CatalogPage extends Component {
       query: SINGLE_CATEGORY,
       variables: { category: { title: 'tech' } },
     });
-    
+
     if (!res.loading) {
       this.setState({ loading: false });
       this.setState({ data: res.data.category.products });

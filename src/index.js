@@ -1,17 +1,15 @@
+import { ApolloProvider } from '@apollo/client';
+import 'normalize.css/normalize.css';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import 'normalize.css/normalize.css';
-import './styles/main.scss';
+import { Provider } from 'react-redux';
 import App from './App';
 import store from './redux/app/store';
-import { Provider } from 'react-redux';
+import './styles/main.scss';
 
-import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
+import GlobalApp from './config';
 
-const client = new ApolloClient({
-  uri: 'http://localhost:4000/',
-  cache: new InMemoryCache(),
-});
+const client = GlobalApp.apolloClient
 
 ReactDOM.render(
   <React.StrictMode>

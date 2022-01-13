@@ -32,8 +32,8 @@ class CatalogCard extends Component {
   }
 
   handleNavigation() {
-    const { id } = this.props.product;
-    this.props.navigate(`/catalog/${id}`);
+    const { id, category } = this.props.product;
+    this.props.navigate(`/catalog/${category}/${id}`);
   }
 
   handleProductAddClick(e) {

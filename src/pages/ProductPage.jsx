@@ -1,77 +1,50 @@
-import { Component } from 'react';
-import { AspectRatio } from '../components/molecules/AspectRatio';
-import { PublicLayout } from '../components/templates/PublicLayout';
-import { Heading } from '../components/atoms/Heading';
-import { Button } from '../components/atoms/buttons/Button';
 import classNames from 'classnames';
+import { Component } from 'react';
 import { connect } from 'react-redux';
+import { Button } from '../components/atoms/buttons/Button';
+import { Heading } from '../components/atoms/Heading';
+import { AspectRatio } from '../components/molecules/AspectRatio';
 import ScrollToTop from '../components/molecules/ScrollToTop';
+import { PublicLayout } from '../components/templates/PublicLayout';
+import productServices from '../services/productServices';
 import { getCurrencyIcon } from '../utils/getCurrencyIcon';
-import { withApollo } from '@apollo/client/react/hoc';
-import { SINGLE_PRODUCT } from '../graphql/SINGLE_PRODUCT';
-import { PARTIAL_SINGLE_PRODUCT } from '../graphql/PARTIAL_SINGLE_PRODUCT';
-import { SINGLE_CATEGORY } from '../graphql/SINGLE_CATEGORY';
 import { withParams } from '../utils/HOC/withParams';
-
-// const thumbs = [
-//   'https://cdn.shopify.com/s/files/1/0087/6193/3920/products/DD1381200_DEOA_2_720x.jpg?v=1612816087',
-//   'https://images.canadagoose.com/image/upload/w_480,c_scale,f_auto,q_auto:best/v1576016107/product-image/2409L_61_a.jpg',
-//   'https://images-na.ssl-images-amazon.com/images/I/510VSJ9mWDL._SL1262_.jpg',
-//   'https://cdn.shopify.com/s/files/1/0087/6193/3920/products/DD1381200_DEOA_2_720x.jpg?v=1612816087',
-//   'https://images.canadagoose.com/image/upload/w_480,c_scale,f_auto,q_auto:best/v1576016107/product-image/2409L_61_a.jpg',
-// ];
 
 class ProductPage extends Component {
   constructor(props) {
     super(props);
     this.state = { selectedImage: null, showDesc: false, product: null };
-    this.handleShowDescription = this.handleShowDescription.bind(this);
   }
 
+  /** update product on mount: from cache or from the server */
   componentDidMount = async () => {
-    const id = this.props.params.productId;
-    const { client } = this.props;
+    const { productId: id, category } = this.props.params;
 
     // get product data from the apollo cache
-    const cacheResponse = await client.readQuery({
-      query: SINGLE_CATEGORY,
-      variables: { category: { title: 'tech' } },
+    const cacheProduct = await productServices.getProductFromCache({
+      category,
+      id,
     });
-    // if there is data in apollo cache get it and add partial data
-    if (cacheResponse) {
-      const cacheProduct = cacheResponse.category.products.find(
-        (product) => product.id === id
-      );
+
+    // if product is in apollo cache use it and add remaining data to it
+    if (cacheProduct) {
       this.setState({ product: cacheProduct });
 
       // get remaining info for the cache product
-      const partialProduct = await client.query({
-        query: PARTIAL_SINGLE_PRODUCT,
-        variables: { id },
-      });
+      const partialProduct = await productServices.getPartialProduct(id);
 
-      // success
-      if (partialProduct.data) {
-        const product = partialProduct.data.product;
-        this.setState({
-          product: {
-            ...this.state.product,
-            ...product,
-          },
-          selectedImage: cacheProduct.gallery[0],
-        });
-      }
+      // update ui
+      this.setState({
+        product: {
+          ...this.state.product,
+          ...partialProduct,
+        },
+        selectedImage: cacheProduct.gallery[0],
+      });
     } else {
       // if product is not in the cache get whole product from the server
-      const productInfo = await client.query({
-        query: SINGLE_PRODUCT,
-        variables: { id },
-      });
-
-      if (productInfo.data) {
-        const product = productInfo.data.product;
-        this.setState({ product, selectedImage: product.gallery[0] });
-      }
+      const product = await productServices.getSinglProduct(id);
+      this.setState({ product, selectedImage: product.gallery[0] });
     }
   };
 
@@ -81,9 +54,9 @@ class ProductPage extends Component {
     });
   }
 
-  handleShowDescription() {
+  handleShowDescription = () => {
     this.setState({ showDesc: !this.state.showDesc });
-  }
+  };
 
   render() {
     const { currency } = this.props;
@@ -141,8 +114,10 @@ class ProductPage extends Component {
                   <Heading className="heading--main -pb-12">
                     {product && product.brand}
                   </Heading>
-                  {product && product.name}
-                  <Heading className="heading--secondary"></Heading>
+
+                  <Heading className="heading--secondary">
+                    {product && product.name}
+                  </Heading>
                 </div>
                 <div className="pr-details__sizes">
                   <Heading className="pr-details__section-heading">
@@ -206,41 +181,10 @@ class ProductPage extends Component {
   }
 }
 
-ProductPage.propTypes = {
-  // product: PropTypes.shape({
-  //   id: PropTypes.string,
-  //   name: PropTypes.string,
-  //   inStock: PropTypes.bool,
-  //   gallery: PropTypes.arrayOf(PropTypes.string),
-  //   // description: PropTypes.string,
-  //   // brand: PropTypes.string,
-  //   prices: PropTypes.arrayOf(
-  //     PropTypes.shape({
-  //       currency: PropTypes.string,
-  //       amount: PropTypes.number,
-  //     })
-  //   ),
-  // attributes: PropTypes.arrayOf(
-  //   PropTypes.shape({
-  //     id: PropTypes.string,
-  //     name: PropTypes.string,
-  //     type: PropTypes.string,
-  //     items: PropTypes.arrayOf(
-  //       PropTypes.shape({
-  //         displayValue: PropTypes.string,
-  //         value: PropTypes.string,
-  //         id: PropTypes.string,
-  //       })
-  //     ),
-  //   })
-  // ),
-  // }).isRequired,
-};
-
 const mapStateToProps = (state) => ({
   currency: state.globals.currency,
 });
 
 const withRedux = connect(mapStateToProps);
 
-export default withApollo(withRedux(withParams(ProductPage)));
+export default withRedux(withParams(ProductPage));

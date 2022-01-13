@@ -11,7 +11,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Navigate to="/catalog" replace />} />
           <Route path="/catalog" element={<CatalogPage />} />
-          <Route path="/catalog/:productId" element={<ProductPage />} />
+          <Route path="/catalog/:category/:productId" element={<ProductPage />} />
           <Route path="/basket" element={<BasketPage />} />
           <Route path="*" element={<ErrorPage />} />
         </Routes>
