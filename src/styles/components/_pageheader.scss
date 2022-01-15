@@ -6,18 +6,38 @@
   z-index: $modal;
   .nav {
     &__btn {
-      padding: 2.5rem 2rem;
       cursor: pointer;
-      background-color: transparent;
+      color: $black;
+      font-size: 1.6rem;
+      padding: 2.5rem 2rem;
+      text-decoration: none;
       text-transform: uppercase;
       &:hover {
         background-color: $lightGray;
         opacity: 0.9;
       }
+      &:active {
+        color: currentColor;
+      }
+      // on active state bold font was shiffting buttons left and right
+      // I here is hidden text behind of the link
+      &::before {
+        display: block;
+        content: attr(title);
+        font-weight: bold;
+        overflow: hidden;
+        height: 0;
+        overflow: hidden;
+        visibility: hidden;
+        font-weight: 600;
+      }
       &--active {
         color: $green;
         font-weight: 600;
         border-bottom: 2px solid;
+        &:active {
+          color: currentColor;
+        }
       }
     }
     &__btn_dropdown {

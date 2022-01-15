@@ -6,9 +6,8 @@ import { Button } from '../../atoms/buttons/Button';
 import { ButtonGroup } from '../../molecules/ButtonGroup';
 import { BasketButton } from '../buttons/BasketButton';
 import CurrencySwitcher from '../buttons/CurrencySwitcher';
-import { setCategory } from '../../../redux/features/globalState/globalSlice';
-import classNames from 'classnames';
 import { CATALOG_ROUTE } from '../../../config/constants';
+import NavButton from '../../atoms/NavButton';
 
 class PageHeader extends Component {
   constructor(props) {
@@ -28,39 +27,16 @@ class PageHeader extends Component {
 
   render() {
     const { isBasketPopoverOpen, isCurrencyOpen } = this.state;
-    const { category: selectedCategory, setCategory, navigate } = this.props;
-
-    const clothesButtonClass = classNames('nav__btn', {
-      'nav__btn--active': selectedCategory === 'clothes',
-    });
-
-    const techButtonClass = classNames('nav__btn', {
-      'nav__btn--active': selectedCategory === 'tech',
-    });
+    const { defaultCategory: selectedCategory, navigate } = this.props;
+    console.log(selectedCategory);
 
     return (
       <div className="header -center_content">
         <div className="container--lg -justify-between -position-relative">
           {/* navigation  */}
           <ButtonGroup>
-            <Button
-              className={clothesButtonClass}
-              onClick={() => {
-                setCategory('clothes');
-                navigate(`${CATALOG_ROUTE}/clothes`);
-              }}
-            >
-              Clothes
-            </Button>
-            <Button
-              className={techButtonClass}
-              onClick={() => {
-                setCategory('tech');
-                navigate(`${CATALOG_ROUTE}/tech`);
-              }}
-            >
-              Tech
-            </Button>
+            <NavButton to={`${CATALOG_ROUTE}/clothes`}>Clothes</NavButton>
+            <NavButton to={`${CATALOG_ROUTE}/tech`}>Tech</NavButton>
           </ButtonGroup>
 
           {/* Logo */}
@@ -88,11 +64,10 @@ class PageHeader extends Component {
   }
 }
 
-// default export
 const mapStateToProps = (state) => ({
-  category: state.globals.category,
+  defaultCategory: state.globals.defaultCategory,
 });
 
-const withRedux = connect(mapStateToProps, { setCategory });
+const withRedux = connect(mapStateToProps);
 
 export default withRedux(withNavigation(PageHeader));

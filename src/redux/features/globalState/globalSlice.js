@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initalState = {
   currency: 'USD', // "GBP", "AUD" , "JPY", "RUB"
-  category: 'tech',
+  defaultCategory: 'clothes',
 };
 
 export const globalSlice = createSlice({
@@ -12,12 +12,9 @@ export const globalSlice = createSlice({
     setCurrency: (state, action) => {
       state.currency = action.payload;
     },
-    setCategory: (state, action) => {
-      state.category = action.payload;
-    },
   },
 });
 
-export const { setCurrency, setCategory } = globalSlice.actions;
+export const { setCurrency } = globalSlice.actions;
 
 export default globalSlice.reducer;
