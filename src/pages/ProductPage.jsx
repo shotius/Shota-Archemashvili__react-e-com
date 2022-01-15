@@ -13,7 +13,14 @@ import { withParams } from '../utils/HOC/withParams';
 class ProductPage extends Component {
   constructor(props) {
     super(props);
-    this.state = { selectedImage: null, showDesc: false, product: null };
+    this.state = {
+      selectedImage: null,
+      showDesc: false,
+      product: null,
+      loading: false,
+      loadingProduct: false,
+      laodingPartialProduct: false,
+    };
   }
 
   /** update product on mount: from cache or from the server */
@@ -28,7 +35,7 @@ class ProductPage extends Component {
 
     // if product is in apollo cache use it and add remaining data to it
     if (cacheProduct) {
-      this.setState({ product: cacheProduct });
+      this.setState({ product: cacheProduct, loadingPartialProduct: true });
 
       // get remaining info for the cache product
       const partialProduct = await productServices.getPartialProduct(id);
@@ -40,11 +47,18 @@ class ProductPage extends Component {
           ...partialProduct,
         },
         selectedImage: cacheProduct.gallery[0],
+        loadingPartialProduct: false,
       });
     } else {
       // if product is not in the cache get whole product from the server
-      const product = await productServices.getSinglProduct(id);
-      this.setState({ product, selectedImage: product.gallery[0] });
+      this.setState({ loadingProduct: true });
+      const [product, { loading }] = await productServices.getSinglProduct(id);
+
+      this.setState({
+        product,
+        selectedImage: product.gallery[0],
+        loadingProduct: loading,
+      });
     }
   };
 
@@ -60,7 +74,8 @@ class ProductPage extends Component {
 
   render() {
     const { currency } = this.props;
-    const { product, selectedImage } = this.state;
+    const { product, selectedImage, loadingProduct, loadingPartialProduct } =
+      this.state;
     let price = 0;
     let thumbs = [];
 
@@ -80,6 +95,14 @@ class ProductPage extends Component {
       }
     );
 
+    const productNameClass = classNames('heading--secondary', {
+      'skeleton skeleton--header': loadingProduct,
+    });
+
+    const productBrandClass = classNames('heading--main -pb-12', {
+      'skeleton skeleton--header': loadingPartialProduct || loadingProduct,
+    });
+
     return (
       <PublicLayout>
         <ScrollToTop />
@@ -87,7 +110,7 @@ class ProductPage extends Component {
           <div className="product-page__container">
             <div className="product-page__slider">
               <div className="product-page__slider__thumbs">
-                {thumbs.map((thumb, i) => (
+                {thumbs.slice(0, 5).map((thumb, i) => (
                   <AspectRatio
                     ratio={1}
                     maxWidth="80px"
@@ -111,11 +134,11 @@ class ProductPage extends Component {
             <div className="product-page__pr-details pr-details">
               <div className="pr-details__container">
                 <div className="pr-details__headings">
-                  <Heading className="heading--main -pb-12">
+                  <Heading className={productBrandClass}>
                     {product && product.brand}
                   </Heading>
 
-                  <Heading className="heading--secondary">
+                  <Heading className={productNameClass}>
                     {product && product.name}
                   </Heading>
                 </div>
@@ -137,7 +160,7 @@ class ProductPage extends Component {
                   <Heading className="pr-details__section-heading -pb-10">
                     price:
                   </Heading>
-                  <Heading className="pr-details__price">
+                  <Heading className={`pr-details__price `}>
                     {getCurrencyIcon(this.props.currency)}
                     {price}
                   </Heading>

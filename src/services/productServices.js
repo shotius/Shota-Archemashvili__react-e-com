@@ -19,11 +19,7 @@ const getSinglProduct = async (id) => {
     variables: { id },
   });
 
-  if (response.data) {
-    return response.data.product;
-  } else {
-    throw new Error('could not fetch the product');
-  }
+  return [response.data.product, {loading: response.loading}];
 };
 
 /**

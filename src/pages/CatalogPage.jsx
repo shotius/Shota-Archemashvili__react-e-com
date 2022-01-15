@@ -1,5 +1,6 @@
 import { Component } from 'react';
 import { Heading } from '../components/atoms/Heading';
+import LoadingCards from '../components/molecules/LoadingCards';
 import CatalogCard from '../components/organizms/cards/CatalogCard';
 import { PublicLayout } from '../components/templates/PublicLayout';
 import productServices from '../services/productServices';
@@ -45,9 +46,9 @@ class CatalogPage extends Component {
             <Heading className="catalog__header">Catalog Page</Heading>
             <div className="catalog__list">
               {loading ? (
-                <p>Loading ...</p>
+                <LoadingCards />
               ) : !data.length ? (
-                <p>no products</p>
+                <Heading className="-w-full -center_content heading--main">no products</Heading>
               ) : (
                 data.map((product) => (
                   <CatalogCard key={product.id} product={product} />
