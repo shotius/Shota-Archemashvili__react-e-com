@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { Component } from 'react';
+import { Component, createRef } from 'react';
 import { connect } from 'react-redux';
 import { Button } from '../components/atoms/buttons/Button';
 import { Heading } from '../components/atoms/Heading';
@@ -13,13 +13,16 @@ import { withParams } from '../utils/HOC/withParams';
 class ProductPage extends Component {
   constructor(props) {
     super(props);
+    this.descriptionContainerRef = createRef();
+    this.descriptionRef = createRef(0);
     this.state = {
       selectedImage: null,
-      showDesc: false,
+      descriptionVisible: false,
       product: null,
       loading: false,
       loadingProduct: false,
       laodingPartialProduct: false,
+      isDescriptionButtonShown: false,
     };
   }
 
@@ -62,14 +65,35 @@ class ProductPage extends Component {
     }
   };
 
+  componentDidUpdate() {
+    // show descripiton "more" button
+    if (
+      !this.state.isDescriptionButtonShown &&
+      this.shouldDescriptionButtonBeVisible()
+    ) {
+      this.setState({ isDescriptionButtonShown: true });
+    }
+  }
+
+  // returns true if product is fetched and product description is enough to fill the container
+  shouldDescriptionButtonBeVisible = () => {
+    return (
+      this.state.product &&
+      this.descriptionContainerRef.current &&
+      this.descriptionRef.current &&
+      this.descriptionContainerRef.current.clientHeight <=
+        this.descriptionRef.current.clientHeight
+    );
+  };
+
   handleThumbClick(thumb) {
     this.setState({
       selectedImage: thumb,
     });
   }
 
-  handleShowDescription = () => {
-    this.setState({ showDesc: !this.state.showDesc });
+  handleToggleDescription = () => {
+    this.setState({ descriptionVisible: !this.state.descriptionVisible });
   };
 
   render() {
@@ -91,7 +115,7 @@ class ProductPage extends Component {
       'pr-details__description',
       'text--regular',
       {
-        'pr-details__description--hidden': this.state.showDesc,
+        'pr-details__description--hidden': this.state.descriptionVisible,
       }
     );
 
@@ -102,6 +126,9 @@ class ProductPage extends Component {
     const productBrandClass = classNames('heading--main -pb-12', {
       'skeleton skeleton--header': loadingPartialProduct || loadingProduct,
     });
+
+    console.log('should', this.shouldDescriptionButtonBeVisible());
+    console.log('visible: ', this.state.descriptionVisible);
 
     return (
       <PublicLayout>
@@ -166,27 +193,39 @@ class ProductPage extends Component {
                   </Heading>
                 </div>
                 <Button className="btn--primary">add to card</Button>
-                <div className={descriptiongClass}>
+                <div
+                  className={descriptiongClass}
+                  ref={this.descriptionContainerRef}
+                >
                   {product && (
                     <div
-                      dangerouslySetInnerHTML={{ __html: product.description }}
-                    />
+                      ref={this.descriptionRef}
+                      // dangerouslySetInnerHTML={{ __html: product.description }}
+                    >lorem lorem lorem loremlorem loremlorem loremlorem loremlorem loremlorem loremlorem loremlorem loremlorem loremlorem loremlorem loremlorem loremlorem loremlorem lorem</div>
                   )}
                 </div>
                 <Button
                   style={{
                     marginTop: '-32px',
-                    display: this.state.showDesc && 'none',
+                    display:
+                      this.shouldDescriptionButtonBeVisible() &&
+                      !this.state.descriptionVisible
+                        ? ''
+                        : 'none',
                   }}
-                  onClick={this.handleShowDescription}
+                  onClick={this.handleToggleDescription}
                 >
-                  show more
+                  show more details
                 </Button>
               </div>
             </div>
           </div>
         </div>
-        <div style={{ visibility: this.state.showDesc ? 'visible' : 'hidden' }}>
+        <div
+          style={{
+            visibility: this.state.descriptionVisible ? 'visible' : 'hidden',
+          }}
+        >
           <Heading className="heading--secondary -pt-48">Description</Heading>
           {product && (
             <div
@@ -195,7 +234,7 @@ class ProductPage extends Component {
             />
           )}
 
-          <Button onClick={this.handleShowDescription} className="-w-full">
+          <Button onClick={this.handleToggleDescription} className="-w-full">
             show less
           </Button>
         </div>

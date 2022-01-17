@@ -28,7 +28,6 @@ class PageHeader extends Component {
   render() {
     const { isBasketPopoverOpen, isCurrencyOpen } = this.state;
     const { defaultCategory: selectedCategory, navigate } = this.props;
-    console.log(selectedCategory);
 
     return (
       <div className="header -center_content">
