@@ -6,22 +6,27 @@ import classNames from 'classnames';
 
 class ProductPageMoreDeatails extends Component {
   render() {
-    const { descriptionVisible, description, toggleDescription } = this.props;
+    const { descriptionVisible, product, toggleDescription } = this.props;
 
     const containerClass = classNames({ '-hidden': !descriptionVisible });
-    return (
-      <div className={containerClass}>
-        <Heading className="heading--secondary -pt-48">Description</Heading>
-        {description && (
-          <div
-            className="text--regular"
-            dangerouslySetInnerHTML={{ __html: description }}
-          />
-        )}
 
-        <Button onClick={toggleDescription} className="-w-full">
-          show less
-        </Button>
+    return (
+      <div>
+        <div className={containerClass}>
+          <Heading className="heading--secondary -pt-48">Description</Heading>
+          {product && (
+            <div
+              className="text--regular"
+              dangerouslySetInnerHTML={{ __html: product.description }}
+            />
+          )}
+
+          <Button onClick={toggleDescription} className="-w-full">
+            show less
+          </Button>
+        </div>
+        <Heading className="heading--secondary -pt-48">Attribute name</Heading>
+        <div className='text--regular'>description</div>
       </div>
     );
   }
@@ -30,7 +35,7 @@ class ProductPageMoreDeatails extends Component {
 ProductPageMoreDeatails.propTypes = {
   descriptionVisible: PropTypes.bool.isRequired,
   toggleDescription: PropTypes.func.isRequired,
-  description: PropTypes.string,
+  product: PropTypes.any,
 };
 
 export default ProductPageMoreDeatails;

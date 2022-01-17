@@ -1,6 +1,4 @@
 import { Component } from 'react';
-import { Button } from '../components/atoms/buttons/Button';
-import { Heading } from '../components/atoms/Heading';
 import ScrollToTop from '../components/molecules/ScrollToTop';
 import ProductDetailDescription from '../components/organizms/ProductDetailDescription';
 import ProductPageMoreDeatails from '../components/organizms/ProductPageMoreDeatails';
@@ -36,6 +34,8 @@ class ProductPage extends Component {
 
       // get remaining info for the cache product
       const partialProduct = await productServices.getPartialProduct(id);
+
+      console.log('partial: ',partialProduct)
 
       // update ui
       this.setState({
@@ -93,8 +93,8 @@ class ProductPage extends Component {
           </div>
         </div>
         <ProductPageMoreDeatails
+          product={product}
           descriptionVisible={descriptionExpanded}
-          description={product && product.description}
           toggleDescription={this.handleToggleDescription}
         />
       </PublicLayout>

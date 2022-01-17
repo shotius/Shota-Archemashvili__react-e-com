@@ -33,6 +33,8 @@ const getPartialProduct = async (id) => {
     variables: { id },
   });
 
+  console.log('getting partial: ', response)
+
   if (response.data) {
     return response.data.product;
   } else {

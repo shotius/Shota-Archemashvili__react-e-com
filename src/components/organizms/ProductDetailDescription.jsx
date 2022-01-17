@@ -14,6 +14,7 @@ class ProductDetailDescription extends Component {
     this.descriptionRef = createRef();
     this.state = {
       isDescriptionButtonShown: false,
+      selectedSize: null,
     };
   }
 
@@ -38,11 +39,19 @@ class ProductDetailDescription extends Component {
     );
   };
 
+  handleSelectSize = (size) => {
+    this.setState({ selectedSize: size });
+  };
+
   render() {
     let price = 0;
-    const { currency } = this.props;
+    let sizes = [];
+
+    const { category } = this.props.params;
+    const { selectedSize } = this.state;
 
     const {
+      currency,
       loadingProduct,
       loadingPartialProduct,
       product,
@@ -82,6 +91,23 @@ class ProductDetailDescription extends Component {
       }
     );
 
+    const sizeButtonClass = (value) =>
+      classNames('btn--outline', {
+        'btn--outline--selected': selectedSize === value,
+      });
+
+    if (product && product.attributes) {
+      // console.log('attr: ', product.attributes[0])
+      for (let item of product.attributes) {
+        if (item.name === 'Size') {
+          // console.log(item.items[0])
+          sizes = item.items;
+        }
+      }
+    } else {
+      console.log('no attributes');
+    }
+
     return (
       <div className="pr-details__container">
         <div className="pr-details__headings">
@@ -93,15 +119,42 @@ class ProductDetailDescription extends Component {
             {product && product.name}
           </Heading>
         </div>
+
+        {/* Sizes section  */}
+        {category === "clothes" && (
+          <div className="pr-details__sizes">
+            <Heading className="pr-details__section-heading">Sizes: </Heading>
+            <div className="pr-details__btn-group">
+              {sizes.map(({ value }) => (
+                // Size button
+                <Button
+                  key={value}
+                  onClick={() =>
+                    // if you click on the selected button it will be deselected
+                    selectedSize === value
+                      ? this.handleSelectSize(null)
+                      : this.handleSelectSize(value)
+                  }
+                  className={sizeButtonClass(value)}
+                >
+                  {value}
+                </Button>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* 
         <div className="pr-details__sizes">
-          <Heading className="pr-details__section-heading">Sizes: </Heading>
+          <Heading className="pr-details__section-heading">Capacity: </Heading>
           <div className="pr-details__btn-group">
             <Button className="btn--outline btn--outline--selected">xs</Button>
             <Button className="btn--outline">s</Button>
             <Button className="btn--outline btn--disabled">m</Button>
             <Button className="btn--outline">L</Button>
           </div>
-        </div>
+        </div> */}
+
         <div className="pr-details__price">
           <Heading className="pr-details__section-heading -pb-10">
             price:
