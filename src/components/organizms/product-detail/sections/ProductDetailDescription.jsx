@@ -1,10 +1,10 @@
-import { Component, createRef } from 'react';
 import PropTypes from 'prop-types';
-import { Heading } from '../../../atoms/Heading';
-import { Button } from '../../../atoms/buttons/Button';
+import { Component, createRef } from 'react';
+import { connect } from 'react-redux';
 import { getCurrencyIcon } from '../../../../utils/getCurrencyIcon';
 import { withParams } from '../../../../utils/HOC/withParams';
-import { connect } from 'react-redux';
+import { Button } from '../../../atoms/buttons/Button';
+import { Heading } from '../../../atoms/Heading';
 import { styleClasses } from './styleClasses';
 
 class ProductDetailDescription extends Component {
@@ -14,7 +14,7 @@ class ProductDetailDescription extends Component {
     this.descriptionRef = createRef();
     this.state = {
       isDescriptionButtonShown: false,
-      selectedSize: null,
+      selectedAttributes: {},
     };
   }
 
@@ -39,111 +39,91 @@ class ProductDetailDescription extends Component {
     );
   };
 
-  handleSelectSize = (size) => {
-    this.setState({ selectedSize: size });
+  // handles attribute button click
+  handleSelectAttr = ({ attributeName, value }) => {
+    const selectedObj = { ...this.state.selectedAttributes };
+
+    if (selectedObj[attributeName] !== value) {
+      selectedObj[attributeName] = value;
+    } else {
+      delete selectedObj[attributeName];
+    }
+
+    this.setState({ selectedAttributes: selectedObj });
   };
 
   render() {
     let price = 0;
-    let sizes = [];
-
-    const { category } = this.props.params;
-    const { selectedSize } = this.state;
-
     const { currency, product, toggleDescription } = this.props;
 
     // css classes
     const {
       productBrandClass,
-      descriptiongClass,
+      descriptionClass,
       productNameClass,
       descriptionExpandClass,
       sizeButtonClass,
     } = styleClasses.call(this);
 
-    // if product is fetched update some data
-    if (product) {
-      price = product.prices.find(
-        (price) => price.currency === currency
-      ).amount;
+    if (!product) {
+      return <div>fetching cars</div>;
     }
 
-    if (product && product.attributes) {
-      // console.log('attr: ', product.attributes[0])
-      for (let item of product.attributes) {
-        if (item.name === 'Size') {
-          // console.log(item.items[0])
-          sizes = item.items;
-        }
-      }
-    } else {
-      console.log('no attributes');
-    }
+    // if product is fetched update choose price
+    price = product.prices.find((price) => price.currency === currency).amount;
 
     return (
       <div className="pr-details__container">
+        {/* Heading  */}
         <div className="pr-details__headings">
-          <Heading className={productBrandClass}>
-            {product && product.brand}
-          </Heading>
-
-          <Heading className={productNameClass}>
-            {product && product.name}
-          </Heading>
+          <Heading className={productBrandClass}>{product.brand}</Heading>
+          <Heading className={productNameClass}>{product.name}</Heading>
         </div>
 
-        {/* Sizes section  */}
-        {category === 'clothes' && (
-          <div className="pr-details__sizes">
-            <Heading className="pr-details__section-heading">Sizes: </Heading>
-            <div className="pr-details__btn-group">
-              {sizes.map(({ value }) => (
-                // Size button
-                <Button
-                  key={value}
-                  onClick={() =>
-                    // if you click on the selected button it will be deselected
-                    selectedSize === value
-                      ? this.handleSelectSize(null)
-                      : this.handleSelectSize(value)
-                  }
-                  className={sizeButtonClass(value)}
-                >
-                  {value}
-                </Button>
-              ))}
+        {/* Attributes  */}
+        {product.attributes &&
+          product.attributes.map((attr) => (
+            <div className="pr-details__sizes" key={attr.id}>
+              <Heading className="pr-details__section-heading">
+                {attr.name}:
+              </Heading>
+              <div className="pr-details__btn-group">
+                {/* Attribute buttons */}
+                {attr.items.map(({ value }, i) => (
+                  <Button
+                    key={i}
+                    onClick={() =>
+                      this.handleSelectAttr({ attributeName: attr.id, value })
+                    }
+                    className={sizeButtonClass({ attributeName: attr.id, value })}
+                  >
+                    {value}
+                  </Button>
+                ))}
+              </div>
             </div>
-          </div>
-        )}
+          ))}
 
-        {/* 
-        <div className="pr-details__sizes">
-          <Heading className="pr-details__section-heading">Capacity: </Heading>
-          <div className="pr-details__btn-group">
-            <Button className="btn--outline btn--outline--selected">xs</Button>
-            <Button className="btn--outline">s</Button>
-            <Button className="btn--outline btn--disabled">m</Button>
-            <Button className="btn--outline">L</Button>
-          </div>
-        </div> */}
-
+        {/* Price  */}
         <div className="pr-details__price">
           <Heading className="pr-details__section-heading -pb-10">
             price:
           </Heading>
           <Heading className={`pr-details__price `}>
-            {getCurrencyIcon(this.props.currency)}
+            {getCurrencyIcon(currency)}
             {price}
           </Heading>
         </div>
+
+        {/* Add to basket  button  */}
         <Button className="btn--primary">add to card</Button>
-        <div className={descriptiongClass} ref={this.descriptionContainerRef}>
-          {product && (
-            <div
-              ref={this.descriptionRef}
-              dangerouslySetInnerHTML={{ __html: product.description }}
-            />
-          )}
+
+        {/* Description  */}
+        <div className={descriptionClass} ref={this.descriptionContainerRef}>
+          <div
+            ref={this.descriptionRef}
+            dangerouslySetInnerHTML={{ __html: product.description }}
+          />
         </div>
         <Button className={descriptionExpandClass} onClick={toggleDescription}>
           show more details

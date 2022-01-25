@@ -3,7 +3,7 @@ import classNames from 'classnames';
 export function styleClasses() {
   const { loadingProduct, loadingPartialProduct, descriptionExpanded } =
     this.props;
-  const { selectedSize } = this.state;
+  const { selectedAttributes } = this.state;
 
   const productBrandClass = classNames('heading--main -pb-12', {
     'skeleton skeleton--header': loadingPartialProduct || loadingProduct,
@@ -30,9 +30,9 @@ export function styleClasses() {
     }
   );
 
-  const sizeButtonClass = (value) =>
+  const sizeButtonClass = ({ attributeName, value }) =>
     classNames('btn--outline', {
-      'btn--outline--selected': selectedSize === value,
+      'btn--outline--selected': selectedAttributes[attributeName] === value,
     });
 
   return {
