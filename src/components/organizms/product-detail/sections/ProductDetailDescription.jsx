@@ -43,6 +43,7 @@ class ProductDetailDescription extends Component {
   handleSelectAttr = ({ attributeName, value }) => {
     const selectedObj = { ...this.state.selectedAttributes };
 
+    // If attribute is in selected remove else add in the obj
     if (selectedObj[attributeName] !== value) {
       selectedObj[attributeName] = value;
     } else {
@@ -64,6 +65,8 @@ class ProductDetailDescription extends Component {
       descriptionExpandClass,
       sizeButtonClass,
     } = styleClasses.call(this);
+
+    console.log('state: ', this.state.selectedAttributes);
 
     if (!product) {
       return <div>fetching cars</div>;
@@ -87,19 +90,37 @@ class ProductDetailDescription extends Component {
               <Heading className="pr-details__section-heading">
                 {attr.name}:
               </Heading>
+
               <div className="pr-details__btn-group">
                 {/* Attribute buttons */}
-                {attr.items.map(({ value }, i) => (
-                  <Button
-                    key={i}
-                    onClick={() =>
-                      this.handleSelectAttr({ attributeName: attr.id, value })
-                    }
-                    className={sizeButtonClass({ attributeName: attr.id, value })}
-                  >
-                    {value}
-                  </Button>
-                ))}
+                {attr.items.map(({ value }, i) => {
+                  // If attribute is swatch
+                  const isSwatch = attr.type === 'swatch';
+                  const isSelected =
+                    this.state.selectedAttributes[attr.id] === value;
+
+                  return (
+                    <Button
+                      style={{
+                        backgroundColor: value,
+                        transform: isSelected && isSwatch && 'scale(1.2)',
+                      }}
+                      key={i}
+                      onClick={() =>
+                        this.handleSelectAttr({
+                          attributeName: attr.id,
+                          value,
+                        })
+                      }
+                      className={sizeButtonClass({
+                        isSelected,
+                        isSwatch: attr,
+                      })}
+                    >
+                      {!isSwatch && value}
+                    </Button>
+                  );
+                })}
               </div>
             </div>
           ))}

@@ -30,9 +30,10 @@ export function styleClasses() {
     }
   );
 
-  const sizeButtonClass = ({ attributeName, value }) =>
+  const sizeButtonClass = ({ isSelected, isSwatch }) =>
     classNames('btn--outline', {
-      'btn--outline--selected': selectedAttributes[attributeName] === value,
+      'btn--outline--selected': isSelected,
+      'btn--swatch': isSwatch,
     });
 
   return {

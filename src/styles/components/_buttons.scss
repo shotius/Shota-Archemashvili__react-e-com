@@ -29,6 +29,9 @@
     opacity: 0.2;
     cursor: not-allowed;
   }
+  &--swatch {
+    transition: all $leopart; 
+  }
 }
 
 .btn--rect {
