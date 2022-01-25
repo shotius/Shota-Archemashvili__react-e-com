@@ -1,8 +1,8 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Heading } from '../atoms/Heading';
-import { Button } from '../atoms/buttons/Button';
+import { Heading } from '../../../atoms/Heading';
 import classNames from 'classnames';
+import { Button } from '../../../atoms/buttons/Button';
 
 class ProductPageMoreDeatails extends Component {
   render() {
@@ -25,8 +25,6 @@ class ProductPageMoreDeatails extends Component {
             show less
           </Button>
         </div>
-        <Heading className="heading--secondary -pt-48">Attribute name</Heading>
-        <div className='text--regular'>description</div>
       </div>
     );
   }

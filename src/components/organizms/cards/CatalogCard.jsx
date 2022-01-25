@@ -2,13 +2,13 @@ import { Component, createRef } from 'react';
 import PropTypes from 'prop-types';
 import { Heading } from '../../atoms/Heading';
 import { AspectRatio } from '../../molecules/AspectRatio';
-import classNames from 'classnames';
 import basketIcon from '../../../assets/icons/basketLarge.svg';
 import { Button } from '../../atoms/buttons/Button';
 import { withNavigation } from '../../../utils/HOC/withNavigation';
 import { connect } from 'react-redux';
 import { getCurrencyIcon } from '../../../utils/getCurrencyIcon';
 import { CATALOG_ROUTE } from '../../../config/constants';
+import { styleClasses } from './styleClasses';
 
 class CatalogCard extends Component {
   constructor(props) {
@@ -45,27 +45,16 @@ class CatalogCard extends Component {
   render() {
     const { product, currency } = this.props;
 
+    // css classes
+    const { imgClassName, catalogWrapperClass, bsktBtnClass, overlayClass } =
+      styleClasses({ props: this.props, state: this.state });
+
     // choose correct price from price array
     const price = product.prices.find(
       (price) => price.currency === currency
     ).amount;
 
     // class names
-    const imgClassName = classNames('catalog-card__pic', {
-      'catalog-card__pic--hovered': this.state.isHovered,
-    });
-
-    const bsktBtnClass = classNames('catalog-card__btn-basket', '-bg--green', {
-      'catalog-card__btn-basket--visible': this.state.isHovered,
-    });
-
-    const overlayClass = classNames('catalog-card__out-of-stock-overlay', {
-      'catalog-card__out-of-stock-overlay--active': !product.inStock,
-    });
-
-    const catalogWrapperClass = classNames('catalog-card__wrapper', {
-      'catalog-card__wrapper--disabled': !product.inStock,
-    });
 
     return (
       <div className="catalog-card">

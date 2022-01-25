@@ -1,11 +1,11 @@
 import { Component, createRef } from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
-import { Heading } from '../atoms/Heading';
-import { Button } from '../atoms/buttons/Button';
-import { getCurrencyIcon } from '../../utils/getCurrencyIcon';
-import { withParams } from '../../utils/HOC/withParams';
+import { Heading } from '../../../atoms/Heading';
+import { Button } from '../../../atoms/buttons/Button';
+import { getCurrencyIcon } from '../../../../utils/getCurrencyIcon';
+import { withParams } from '../../../../utils/HOC/withParams';
 import { connect } from 'react-redux';
+import { styleClasses } from './styleClasses';
 
 class ProductDetailDescription extends Component {
   constructor(props) {
@@ -50,14 +50,16 @@ class ProductDetailDescription extends Component {
     const { category } = this.props.params;
     const { selectedSize } = this.state;
 
+    const { currency, product, toggleDescription } = this.props;
+
+    // css classes
     const {
-      currency,
-      loadingProduct,
-      loadingPartialProduct,
-      product,
-      descriptionExpanded,
-      toggleDescription,
-    } = this.props;
+      productBrandClass,
+      descriptiongClass,
+      productNameClass,
+      descriptionExpandClass,
+      sizeButtonClass,
+    } = styleClasses.call(this);
 
     // if product is fetched update some data
     if (product) {
@@ -65,36 +67,6 @@ class ProductDetailDescription extends Component {
         (price) => price.currency === currency
       ).amount;
     }
-
-    const productBrandClass = classNames('heading--main -pb-12', {
-      'skeleton skeleton--header': loadingPartialProduct || loadingProduct,
-    });
-
-    const descriptiongClass = classNames(
-      'pr-details__description',
-      'text--regular',
-      {
-        'pr-details__description--hidden': descriptionExpanded,
-      }
-    );
-
-    const productNameClass = classNames('heading--secondary', {
-      'skeleton skeleton--header': loadingProduct,
-    });
-
-    const descriptionExpandClass = classNames(
-      'pr-details__description__btn--open-description',
-      {
-        'pr-details__description__btn--open-description--hidden': !(
-          this.shouldDescriptionButtonBeVisible() && !descriptionExpanded
-        ),
-      }
-    );
-
-    const sizeButtonClass = (value) =>
-      classNames('btn--outline', {
-        'btn--outline--selected': selectedSize === value,
-      });
 
     if (product && product.attributes) {
       // console.log('attr: ', product.attributes[0])
@@ -121,7 +93,7 @@ class ProductDetailDescription extends Component {
         </div>
 
         {/* Sizes section  */}
-        {category === "clothes" && (
+        {category === 'clothes' && (
           <div className="pr-details__sizes">
             <Heading className="pr-details__section-heading">Sizes: </Heading>
             <div className="pr-details__btn-group">

@@ -1,7 +1,7 @@
 import { Component } from 'react';
 import ScrollToTop from '../components/molecules/ScrollToTop';
-import ProductDetailDescription from '../components/organizms/ProductDetailDescription';
-import ProductPageMoreDeatails from '../components/organizms/ProductPageMoreDeatails';
+import ProductDetailDescription from '../components/organizms/product-detail/sections/ProductDetailDescription';
+import ProductPageMoreDeatails from '../components/organizms/product-detail/sections/ProductPageMoreDeatails';
 import ProductPageSlider from '../components/organizms/Sliders/ProductPageSlider';
 import { PublicLayout } from '../components/templates/PublicLayout';
 import productServices from '../services/productServices';
@@ -34,8 +34,6 @@ class ProductPage extends Component {
 
       // get remaining info for the cache product
       const partialProduct = await productServices.getPartialProduct(id);
-
-      console.log('partial: ',partialProduct)
 
       // update ui
       this.setState({
