@@ -1,6 +1,6 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Heading } from '../../../atoms/Heading';
+import { Heading } from '../../../atoms/typography/Heading';
 import classNames from 'classnames';
 import { Button } from '../../../atoms/buttons/Button';
 

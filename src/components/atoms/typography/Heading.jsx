@@ -4,8 +4,13 @@ import classNames from 'classnames';
 
 export class Heading extends Component {
   render() {
-    const className = classNames('heading', this.props.className);
-    return <h1 className={className}>{this.props.children}</h1>;
+    const { children, className, ...rest } = this.props;
+    const cn = classNames('heading', className);
+    return (
+      <h1 className={cn} {...rest}>
+        {children}
+      </h1>
+    );
   }
 }
 

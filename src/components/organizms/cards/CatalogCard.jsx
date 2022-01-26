@@ -1,6 +1,5 @@
 import { Component, createRef } from 'react';
 import PropTypes from 'prop-types';
-import { Heading } from '../../atoms/Heading';
 import { AspectRatio } from '../../molecules/AspectRatio';
 import basketIcon from '../../../assets/icons/basketLarge.svg';
 import { Button } from '../../atoms/buttons/Button';
@@ -9,6 +8,7 @@ import { connect } from 'react-redux';
 import { getCurrencyIcon } from '../../../utils/getCurrencyIcon';
 import { CATALOG_ROUTE } from '../../../config/constants';
 import { styleClasses } from './styleClasses';
+import { Heading } from '../../atoms/typography/Heading';
 
 class CatalogCard extends Component {
   constructor(props) {

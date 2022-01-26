@@ -7,7 +7,7 @@ import { ButtonGroup } from '../../molecules/ButtonGroup';
 import { BasketButton } from '../buttons/BasketButton';
 import CurrencySwitcher from '../buttons/CurrencySwitcher';
 import { CATALOG_ROUTE } from '../../../config/constants';
-import NavButton from '../../atoms/NavButton';
+import NavButton from '../../atoms/buttons/NavButton';
 
 class PageHeader extends Component {
   constructor(props) {

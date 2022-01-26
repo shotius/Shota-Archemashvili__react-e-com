@@ -3,8 +3,10 @@ import { Component, createRef } from 'react';
 import { connect } from 'react-redux';
 import { getCurrencyIcon } from '../../../../utils/getCurrencyIcon';
 import { withParams } from '../../../../utils/HOC/withParams';
+import AttributeButton from '../../../atoms/buttons/AttributeButton';
 import { Button } from '../../../atoms/buttons/Button';
-import { Heading } from '../../../atoms/Heading';
+import ErrorText from '../../../atoms/typography/ErrorText';
+import { Heading } from '../../../atoms/typography/Heading';
 import { styleClasses } from './styleClasses';
 
 class ProductDetailDescription extends Component {
@@ -15,6 +17,7 @@ class ProductDetailDescription extends Component {
     this.state = {
       isDescriptionButtonShown: false,
       selectedAttributes: {},
+      fieldErrors: {},
     };
   }
 
@@ -53,9 +56,34 @@ class ProductDetailDescription extends Component {
     this.setState({ selectedAttributes: selectedObj });
   };
 
+  // handle adding to the basket
+  handleAddToBasket = () => {
+    // list all attrubute names
+    // if there are not some attributes selected give an error
+    const attributeNames = this.props.product.attributes.map((attr) => attr.id);
+    const selectedAttributes = Object.keys(this.state.selectedAttributes);
+
+    // go through all attributes and check if all of them are selected
+    const fieldErrors = {};
+    for (let attr of attributeNames) {
+      if (!selectedAttributes.includes(attr)) {
+        fieldErrors[attr] = `${attr} is not selected`;
+      }
+    }
+
+    // set Error fields
+    this.setState({ fieldErrors });
+
+    // If error field was empty - submit
+    if (!Object.keys(fieldErrors).length) {
+      console.log('submit');
+    }
+  };
+
   render() {
     let price = 0;
     const { currency, product, toggleDescription } = this.props;
+    const { fieldErrors } = this.state;
 
     // css classes
     const {
@@ -63,16 +91,13 @@ class ProductDetailDescription extends Component {
       descriptionClass,
       productNameClass,
       descriptionExpandClass,
-      sizeButtonClass,
     } = styleClasses.call(this);
-
-    console.log('state: ', this.state.selectedAttributes);
 
     if (!product) {
       return <div>fetching cars</div>;
     }
 
-    // if product is fetched update choose price
+    // if product is fetched, select price
     price = product.prices.find((price) => price.currency === currency).amount;
 
     return (
@@ -87,41 +112,30 @@ class ProductDetailDescription extends Component {
         {product.attributes &&
           product.attributes.map((attr) => (
             <div className="pr-details__sizes" key={attr.id}>
+              {/* Attribute heading  */}
               <Heading className="pr-details__section-heading">
                 {attr.name}:
               </Heading>
-
+              {/* Attribute buttons */}
               <div className="pr-details__btn-group">
-                {/* Attribute buttons */}
-                {attr.items.map(({ value }, i) => {
-                  // If attribute is swatch
-                  const isSwatch = attr.type === 'swatch';
-                  const isSelected =
-                    this.state.selectedAttributes[attr.id] === value;
-
-                  return (
-                    <Button
-                      style={{
-                        backgroundColor: value,
-                        transform: isSelected && isSwatch && 'scale(1.2)',
-                      }}
-                      key={i}
-                      onClick={() =>
-                        this.handleSelectAttr({
-                          attributeName: attr.id,
-                          value,
-                        })
-                      }
-                      className={sizeButtonClass({
-                        isSelected,
-                        isSwatch: attr,
-                      })}
-                    >
-                      {!isSwatch && value}
-                    </Button>
-                  );
-                })}
+                {attr.items.map(({ value }) => (
+                  <AttributeButton
+                    key={value}
+                    attr={attr}
+                    value={value}
+                    selectedAttributes={this.state.selectedAttributes}
+                    onClick={() =>
+                      this.handleSelectAttr({
+                        attributeName: attr.id,
+                        value,
+                      })
+                    }
+                  >
+                    {value}
+                  </AttributeButton>
+                ))}
               </div>
+              <ErrorText>{fieldErrors[attr.id]}</ErrorText>
             </div>
           ))}
 
@@ -137,7 +151,9 @@ class ProductDetailDescription extends Component {
         </div>
 
         {/* Add to basket  button  */}
-        <Button className="btn--primary">add to card</Button>
+        <Button className="btn--primary" onClick={this.handleAddToBasket}>
+          add to card
+        </Button>
 
         {/* Description  */}
         <div className={descriptionClass} ref={this.descriptionContainerRef}>
