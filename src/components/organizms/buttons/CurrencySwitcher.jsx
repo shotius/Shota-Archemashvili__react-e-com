@@ -6,6 +6,7 @@ import CurrencyPopover from '../popovers/CurrencyPopover';
 import { Button } from '../../atoms/buttons/Button';
 import { connect } from 'react-redux';
 import { getCurrencyIcon } from '../../../utils/getCurrencyIcon';
+import TextRoboto from '../../atoms/typography/TextRoboto';
 
 class CurrencySwitcher extends Component {
   render() {
@@ -18,7 +19,9 @@ class CurrencySwitcher extends Component {
     return (
       <>
         <Button className="nav__btn_currency" onClick={onToggle}>
-          <p className="text text--big -pr-4">{getCurrencyIcon(currency)}</p>
+          <TextRoboto className="text--big text--light -pr-4">
+            {getCurrencyIcon(currency)}
+          </TextRoboto>
           <img
             src={dropdownIcon}
             className={className}

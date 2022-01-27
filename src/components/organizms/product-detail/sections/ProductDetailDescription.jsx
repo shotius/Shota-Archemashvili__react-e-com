@@ -7,6 +7,7 @@ import AttributeButton from '../../../atoms/buttons/AttributeButton';
 import { Button } from '../../../atoms/buttons/Button';
 import ErrorText from '../../../atoms/typography/ErrorText';
 import { Heading } from '../../../atoms/typography/Heading';
+import TextMain from '../../../atoms/typography/TextMain';
 import { styleClasses } from './styleClasses';
 
 class ProductDetailDescription extends Component {
@@ -144,10 +145,10 @@ class ProductDetailDescription extends Component {
           <Heading className="pr-details__section-heading -pb-10">
             price:
           </Heading>
-          <Heading className={`pr-details__price `}>
+          <TextMain className="text--bold">
             {getCurrencyIcon(currency)}
             {price}
-          </Heading>
+          </TextMain>
         </div>
 
         {/* Add to basket  button  */}

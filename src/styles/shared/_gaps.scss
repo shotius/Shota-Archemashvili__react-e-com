@@ -1,0 +1,11 @@
+@each $i in $nums {
+  .-row-gap-#{i} {
+    row-gap: 1px * $i;
+  }
+}
+
+@each $i in $nums {
+  .-gap-#{$i} {
+    gap: 1px * $i;
+  }
+}

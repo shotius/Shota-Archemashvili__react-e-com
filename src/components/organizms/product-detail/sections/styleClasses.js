@@ -3,7 +3,6 @@ import classNames from 'classnames';
 export function styleClasses() {
   const { loadingProduct, loadingPartialProduct, descriptionExpanded } =
     this.props;
-  const { selectedAttributes } = this.state;
 
   const productBrandClass = classNames('heading--main -pb-12', {
     'skeleton skeleton--header': loadingPartialProduct || loadingProduct,

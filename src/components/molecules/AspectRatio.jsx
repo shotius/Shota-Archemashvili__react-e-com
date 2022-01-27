@@ -4,7 +4,7 @@ import classNames from 'classnames';
 
 //TEST_MODE
 
-// Component will receive prop `ratio="width/height"`
+// Component will receive prop `ratio="width/height"` and maxWidth="some px"
 export class AspectRatio extends Component {
   constructor(props) {
     super(props);
