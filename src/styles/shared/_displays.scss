@@ -24,6 +24,10 @@ $positions: 'center', 'space-between', "space-around";
   position: relative;
 }
 
+.-text-center {
+  text-align: center;
+}
+
 .-center-absolute {
   @include center-absolute
 }

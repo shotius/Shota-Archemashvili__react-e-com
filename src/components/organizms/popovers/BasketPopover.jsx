@@ -1,53 +1,77 @@
 import PropTypes from 'prop-types';
 import { Component } from 'react';
-import TextRoboto from '../../atoms/typography/TextRoboto';
+import { connect } from 'react-redux';
+import { getCurrencyIcon } from '../../../utils/getCurrencyIcon';
+import { selectPrice } from '../../../utils/selectPrice';
+import { Button } from '../../atoms/buttons/Button';
+import HeadingSecondary from '../../atoms/typography/HeadingSecondary';
 import TextRegular from '../../atoms/typography/TextRegular';
+import TextRoboto from '../../atoms/typography/TextRoboto';
 import { ModalOverlay } from '../../molecules/overlays/ModalOverlay';
 import { PopoverOverlay } from '../../molecules/overlays/Overlay';
 import BasketPopoverCard from '../cards/BasketPopoverCard';
 import { styleClasses } from './styleClasses';
-import { Button } from '../../atoms/buttons/Button';
-import { connect } from 'react-redux';
 
 class BasketPopover extends Component {
   render() {
     const { isOpen, currency, onClose, products } = this.props;
     const { basketPopoverClass } = styleClasses.call(this);
 
+    // calculate total price
+    const totalPrice = products.length
+      ? products.reduce(
+          (acc, cur) => (acc += selectPrice(cur.prices, currency) * cur.count),
+          0
+        )
+      : 0;
+
     return (
       <>
         <PopoverOverlay cb={onClose} isOpen={isOpen} isColored={false} />
         <ModalOverlay cb={onClose} isOpen={isOpen} isColored={true} />
+
         <div className={basketPopoverClass}>
-          {/* heading  */}
-          <TextRegular>
-            <b>My bag, </b>
-            {products.length} items
-          </TextRegular>
+          {!!products.length ? (
+            <>
+              {/* heading  */}
+              <TextRegular>
+                <b>My bag, </b>
+                {products.length} items
+              </TextRegular>
 
-          {/* Cards  */}
-          <div className="basket_popover__cards">
-            {products.map((item, i) => (
-              <BasketPopoverCard
-                key={item.id + i}
-                product={item}
-                currency={currency}
-              />
-            ))}
-          </div>
+              {/* Cards  */}
+              <div className="basket_popover__cards">
+                {products.map((item, i) => (
+                  <BasketPopoverCard
+                    key={item.id + i}
+                    product={item}
+                    currency={currency}
+                  />
+                ))}
+              </div>
 
-          <div className="basket_popover__total-price">
-            <TextRoboto className="text--regular text--semi-bold">
-              Total:
-            </TextRoboto>
-            <TextRegular className="text--bold">$100</TextRegular>
-          </div>
-
-          {/* Basket Button */}
-          <div className="-flex -justify-between">
-            <Button className="btn--outline -w-full -mr-6">View Bag</Button>
-            <Button className="btn--primary -w-full -ml-6">Check Out</Button>
-          </div>
+              <div className="basket_popover__total-price">
+                <TextRoboto className="text--regular text--semi-bold">
+                  Total:
+                </TextRoboto>
+                <TextRegular className="text--bold">
+                  {getCurrencyIcon(currency)}
+                  {totalPrice.toFixed(2)}
+                </TextRegular>
+              </div>
+              {/* Basket Button */}
+              <div className="-flex -justify-between">
+                <Button className="btn--outline -w-full -mr-6">View Bag</Button>
+                <Button className="btn--primary -w-full -ml-6">
+                  Check Out
+                </Button>
+              </div>
+            </>
+          ) : (
+            <HeadingSecondary className="-text-center">
+              Basket is empty
+            </HeadingSecondary>
+          )}
         </div>
       </>
     );
