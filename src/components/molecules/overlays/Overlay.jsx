@@ -1,17 +1,11 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
-import cn from 'classnames';
+import { styleClasses } from './styleClasses';
 
 export class PopoverOverlay extends Component {
   render() {
-    const { isOpen, cb, isColored } = this.props;
-
-    const className = cn({
-      overlay: isOpen,
-      'overlay--gray': isColored,
-    });
-
-    return <div className={className} onClick={cb} />;
+    const { popoverOverlayClass } = styleClasses.call(this);
+    return <div className={popoverOverlayClass} onClick={this.props.cb} />;
   }
 }
 

@@ -25,18 +25,22 @@ class BasketPopover extends Component {
         )
       : 0;
 
+    const totalProducts = !!products.length
+      ? products.reduce((total, product) => (total += product.count), 0)
+      : 0;
+
     return (
       <>
         <PopoverOverlay cb={onClose} isOpen={isOpen} isColored={false} />
         <ModalOverlay cb={onClose} isOpen={isOpen} isColored={true} />
 
         <div className={basketPopoverClass}>
-          {!!products.length ? (
+          {!!totalProducts ? (
             <>
               {/* heading  */}
               <TextRegular>
                 <b>My bag, </b>
-                {products.length} items
+                {totalProducts} items
               </TextRegular>
 
               {/* Cards  */}

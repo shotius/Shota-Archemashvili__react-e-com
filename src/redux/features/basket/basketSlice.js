@@ -1,5 +1,5 @@
 import { createSlice, current } from '@reduxjs/toolkit';
-import basketServices from './baksetServices';
+import basketServices from './basketServices';
 
 const {
   removeItem,

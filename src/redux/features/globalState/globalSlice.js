@@ -1,8 +1,11 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, current } from '@reduxjs/toolkit';
+import globalsService from './globalsService';
+const { formatToast, removeToastFrom } = globalsService;
 
 const initalState = {
   currency: 'USD', // "GBP", "AUD" , "JPY", "RUB"
   defaultCategory: 'clothes',
+  toasts: [],
 };
 
 export const globalSlice = createSlice({
@@ -12,9 +15,19 @@ export const globalSlice = createSlice({
     setCurrency: (state, action) => {
       state.currency = action.payload;
     },
+    setToast: (state, action) => {
+      // format toast input (add necessary fields)
+      const toast = formatToast(action.payload);
+      state.toasts.push(toast);
+    },
+    removeToast: (state, action) => {
+      const id = action.payload;
+      const toasts = current(state.toasts);
+      state.toasts = removeToastFrom(toasts, id);
+    },
   },
 });
 
-export const { setCurrency } = globalSlice.actions;
+export const { setCurrency, setToast, removeToast } = globalSlice.actions;
 
 export default globalSlice.reducer;

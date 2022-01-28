@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import { Component, createRef } from 'react';
 import { connect } from 'react-redux';
 import { addItemToBasket } from '../../../../redux/features/basket/basketSlice';
+import { setToast } from '../../../../redux/features/globalState/globalSlice';
 import { getCurrencyIcon } from '../../../../utils/getCurrencyIcon';
 import { withParams } from '../../../../utils/HOC/withParams';
 import { selectPrice } from '../../../../utils/selectPrice';
@@ -88,6 +89,8 @@ class ProductDetailDescription extends Component {
         ...productForBasket,
         attributes: selectedAttributes,
       });
+
+      this.props.setToast({title: 'Product added to the busket'})
     }
   };
 
@@ -197,6 +200,7 @@ const mapStateToProps = (state) => ({
 
 const withRedux = connect(mapStateToProps, {
   addItemToBasket,
+  setToast,
 });
 
 export default withRedux(withParams(ProductDetailDescription));
