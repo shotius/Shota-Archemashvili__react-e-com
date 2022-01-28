@@ -7,7 +7,12 @@ export function styleClasses() {
     'basket_popover--opened': isOpen,
   });
 
+  const popoverContainer = classNames('currency_popover', '-zIndex-modal', {
+    'currency_popover--opened': isOpen,
+  });
+
   return {
     basketPopoverClass,
+    popoverContainer,
   };
 }

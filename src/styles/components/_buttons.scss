@@ -4,6 +4,9 @@
   cursor: pointer;
   font-size: 1.6rem;
   padding: 1.3rem 2.4rem;
+  // &:hover {
+    // background-color: rgba(117, 110, 110, 0.1);
+  // }
 
   &--outline {
     border: 1px solid;
@@ -12,6 +15,9 @@
       background-color: $black;
       color: white;
       border: 1px solid $black;
+      &:hover {
+        background-color: $black;
+      }
     }
   }
 

@@ -1,8 +1,8 @@
 import classNames from 'classnames';
 
-export const styleClasses = ({ props, state }) => {
-  const { isHovered } = state;
-  const { product } = props;
+export function styleClasses() {
+  const { isHovered } = this.state;
+  const { product } = this.props;
 
   const imgClassName = classNames('catalog-card__pic', {
     'catalog-card__pic--hovered': isHovered,
@@ -21,4 +21,4 @@ export const styleClasses = ({ props, state }) => {
   });
 
   return { imgClassName, bsktBtnClass, overlayClass, catalogWrapperClass };
-};
+}

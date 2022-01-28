@@ -9,6 +9,7 @@ import { getCurrencyIcon } from '../../../utils/getCurrencyIcon';
 import { CATALOG_ROUTE } from '../../../config/constants';
 import { styleClasses } from './styleClasses';
 import { Heading } from '../../atoms/typography/Heading';
+import { selectPrice } from '../../../utils/selectPrice';
 
 class CatalogCard extends Component {
   constructor(props) {
@@ -45,16 +46,12 @@ class CatalogCard extends Component {
   render() {
     const { product, currency } = this.props;
 
+    // choose correct price from price array
+    const price = selectPrice(product.prices, currency);
+    
     // css classes
     const { imgClassName, catalogWrapperClass, bsktBtnClass, overlayClass } =
-      styleClasses({ props: this.props, state: this.state });
-
-    // choose correct price from price array
-    const price = product.prices.find(
-      (price) => price.currency === currency
-    ).amount;
-
-    // class names
+      styleClasses.call(this);
 
     return (
       <div className="catalog-card">

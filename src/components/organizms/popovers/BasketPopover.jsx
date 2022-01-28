@@ -7,10 +7,11 @@ import { PopoverOverlay } from '../../molecules/overlays/Overlay';
 import BasketPopoverCard from '../cards/BasketPopoverCard';
 import { styleClasses } from './styleClasses';
 import { Button } from '../../atoms/buttons/Button';
+import { connect } from 'react-redux';
 
-export class BasketPopover extends Component {
+class BasketPopover extends Component {
   render() {
-    const { isOpen, onClose } = this.props;
+    const { isOpen, currency, onClose, products } = this.props;
     const { basketPopoverClass } = styleClasses.call(this);
 
     return (
@@ -20,14 +21,19 @@ export class BasketPopover extends Component {
         <div className={basketPopoverClass}>
           {/* heading  */}
           <TextRegular>
-            <b>My bag, </b>2 items
+            <b>My bag, </b>
+            {products.length} items
           </TextRegular>
 
           {/* Cards  */}
-          <div className='basket_popover__cards'>
-            {/* <BasketPopoverCard image="https://images.canadagoose.com/image/upload/w_480,c_scale,f_auto,q_auto:best/v1576016105/product-image/2409L_61.jpg" /> */}
-            <BasketPopoverCard image="https://cdn.shopify.com/s/files/1/0087/6193/3920/products/DD1381200_DEOA_2_720x.jpg?v=1612816087" />
-            <BasketPopoverCard image="https://cdn.shopify.com/s/files/1/0087/6193/3920/products/DD1381200_DEOA_2_720x.jpg?v=1612816087" />
+          <div className="basket_popover__cards">
+            {products.map((item, i) => (
+              <BasketPopoverCard
+                key={item.id + i}
+                product={item}
+                currency={currency}
+              />
+            ))}
           </div>
 
           <div className="basket_popover__total-price">
@@ -39,8 +45,8 @@ export class BasketPopover extends Component {
 
           {/* Basket Button */}
           <div className="-flex -justify-between">
-            <Button className="btn--outline">View Bag</Button>
-            <Button className="btn--primary">Check Out</Button>
+            <Button className="btn--outline -w-full -mr-6">View Bag</Button>
+            <Button className="btn--primary -w-full -ml-6">Check Out</Button>
           </div>
         </div>
       </>
@@ -51,4 +57,16 @@ export class BasketPopover extends Component {
 BasketPopover.propTypes = {
   isOpen: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
+  products: PropTypes.array.isRequired,
+  addItemToBasket: PropTypes.func,
+  currency: PropTypes.string,
 };
+
+const mapStateToProps = (state) => ({
+  products: state.basket.products,
+  currency: state.globals.currency,
+});
+
+const withRedux = connect(mapStateToProps);
+
+export default withRedux(BasketPopover);

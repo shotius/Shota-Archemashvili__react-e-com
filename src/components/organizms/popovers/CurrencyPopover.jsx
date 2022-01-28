@@ -1,18 +1,16 @@
-import { Component } from 'react';
 import PropTypes from 'prop-types';
-import { PopoverOverlay } from '../../molecules/overlays/Overlay';
+import { Component } from 'react';
 import { connect } from 'react-redux';
 import { setCurrency } from '../../../redux/features/globalState/globalSlice';
-import classNames from 'classnames';
+import { PopoverOverlay } from '../../molecules/overlays/Overlay';
+import { styleClasses } from './styleClasses';
 
 class CurrencyPopover extends Component {
   render() {
     const { isOpen, onClose } = this.props;
     const setCurrency = this.props.setCurrency;
 
-    const className = classNames('currency_popover', '-zIndex-modal', {
-      'currency_popover--opened': isOpen,
-    });
+    const { popoverContainer } = styleClasses.call(this);
 
     const handleClick = (currency) => {
       setCurrency(currency);
@@ -22,7 +20,7 @@ class CurrencyPopover extends Component {
     return (
       <>
         <PopoverOverlay isOpen={isOpen} cb={onClose} />
-        <div className={className}>
+        <div className={popoverContainer}>
           <div className="v-stack ">
             <button
               className="btn btn--rect"

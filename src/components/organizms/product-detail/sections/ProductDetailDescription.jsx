@@ -1,8 +1,10 @@
 import PropTypes from 'prop-types';
 import { Component, createRef } from 'react';
 import { connect } from 'react-redux';
+import { addItemToBasket } from '../../../../redux/features/basket/basketSlice';
 import { getCurrencyIcon } from '../../../../utils/getCurrencyIcon';
 import { withParams } from '../../../../utils/HOC/withParams';
+import { selectPrice } from '../../../../utils/selectPrice';
 import AttributeButton from '../../../atoms/buttons/AttributeButton';
 import { Button } from '../../../atoms/buttons/Button';
 import ErrorText from '../../../atoms/typography/ErrorText';
@@ -59,15 +61,17 @@ class ProductDetailDescription extends Component {
 
   // handle adding to the basket
   handleAddToBasket = () => {
+    const { selectedAttributes } = this.state;
     // list all attrubute names
     // if there are not some attributes selected give an error
     const attributeNames = this.props.product.attributes.map((attr) => attr.id);
-    const selectedAttributes = Object.keys(this.state.selectedAttributes);
+    const selectedAttributeKeys = Object.keys(selectedAttributes);
 
+    // validation
     // go through all attributes and check if all of them are selected
     const fieldErrors = {};
     for (let attr of attributeNames) {
-      if (!selectedAttributes.includes(attr)) {
+      if (!selectedAttributeKeys.includes(attr)) {
         fieldErrors[attr] = `${attr} is not selected`;
       }
     }
@@ -75,16 +79,30 @@ class ProductDetailDescription extends Component {
     // set Error fields
     this.setState({ fieldErrors });
 
-    // If error field was empty - submit
+    // If error fields were empty - submit
     if (!Object.keys(fieldErrors).length) {
-      console.log('submit');
+      const { attributes, category, description, ...productForBasket } =
+        this.props.product;
+
+      this.props.addItemToBasket({
+        ...productForBasket,
+        attributes: selectedAttributes,
+      });
     }
   };
 
   render() {
     let price = 0;
+
     const { currency, product, toggleDescription } = this.props;
     const { fieldErrors } = this.state;
+
+    if (!product) {
+      return <div>fetching product</div>;
+    }
+
+    // if product is fetched, select price
+    price = selectPrice(product.prices, currency);
 
     // css classes
     const {
@@ -93,13 +111,6 @@ class ProductDetailDescription extends Component {
       productNameClass,
       descriptionExpandClass,
     } = styleClasses.call(this);
-
-    if (!product) {
-      return <div>fetching cars</div>;
-    }
-
-    // if product is fetched, select price
-    price = product.prices.find((price) => price.currency === currency).amount;
 
     return (
       <div className="pr-details__container">
@@ -181,8 +192,11 @@ ProductDetailDescription.propTypes = {
 
 const mapStateToProps = (state) => ({
   currency: state.globals.currency,
+  products: state.basket.products,
 });
 
-const withRedux = connect(mapStateToProps);
+const withRedux = connect(mapStateToProps, {
+  addItemToBasket,
+});
 
 export default withRedux(withParams(ProductDetailDescription));

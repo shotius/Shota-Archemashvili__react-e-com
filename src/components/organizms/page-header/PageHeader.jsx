@@ -4,7 +4,7 @@ import shoppingBagIcon from '../../../assets/icons/shoppingIcon.svg';
 import { withNavigation } from '../../../utils/HOC/withNavigation';
 import { Button } from '../../atoms/buttons/Button';
 import { ButtonGroup } from '../../molecules/ButtonGroup';
-import { BasketButton } from '../buttons/BasketButton';
+import BasketButton from '../buttons/BasketButton';
 import CurrencySwitcher from '../buttons/CurrencySwitcher';
 import { CATALOG_ROUTE } from '../../../config/constants';
 import NavButton from '../../atoms/buttons/NavButton';

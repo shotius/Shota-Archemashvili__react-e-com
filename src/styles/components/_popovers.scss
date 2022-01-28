@@ -18,12 +18,10 @@
     max-height: 400px;
     overflow-y: auto;
     &::-webkit-scrollbar {
-      width:  7px;
+      width:  5px;
     }
     
     &::-webkit-scrollbar-thumb {
-      background-color: red;
-      padding-right: 10px;
       background: lightgray;
       border-radius: 10px;
     }
@@ -45,6 +43,7 @@
 
   &__description {
     display: flex;
+    flex: 1;
     flex-direction: column;
     justify-content: space-between;
     p:nth-child(2) {
