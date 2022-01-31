@@ -20,7 +20,8 @@
 
 .text {
   padding: 1rem 0px;
-  color: $black;
+  // color: $black;
+  color: inherit; 
   line-height: 2.59rem;
   font-weight: 400;
   font-family: 'Raleway', sans-serif;

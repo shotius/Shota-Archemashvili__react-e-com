@@ -9,11 +9,11 @@
 @import './components/typography';
 @import './components/pageheader';
 @import './components/buttons';
-@import "./components/popovers";
-@import "./components/overlays";
-@import "./components/aspectratio";
-@import "./components/cards";
-
+@import './components/popovers';
+@import './components/overlays';
+@import './components/aspectratio';
+@import './components/cards';
+@import './components/toasts';
 
 // shared
 @import './shared/margins';
@@ -21,12 +21,12 @@
 @import './shared/displays';
 @import './shared/colors';
 @import './shared/zIndexes';
-@import "./shared/gaps";
+@import './shared/gaps';
+@import './shared/animations';
 
-// layout 
+// layout
 @import './layout/containers';
 
 // pages
-@import "./pages/catalog";
-@import "./pages/product-deatail";
-
+@import './pages/catalog';
+@import './pages/product-deatail';

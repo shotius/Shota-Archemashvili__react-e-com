@@ -16,8 +16,8 @@ export const globalSlice = createSlice({
       state.currency = action.payload;
     },
     setToast: (state, action) => {
-      // format toast input (add necessary fields)
-      const toast = formatToast(action.payload);
+      // add necessary fields to raw tast object
+      const toast = formatToast(action.payload); 
       state.toasts.push(toast);
     },
     removeToast: (state, action) => {

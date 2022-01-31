@@ -1,7 +1,11 @@
-import { Component } from 'react';
+import classNames from 'classnames';
 import PropTypes from 'prop-types';
+import { Component, PureComponent } from 'react';
+import { connect } from 'react-redux';
+import { removeToast } from '../../../redux/features/globalState/globalSlice';
+import TextMain from '../../atoms/typography/TextMain';
 
-class Toast extends Component {
+class Toast extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {};
@@ -10,14 +14,22 @@ class Toast extends Component {
   componentDidMount = () => {};
 
   render() {
-    const { title } = this.props;
-    return <div>{title}</div>;
+    const { toast, removeToast } = this.props;
+
+    const cn = classNames('toast', `toast--${toast.status}`);
+
+    return (
+      <div className={cn} onClick={() => removeToast(toast.id)}>
+        <TextMain>{toast.title} </TextMain>
+      </div>
+    );
   }
 }
 
 Toast.propTypes = {
-  title: PropTypes.string,
-  duration: PropTypes.number,
+  toast: PropTypes.any,
 };
 
-export default Toast;
+const withRedux = connect(null, { removeToast });
+
+export default withRedux(Toast);

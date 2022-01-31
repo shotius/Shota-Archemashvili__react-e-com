@@ -4,61 +4,80 @@ import PropTypes from 'prop-types';
 import toastUtils from './toastUtils';
 import { connect } from 'react-redux';
 import { removeToast } from '../../../redux/features/globalState/globalSlice';
+import Toast from '../../molecules/notifications/Toast';
 
-const { removePortal, createPortal } = toastUtils;
+const { getRightPortal, removePortal, hasToastCreated, createPortal } =
+  toastUtils;
 
 class ToastPortal extends Component {
   constructor(props) {
     super(props);
     this.state = {
       loaded: false,
-      portalDiv: null,
-      toasts: [
-        {
-          title: 'this is a portal',
-        },
-        {
-          title: 'this is a second portal',
-        },
-      ],
+      portalTop: null,
+      portalBottom: null,
+      portalTopRight: null,
     };
   }
 
   // create toast portal on mount
   componentDidMount = () => {
-    const portalDiv = createPortal();
-    this.setState({ portalDiv, loaded: true });
+    const portalTop = createPortal('toast-portal--top');
+    const portalBottom = createPortal('toast-portal--bottom');
+    const portalTopRight = createPortal('toast-portal--top-right');
+    this.setState({ portalTop, portalBottom, portalTopRight, loaded: true });
   };
 
   componentDidUpdate(prevProps) {
     const toasts = this.props.toasts;
     const lastToasts = prevProps.toasts;
-    if (lastToasts.length !== this.props.toasts.length && toasts.length) {
-      console.log('toasts', this.props.toasts);
+    // check if toast added
+    if (hasToastCreated(lastToasts, toasts)) {
       const lastToast = toasts[toasts.length - 1];
+      // remove last added toast after timout
       setTimeout(() => {
         this.props.removeToast(lastToast.id);
       }, lastToast.duration);
     }
   }
 
-  // remove portal on unmount
+  // remove portals on unmount
   componentWillUnmount = () => {
-    removePortal(this.state.portalDiv);
+    removePortal(this.state.portalTop);
+    removePortal(this.state.portalBottom);
+    removePortal(this.state.portalTopRight);
   };
 
   render() {
-    const { portalDiv, loaded } = this.state;
+    const { portalTop, loaded } = this.state;
     const { toasts } = this.props;
 
     if (!loaded) {
       return <></>;
     }
 
+    // if (toasts.length) {
+    //   return toasts.map((toast) => {
+    //     return ReactDOM.createPortal(
+    //       <div className="toast-container">
+    //         <Toast key={toast.id} toast={toast} />
+    //       </div>,
+    //       getRightPortal.call(this, toast) // get right portal dependint on the toast position
+    //     );
+    //   });
+    // }
+
     return ReactDOM.createPortal(
-      toasts.map((toast) => <div key={toast.id}>{toast.title}</div>),
-      portalDiv
+      <div className="toast-container">
+        {toasts.map((toast) => (
+          <Toast key={toast.id} toast={toast} />
+        ))}
+      </div>,
+      this.state.portalTop
     );
+
+    // return nothing
+    return ReactDOM.createPortal(null, portalTop);
   }
 }
 

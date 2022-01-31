@@ -16,9 +16,13 @@ const removeToastFrom = (toasts, id) =>
  */
 const formatToast = (toast) => {
   const duration = toast.duration || 5000;
+  const position = toast.position || 'top';
+  const status = toast.status || 'success';
   return {
     ...toast,
     duration,
+    position,
+    status,
     id: uuid(),
   };
 };

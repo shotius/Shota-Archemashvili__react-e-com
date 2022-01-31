@@ -90,7 +90,13 @@ class ProductDetailDescription extends Component {
         attributes: selectedAttributes,
       });
 
-      this.props.setToast({title: 'Product added to the busket'})
+      // display notiffication
+      this.props.setToast({
+        title: 'Product added to the busket',
+        position: 'top',
+        duration: 3000,
+        status: 'success',
+      });
     }
   };
 
