@@ -4,28 +4,24 @@ import PropTypes from 'prop-types';
 import toastUtils from './toastUtils';
 import { connect } from 'react-redux';
 import { removeToast } from '../../../redux/features/globalState/globalSlice';
-import Toast from '../../molecules/notifications/Toast';
+import Toasts from '../../molecules/notifications/Toasts';
 
-const { getRightPortal, removePortal, hasToastCreated, createPortal } =
-  toastUtils;
+const { removePortal, hasToastCreated, createRootPortal } = toastUtils;
 
 class ToastPortal extends Component {
   constructor(props) {
     super(props);
     this.state = {
       loaded: false,
-      portalTop: null,
-      portalBottom: null,
-      portalTopRight: null,
+      rootPortal: null,
     };
   }
 
   // create toast portal on mount
   componentDidMount = () => {
-    const portalTop = createPortal('toast-portal--top');
-    const portalBottom = createPortal('toast-portal--bottom');
-    const portalTopRight = createPortal('toast-portal--top-right');
-    this.setState({ portalTop, portalBottom, portalTopRight, loaded: true });
+    const rootPortal = createRootPortal();
+    // createSubPortals();
+    this.setState({ rootPortal, loaded: true });
   };
 
   componentDidUpdate(prevProps) {
@@ -43,41 +39,17 @@ class ToastPortal extends Component {
 
   // remove portals on unmount
   componentWillUnmount = () => {
-    removePortal(this.state.portalTop);
-    removePortal(this.state.portalBottom);
-    removePortal(this.state.portalTopRight);
+    removePortal();
   };
 
   render() {
-    const { portalTop, loaded } = this.state;
-    const { toasts } = this.props;
+    const { loaded } = this.state;
 
     if (!loaded) {
       return <></>;
     }
 
-    // if (toasts.length) {
-    //   return toasts.map((toast) => {
-    //     return ReactDOM.createPortal(
-    //       <div className="toast-container">
-    //         <Toast key={toast.id} toast={toast} />
-    //       </div>,
-    //       getRightPortal.call(this, toast) // get right portal dependint on the toast position
-    //     );
-    //   });
-    // }
-
-    return ReactDOM.createPortal(
-      <div className="toast-container">
-        {toasts.map((toast) => (
-          <Toast key={toast.id} toast={toast} />
-        ))}
-      </div>,
-      this.state.portalTop
-    );
-
-    // return nothing
-    return ReactDOM.createPortal(null, portalTop);
+    return ReactDOM.createPortal(<Toasts />, this.state.rootPortal);
   }
 }
 

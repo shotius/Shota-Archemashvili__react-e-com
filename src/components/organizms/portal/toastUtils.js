@@ -1,24 +1,37 @@
 import classNames from 'classnames';
-import { uuid } from '../../../utils/helpers';
 
+const baseId = 'toast-portal';
 /**
- * Function creates a portal div
+ * Function creates a portal div and appends it to the body tag
  * @returns {HTMLDivElement}
  */
-const createPortal = (className) => {
+const createRootPortal = (className) => {
   const div = document.createElement('div');
-  div.id = 'toast-portal-' + uuid();
-  div.className = classNames('toast-portal', className);
+  div.id = baseId;
+  div.className = classNames(baseId);
   document.getElementsByTagName('body')[0].prepend(div);
   return div;
+};
+
+/** Function creates sub portals and appends to the root portal  */
+const createSubPortals = () => {
+  const subPortals = ['top', 'bottom','top-right'];
+  const rootPortal = document.getElementById(baseId);
+  for (let portal of subPortals) {
+    const subPortal = document.createElement(`div`);
+    subPortal.id = `${portal}-portal`;
+    subPortal.className = `${baseId}--${portal}`;
+    rootPortal.appendChild(subPortal);
+  }
 };
 
 /**
  * Funciton removes the portal div
  * @param {*} div
  */
-const removePortal = (div) => {
-  document.getElementsByTagName('body')[0].removeChild(div);
+const removePortal = () => {
+  const rootPortal = document.getElementById(baseId);
+  document.getElementsByTagName('body')[0].removeChild(rootPortal);
 };
 
 /**
@@ -49,10 +62,11 @@ function getRightPortal(toast) {
 }
 /** Exports */
 const toastUtils = {
-  createPortal,
+  createRootPortal,
   removePortal,
   hasToastCreated,
   getRightPortal,
+  createSubPortals,
 };
 
 export default toastUtils;

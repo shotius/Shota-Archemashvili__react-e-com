@@ -14,9 +14,9 @@ class Toast extends PureComponent {
   componentDidMount = () => {};
 
   render() {
-    const { toast, removeToast } = this.props;
+    const { toast, removeToast, className } = this.props;
 
-    const cn = classNames('toast', `toast--${toast.status}`);
+    const cn = classNames('toast', `toast--${toast.status}`, className);
 
     return (
       <div className={cn} onClick={() => removeToast(toast.id)}>
