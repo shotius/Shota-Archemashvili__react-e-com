@@ -10,6 +10,7 @@ import { CATALOG_ROUTE } from '../../../config/constants';
 import { styleClasses } from './styleClasses';
 import { Heading } from '../../atoms/typography/Heading';
 import { selectPrice } from '../../../utils/selectPrice';
+import { compose } from 'redux';
 
 class CatalogCard extends Component {
   constructor(props) {
@@ -38,17 +39,12 @@ class CatalogCard extends Component {
     this.props.navigate(`${CATALOG_ROUTE}/${category}/${id}`);
   }
 
-  handleProductAddClick(e) {
-    if (e.stopPropagation) e.stopPropagation();
-    console.log('clicked');
-  }
-
   render() {
     const { product, currency } = this.props;
 
     // choose correct price from price array
     const price = selectPrice(product.prices, currency);
-    
+
     // css classes
     const { imgClassName, catalogWrapperClass, bsktBtnClass, overlayClass } =
       styleClasses.call(this);
@@ -77,10 +73,7 @@ class CatalogCard extends Component {
                   width="100%"
                 />
               </AspectRatio>
-              <Button
-                className={bsktBtnClass}
-                onClick={this.handleProductAddClick}
-              >
+              <Button className={bsktBtnClass}>
                 <img src={basketIcon} alt="add to basket" />
               </Button>
             </div>
@@ -118,5 +111,8 @@ CatalogCard.propTypes = {
 const mapStateToProps = (state) => ({
   currency: state.globals.currency,
 });
+const withRedux = connect(mapStateToProps);
 
-export default withNavigation(connect(mapStateToProps)(CatalogCard));
+const enhance = compose(withNavigation, withRedux);
+
+export default enhance(CatalogCard);

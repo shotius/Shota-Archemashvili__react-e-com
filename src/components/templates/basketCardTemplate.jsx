@@ -1,44 +1,17 @@
 import { Component } from 'react';
-import TextRegular from '../../atoms/typography/TextRegular';
 import PropTypes from 'prop-types';
-import TextMain from '../../atoms/typography/TextMain';
-import { Button } from '../../atoms/buttons/Button';
-import { getCurrencyIcon } from '../../../utils/getCurrencyIcon';
-import { selectPrice } from '../../../utils/selectPrice';
+import TextRegular from '../atoms/typography/TextRegular';
+import TextMain from '../atoms/typography/TextMain';
+import { getCurrencyIcon } from '../../utils/getCurrencyIcon';
+import { Button } from '../atoms/buttons/Button';
+import { selectPrice } from '../../utils/selectPrice';
+import { connect } from 'react-redux';
 import {
   addItemToBasket,
   removeItemFromBasket,
-} from '../../../redux/features/basket/basketSlice';
-import { connect } from 'react-redux';
+} from '../../redux/features/basket/basketSlice';
 
-class BasketPopoverCard extends Component {
-  getAttrButton = (attr) => {
-    const { attributes } = this.props.product;
-
-    switch (attr) {
-      case 'Size':
-        return (
-          <Button
-            className="btn--outline btn--small"
-            key={attr}
-            display={'none'}
-          >
-            {attributes[attr]}
-          </Button>
-        );
-
-      case 'Color':
-        return (
-          <Button
-            className="btn--outline btn--small"
-            style={{ backgroundColor: attributes[attr] }}
-            key={attr}
-          />
-        );
-      default:
-        return null;
-    }
-  };
+class basketCardTemplate extends Component {
   render() {
     const { currency, product, increase, decrease } = this.props;
 
@@ -95,7 +68,7 @@ class BasketPopoverCard extends Component {
   }
 }
 
-BasketPopoverCard.propTypes = {
+basketCardTemplate.propTypes = {
   product: PropTypes.any,
   currency: PropTypes.string,
 };
@@ -105,4 +78,4 @@ const withRedux = connect(null, {
   decrease: removeItemFromBasket,
 });
 
-export default withRedux(BasketPopoverCard);
+export default withRedux(basketCardTemplate);

@@ -19,6 +19,8 @@ function App() {
           <Route path="*" element={<ErrorPage />} />
         </Routes>
       </BrowserRouter>
+      
+      {/* Mount taost portal  */}
       <ToastPortal />
     </>
   );

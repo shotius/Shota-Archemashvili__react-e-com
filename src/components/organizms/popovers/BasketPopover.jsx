@@ -1,7 +1,9 @@
 import PropTypes from 'prop-types';
 import { Component } from 'react';
 import { connect } from 'react-redux';
+import { compose } from 'redux';
 import { getCurrencyIcon } from '../../../utils/getCurrencyIcon';
+import { withNavigation } from '../../../utils/HOC/withNavigation';
 import { selectPrice } from '../../../utils/selectPrice';
 import { Button } from '../../atoms/buttons/Button';
 import HeadingSecondary from '../../atoms/typography/HeadingSecondary';
@@ -94,7 +96,8 @@ const mapStateToProps = (state) => ({
   products: state.basket.products,
   currency: state.globals.currency,
 });
-
 const withRedux = connect(mapStateToProps);
 
-export default withRedux(BasketPopover);
+const enhance = compose(withNavigation, withRedux);
+
+export default enhance(BasketPopover);

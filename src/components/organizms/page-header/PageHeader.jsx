@@ -8,6 +8,7 @@ import BasketButton from '../buttons/BasketButton';
 import CurrencySwitcher from '../buttons/CurrencySwitcher';
 import { CATALOG_ROUTE } from '../../../config/constants';
 import NavButton from '../../atoms/buttons/NavButton';
+import { compose } from 'redux';
 
 class PageHeader extends Component {
   constructor(props) {
@@ -69,4 +70,6 @@ const mapStateToProps = (state) => ({
 
 const withRedux = connect(mapStateToProps);
 
-export default withRedux(withNavigation(PageHeader));
+const enhance = compose(withNavigation, withRedux);
+
+export default enhance(PageHeader);

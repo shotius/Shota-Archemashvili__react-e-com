@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import { Component, createRef } from 'react';
 import { connect } from 'react-redux';
+import { compose } from 'redux';
 import { addItemToBasket } from '../../../../redux/features/basket/basketSlice';
 import { setToast } from '../../../../redux/features/globalState/globalSlice';
 import { getCurrencyIcon } from '../../../../utils/getCurrencyIcon';
@@ -95,7 +96,7 @@ class ProductDetailDescription extends Component {
         title: 'Product added to the busket',
         position: 'top-left',
         duration: 3000,
-        status: 'info',
+        status: 'success',
       });
     }
   };
@@ -209,4 +210,6 @@ const withRedux = connect(mapStateToProps, {
   setToast,
 });
 
-export default withRedux(withParams(ProductDetailDescription));
+const enhance = compose(withRedux, withParams);
+
+export default enhance(ProductDetailDescription);

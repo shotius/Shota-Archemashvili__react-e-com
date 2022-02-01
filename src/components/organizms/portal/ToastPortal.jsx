@@ -32,7 +32,7 @@ class ToastPortal extends Component {
       const lastToast = toasts[toasts.length - 1];
       // remove last added toast after timout
       setTimeout(() => {
-        this.props.removeToast(lastToast.id);
+        // this.props.removeToast(lastToast.id);
       }, lastToast.duration);
     }
   }
