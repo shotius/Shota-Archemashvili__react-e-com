@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types';
 import { Component } from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom/cjs/react-router-dom.min';
 import { compose } from 'redux';
 import { getCurrencyIcon } from '../../../utils/getCurrencyIcon';
-import { withNavigation } from '../../../utils/HOC/withNavigation';
 import { selectPrice } from '../../../utils/selectPrice';
 import { Button } from '../../atoms/buttons/Button';
 import HeadingSecondary from '../../atoms/typography/HeadingSecondary';
@@ -16,7 +16,7 @@ import { styleClasses } from './styleClasses';
 
 class BasketPopover extends Component {
   render() {
-    const { isOpen, currency, onClose, products } = this.props;
+    const { isOpen, currency, onClose, products, history } = this.props;
     const { basketPopoverClass } = styleClasses.call(this);
 
     // calculate total price
@@ -67,7 +67,12 @@ class BasketPopover extends Component {
               </div>
               {/* Basket Button */}
               <div className="-flex -justify-between">
-                <Button className="btn--outline -w-full -mr-6">View Bag</Button>
+                <Button
+                  className="btn--outline -w-full -mr-6"
+                  onClick={() => history.push('/basket')}
+                >
+                  View Bag
+                </Button>
                 <Button className="btn--primary -w-full -ml-6">
                   Check Out
                 </Button>
@@ -98,6 +103,6 @@ const mapStateToProps = (state) => ({
 });
 const withRedux = connect(mapStateToProps);
 
-const enhance = compose(withNavigation, withRedux);
+const enhance = compose(withRouter, withRedux);
 
 export default enhance(BasketPopover);

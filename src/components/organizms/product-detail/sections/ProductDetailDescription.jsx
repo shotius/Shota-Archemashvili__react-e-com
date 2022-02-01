@@ -94,7 +94,7 @@ class ProductDetailDescription extends Component {
       // display notiffication
       this.props.setToast({
         title: 'Product added to the busket',
-        position: 'top-left',
+        position: 'top',
         duration: 3000,
         status: 'success',
       });

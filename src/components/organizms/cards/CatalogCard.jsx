@@ -1,16 +1,16 @@
-import { Component, createRef } from 'react';
 import PropTypes from 'prop-types';
-import { AspectRatio } from '../../molecules/AspectRatio';
-import basketIcon from '../../../assets/icons/basketLarge.svg';
-import { Button } from '../../atoms/buttons/Button';
-import { withNavigation } from '../../../utils/HOC/withNavigation';
+import { Component, createRef } from 'react';
 import { connect } from 'react-redux';
-import { getCurrencyIcon } from '../../../utils/getCurrencyIcon';
-import { CATALOG_ROUTE } from '../../../config/constants';
-import { styleClasses } from './styleClasses';
-import { Heading } from '../../atoms/typography/Heading';
-import { selectPrice } from '../../../utils/selectPrice';
+import { withRouter } from 'react-router-dom';
 import { compose } from 'redux';
+import basketIcon from '../../../assets/icons/basketLarge.svg';
+import { CATALOG_ROUTE } from '../../../config/constants';
+import { getCurrencyIcon } from '../../../utils/getCurrencyIcon';
+import { selectPrice } from '../../../utils/selectPrice';
+import { Button } from '../../atoms/buttons/Button';
+import { Heading } from '../../atoms/typography/Heading';
+import { AspectRatio } from '../../molecules/AspectRatio';
+import { styleClasses } from './styleClasses';
 
 class CatalogCard extends Component {
   constructor(props) {
@@ -36,7 +36,7 @@ class CatalogCard extends Component {
 
   handleNavigation() {
     const { id, category } = this.props.product;
-    this.props.navigate(`${CATALOG_ROUTE}/${category}/${id}`);
+    this.props.history.push(`${CATALOG_ROUTE}/${category}/${id}`);
   }
 
   render() {
@@ -113,6 +113,6 @@ const mapStateToProps = (state) => ({
 });
 const withRedux = connect(mapStateToProps);
 
-const enhance = compose(withNavigation, withRedux);
+const enhance = compose(withRouter, withRedux);
 
 export default enhance(CatalogCard);

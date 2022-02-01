@@ -1,29 +1,51 @@
 import CatalogPage from './pages/CatalogPage';
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 import { BasketPage } from './pages/BasketPage';
 import ProductPage from './pages/ProductPage';
 import { ErrorPage } from './pages/ErrorPage';
 import ToastPortal from './components/organizms/portal/ToastPortal';
+import { Component } from 'react';
 
-function App() {
+class App extends Component {
+  render() {
+    return (
+      <>
+        <BrowserRouter>
+          <Switch>
+            <Route
+              path="/"
+              exact
+              render={() => <Redirect to="/catalog/tech" />}
+            />
+            <Route
+              path="/catalog"
+              exact
+              render={() => <Redirect to="/catalog/clothes" />}
+            />
+            <Route
+              path="/catalog/:category"
+              exact
+              render={(props) => <CatalogPage {...props} />}
+            />
+            <Route
+              path="/catalog/:category/:productId"
+              exact
+              render={(props) => <ProductPage {...props} />}
+            />
+            <Route
+              path="/basket"
+              exact
+              render={(props) => <BasketPage {...props} />}
+            />
+            <Route path="*" render={(props) => <ErrorPage {...props} />} />
+          </Switch>
+        </BrowserRouter>
 
-  return (
-    <>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Navigate to="/catalog/tech" replace />} />
-          <Route path="/catalog" element={<Navigate to="/catalog/clothes" replace />} />
-          <Route path="/catalog/:category" element={<CatalogPage />} />
-          <Route path="/catalog/:category/:productId" element={<ProductPage />} />
-          <Route path="/basket" element={<BasketPage />} />
-          <Route path="*" element={<ErrorPage />} />
-        </Routes>
-      </BrowserRouter>
-      
-      {/* Mount taost portal  */}
-      <ToastPortal />
-    </>
-  );
+        {/* Mount taost portal  */}
+        <ToastPortal />
+      </>
+    );
+  }
 }
 
 export default App;

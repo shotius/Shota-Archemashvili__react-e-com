@@ -1,7 +1,6 @@
 import { Component } from 'react';
 import { connect } from 'react-redux';
 import shoppingBagIcon from '../../../assets/icons/shoppingIcon.svg';
-import { withNavigation } from '../../../utils/HOC/withNavigation';
 import { Button } from '../../atoms/buttons/Button';
 import { ButtonGroup } from '../../molecules/ButtonGroup';
 import BasketButton from '../buttons/BasketButton';
@@ -9,6 +8,7 @@ import CurrencySwitcher from '../buttons/CurrencySwitcher';
 import { CATALOG_ROUTE } from '../../../config/constants';
 import NavButton from '../../atoms/buttons/NavButton';
 import { compose } from 'redux';
+import { withRouter } from 'react-router-dom';
 
 class PageHeader extends Component {
   constructor(props) {
@@ -28,7 +28,7 @@ class PageHeader extends Component {
 
   render() {
     const { isBasketPopoverOpen, isCurrencyOpen } = this.state;
-    const { defaultCategory: selectedCategory, navigate } = this.props;
+    const { defaultCategory: selectedCategory, history } = this.props;
 
     return (
       <div className="header -center_content">
@@ -42,7 +42,7 @@ class PageHeader extends Component {
           {/* Logo */}
           <Button
             className="header__btn_shopping"
-            onClick={() => navigate(`${CATALOG_ROUTE}/${selectedCategory}`)}
+            onClick={() => history.push(`${CATALOG_ROUTE}/${selectedCategory}`)}
           >
             <img src={shoppingBagIcon} alt="button for shopping" />
           </Button>
@@ -70,6 +70,6 @@ const mapStateToProps = (state) => ({
 
 const withRedux = connect(mapStateToProps);
 
-const enhance = compose(withNavigation, withRedux);
+const enhance = compose(withRouter, withRedux);
 
 export default enhance(PageHeader);

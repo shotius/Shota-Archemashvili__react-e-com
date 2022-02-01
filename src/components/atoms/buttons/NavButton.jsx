@@ -8,9 +8,8 @@ class NavButton extends Component {
     return (
       <NavLink
         title={this.props.children}
-        className={({ isActive }) =>
-          `nav__btn ${isActive && 'nav__btn--active'}`
-        }
+        className="nav__btn"
+        activeClassName="nav__btn--active"
         to={to}
       >
         {this.props.children}
