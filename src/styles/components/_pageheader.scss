@@ -4,6 +4,7 @@
   width: 100%;
   background-color: white;
   z-index: $modal;
+  // navigation buttons
   .nav {
     &__btn {
       cursor: pointer;
@@ -31,6 +32,7 @@
         visibility: hidden;
         font-weight: 600;
       }
+
       &--active {
         color: $green;
         font-weight: 600;
@@ -56,13 +58,39 @@
         background-color: transparent;
       }
     }
-    &__btn_basket {
+    &__btn-basket {
       padding: 0rem 1rem;
+      position: relative;
       &:hover {
         background-color: transparent;
       }
+      // badge on basket
+      &__badge {
+        position: absolute;
+        top: 38%;
+        transform: translateY(-50%);
+        left: 60%;
+        font-size: 14px;
+        background: black;
+        border-radius: 100px;
+        padding: 5px 6px 4px;
+        min-height: 16px;
+        display: flex;
+        align-items: center;
+        // in the badge I have a <p> tag to style text
+        p {
+          padding: 0;
+          color: #fff;
+          font-family: Roboto;
+          border-radius: 8px;
+          padding-top: 0px;
+          font-size: 14px;
+          line-height: 10px;
+        }
+      }
     }
   }
+  // site logo (shopping bag) 
   &__btn_shopping {
     @include center-absolute;
     position: absolute;
@@ -75,6 +103,7 @@
     }
   }
 
+  // buttons on the right side of the navigation
   &__btn_group {
     @include center;
     align-self: stretch;

@@ -1,21 +1,13 @@
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
-import { Component, PureComponent } from 'react';
+import { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { removeToast } from '../../../redux/features/globalState/globalSlice';
 import TextMain from '../../atoms/typography/TextMain';
 
 class Toast extends PureComponent {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
-
-  componentDidMount = () => {};
-
   render() {
     const { toast, removeToast, className } = this.props;
-
     const cn = classNames('toast', `toast--${toast.status}`, className);
 
     return (
