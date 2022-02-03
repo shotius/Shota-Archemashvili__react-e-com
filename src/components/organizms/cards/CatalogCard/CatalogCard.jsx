@@ -6,7 +6,6 @@ import { compose } from 'redux';
 import basketIcon from '../../../../assets/icons/basketLarge.svg';
 import { CATALOG_ROUTE } from '../../../../config/constants';
 import globalsSelectors from '../../../../redux/features/globalState/globalsSelectors';
-import { getCurrencyIcon } from '../../../../utils/getCurrencyIcon';
 import { selectPrice } from '../../../../utils/selectPrice';
 import { Button } from '../../../atoms/buttons/Button';
 import { Heading } from '../../../atoms/typography/Heading';

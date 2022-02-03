@@ -56,10 +56,11 @@ const getAllCategoryProducts = async () => {
  * @returns Category
  */
 const getSingleCategory = async (category) => {
-  return await client.query({
+  const res = await client.query({
     query: SINGLE_CATEGORY,
     variables: { category: { title: category } },
   });
+  return res.data.category.products;
 };
 
 /** Reading from cache */
