@@ -1,6 +1,6 @@
 import { Component } from 'react';
 import ScrollToTop from '../components/molecules/ScrollToTop';
-import ProductDetailDescription from '../components/organizms/product-detail/sections/ProductDetailDescription';
+import { ProductPageDescriptionLeft } from '../components/organizms/product-detail/sections/ProductPageDescriptionLeft';
 import ProductPageMoreDeatails from '../components/organizms/product-detail/sections/ProductPageMoreDeatails';
 import ProductPageSlider from '../components/organizms/Sliders/ProductPageSlider';
 import { PublicLayout } from '../components/templates/PublicLayout';
@@ -80,7 +80,7 @@ class ProductPage extends Component {
           <div className="product-page__container">
             <ProductPageSlider thumbs={thumbs} />
             <div className="product-page__pr-details pr-details">
-              <ProductDetailDescription
+              <ProductPageDescriptionLeft
                 descriptionExpanded={this.state.descriptionExpanded}
                 loadingPartialProduct={loadingPartialProduct}
                 loadingProduct={loadingProduct}

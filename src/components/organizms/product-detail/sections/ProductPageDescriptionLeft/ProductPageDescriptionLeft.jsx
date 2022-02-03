@@ -2,21 +2,29 @@ import PropTypes from 'prop-types';
 import { Component, createRef } from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
-import basketSelectors from '../../../../redux/features/basket/basketSelectors';
-import { addItemToBasket } from '../../../../redux/features/basket/basketSlice';
-import { setToast } from '../../../../redux/features/globalState/globalSlice';
-import globalsSelectors from '../../../../redux/features/globalState/globalsSelectors';
-import { withParams } from '../../../../utils/HOC/withParams';
-import { selectPrice } from '../../../../utils/selectPrice';
-import AttributeButton from '../../../atoms/buttons/AttributeButton';
-import { Button } from '../../../atoms/buttons/Button';
-import ErrorText from '../../../atoms/typography/ErrorText';
-import { Heading } from '../../../atoms/typography/Heading';
-import TextMain from '../../../atoms/typography/TextMain';
-import PriceWithIcon from '../../../molecules/PriceWithIcon';
+import basketSelectors from '../../../../../redux/features/basket/basketSelectors';
+import { addItemToBasket } from '../../../../../redux/features/basket/basketSlice';
+import { setToast } from '../../../../../redux/features/globalState/globalSlice';
+import globalsSelectors from '../../../../../redux/features/globalState/globalsSelectors';
+import { withParams } from '../../../../../utils/HOC/withParams';
+import { selectPrice } from '../../../../../utils/selectPrice';
+import AttributeButton from '../../../../atoms/buttons/AttributeButton';
+import { Button } from '../../../../atoms/buttons/Button';
+import ErrorText from '../../../../atoms/typography/ErrorText';
+import { Heading } from '../../../../atoms/typography/Heading';
+import TextMain from '../../../../atoms/typography/TextMain';
+import PriceWithIcon from '../../../../molecules/PriceWithIcon';
 import { styleClasses } from './styleClasses';
+import productPageDeatailLeftUtils from './utils';
 
-class ProductDetailDescription extends Component {
+const {
+  shouldShowMoreButtonBeVisible,
+  shouldDescriptionButtonBeVisible,
+  getAttributes,
+  getUpdatedAttibutes,
+} = productPageDeatailLeftUtils;
+
+class ProductPageDescriptionLeft extends Component {
   constructor(props) {
     super(props);
     this.descriptionContainerRef = createRef();
@@ -26,41 +34,20 @@ class ProductDetailDescription extends Component {
       selectedAttributes: {},
       fieldErrors: {},
     };
+    this.getAttributes = getAttributes.bind(this);
+    this.shouldDescriptionButtonBeVisible =
+      shouldDescriptionButtonBeVisible.bind(this);
+    this.getUpdatedAttibutes = getUpdatedAttibutes.bind(this);
   }
 
   componentDidUpdate() {
-    // show descripiton "more" button
-    if (
-      !this.state.isDescriptionButtonShown &&
-      this.shouldDescriptionButtonBeVisible()
-    ) {
+    if (shouldShowMoreButtonBeVisible.call(this)) {
       this.setState({ isDescriptionButtonShown: true });
     }
   }
 
-  // returns true if product is fetched and product description is enough to fill the container
-  shouldDescriptionButtonBeVisible = () => {
-    return (
-      this.props.product &&
-      this.descriptionContainerRef.current &&
-      this.descriptionRef.current &&
-      this.descriptionContainerRef.current.clientHeight <=
-        this.descriptionRef.current.clientHeight
-    );
-  };
-
-  // handles attribute button click
-  handleSelectAttr = ({ attributeName, value }) => {
-    const selectedObj = { ...this.state.selectedAttributes };
-
-    // If attribute is in selected remove else add in the obj
-    if (selectedObj[attributeName] !== value) {
-      selectedObj[attributeName] = value;
-    } else {
-      delete selectedObj[attributeName];
-    }
-
-    this.setState({ selectedAttributes: selectedObj });
+  handleSelectAttr = (props) => {
+    this.setState({ selectedAttributes: this.getUpdatedAttibutes(props) });
   };
 
   // handle adding to the basket
@@ -193,7 +180,7 @@ class ProductDetailDescription extends Component {
   }
 }
 
-ProductDetailDescription.propTypes = {
+ProductPageDescriptionLeft.propTypes = {
   loadingPartialProduct: PropTypes.bool.isRequired,
   loadingProduct: PropTypes.bool.isRequired,
   product: PropTypes.any,
@@ -213,4 +200,4 @@ const withRedux = connect(mapStateToProps, {
 
 const enhance = compose(withRedux, withParams);
 
-export default enhance(ProductDetailDescription);
+export default enhance(ProductPageDescriptionLeft);
