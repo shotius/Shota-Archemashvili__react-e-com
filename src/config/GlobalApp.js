@@ -12,7 +12,7 @@ class GlobalApp {
       return this.client;
     }
 
-    // I desable typename in the cache because I had an issue
+    // I disabled typename in the cache because I had an issue
     // with sizes cache in clothes category
     const client = new ApolloClient({
       uri: BACKEND_URL,
@@ -24,7 +24,7 @@ class GlobalApp {
     return client;
   }
 
-  // get Apollo client instanse
+  // get Apollo client instanse - Singleton
   get apolloClient() {
     if (this.client) {
       return this.client;

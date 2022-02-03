@@ -3,14 +3,14 @@ import { Component, createRef } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { compose } from 'redux';
-import basketIcon from '../../../assets/icons/basketLarge.svg';
-import { CATALOG_ROUTE } from '../../../config/constants';
-import globalsSelectors from '../../../redux/features/globalState/globalsSelectors';
-import { getCurrencyIcon } from '../../../utils/getCurrencyIcon';
-import { selectPrice } from '../../../utils/selectPrice';
-import { Button } from '../../atoms/buttons/Button';
-import { Heading } from '../../atoms/typography/Heading';
-import { AspectRatio } from '../../molecules/AspectRatio';
+import basketIcon from '../../../../assets/icons/basketLarge.svg';
+import { CATALOG_ROUTE } from '../../../../config/constants';
+import globalsSelectors from '../../../../redux/features/globalState/globalsSelectors';
+import { getCurrencyIcon } from '../../../../utils/getCurrencyIcon';
+import { selectPrice } from '../../../../utils/selectPrice';
+import { Button } from '../../../atoms/buttons/Button';
+import { Heading } from '../../../atoms/typography/Heading';
+import { AspectRatio } from '../../../molecules/AspectRatio';
 import { styleClasses } from './styleClasses';
 
 class CatalogCard extends Component {
@@ -112,8 +112,8 @@ CatalogCard.propTypes = {
 const mapStateToProps = (state) => ({
   currency: globalsSelectors.getCurrency(state),
 });
-const withRedux = connect(mapStateToProps);
 
+const withRedux = connect(mapStateToProps);
 const enhance = compose(withRouter, withRedux);
 
 export default enhance(CatalogCard);

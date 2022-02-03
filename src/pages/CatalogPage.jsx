@@ -1,7 +1,7 @@
 import { Component } from 'react';
 import { Heading } from '../components/atoms/typography/Heading';
 import LoadingCards from '../components/molecules/LoadingCards';
-import CatalogCard from '../components/organizms/cards/CatalogCard';
+import CatalogCard from '../components/organizms/cards/CatalogCard/CatalogCard';
 import { PublicLayout } from '../components/templates/PublicLayout';
 import productServices from '../services/productServices';
 import { withParams } from '../utils/HOC/withParams';

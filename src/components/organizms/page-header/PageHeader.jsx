@@ -70,7 +70,6 @@ const mapStateToProps = (state) => ({
 });
 
 const withRedux = connect(mapStateToProps);
-
 const enhance = compose(withRouter, withRedux);
 
 export default enhance(PageHeader);

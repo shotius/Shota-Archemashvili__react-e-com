@@ -2,7 +2,7 @@ import classNames from 'classnames';
 
 export function styleClasses() {
   const { isHovered } = this.state;
-  const { product } = this.props;
+  const { product, size } = this.props;
 
   const imgClassName = classNames('catalog-card__pic', {
     'catalog-card__pic--hovered': isHovered,
@@ -20,5 +20,10 @@ export function styleClasses() {
     'catalog-card__wrapper--disabled': !product.inStock,
   });
 
-  return { imgClassName, bsktBtnClass, overlayClass, catalogWrapperClass };
+  return {
+    imgClassName,
+    bsktBtnClass,
+    overlayClass,
+    catalogWrapperClass,
+  };
 }

@@ -2,7 +2,7 @@
   display: flex;
 }
 
-$positions: 'center', 'space-between', "space-around";
+$positions: 'center', 'space-between', 'space-around';
 
 @each $pos in $positions {
   .justify-#{$pos} {
@@ -10,7 +10,6 @@ $positions: 'center', 'space-between', "space-around";
     justify-content: $pos;
   }
 }
-
 
 .-center_content {
   @include center;
@@ -29,7 +28,7 @@ $positions: 'center', 'space-between', "space-around";
 }
 
 .-center-absolute {
-  @include center-absolute
+  @include center-absolute;
 }
 
 .-position-absolute {
@@ -46,4 +45,8 @@ $positions: 'center', 'space-between', "space-around";
 
 .-hidden {
   visibility: hidden;
+}
+
+.-display-none {
+  display: none;
 }

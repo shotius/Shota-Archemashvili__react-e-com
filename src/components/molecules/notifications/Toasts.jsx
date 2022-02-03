@@ -23,6 +23,7 @@ class Toasts extends Component {
 
 Toasts.propTypes = {};
 
+/** Export */
 const mapStateToProps = (state) => ({
   toasts: globalsSelectors.getToasts(state),
 });

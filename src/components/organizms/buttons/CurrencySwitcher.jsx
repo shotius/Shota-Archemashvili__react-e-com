@@ -40,8 +40,11 @@ CurrencySwitcher.propTypes = {
   onToggle: PropTypes.func.isRequired,
 };
 
+/** Export */
 const mapStateToProps = (state) => ({
   currency: globalsSelectors.getCurrency(state),
 });
 
-export default connect(mapStateToProps)(CurrencySwitcher);
+const withRedux = connect(mapStateToProps);
+
+export default withRedux(CurrencySwitcher);

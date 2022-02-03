@@ -15,20 +15,29 @@
   &--secondary {
     font-weight: 400;
     font-size: 3rem;
+    line-height: 3.5rem;
+  }
+  // weight
+  &--light {
+    font-weight: 300;
+  }
+  &--semi-bold {
+    font-weight: 500;
   }
   &--bold {
     font-weight: 700;
   }
+  
 }
 
 .text {
-  padding: 1rem 0px;
-  // color: $black;
+  padding: 1rem 0px ;
   color: inherit; 
-  line-height: 2.59rem;
+  line-height: 2.39rem;
   font-weight: 400;
   font-family: 'Raleway', sans-serif;
   padding: 0;
+  
   // size
   &--regular {
     font-size: 1.6rem;
@@ -51,6 +60,7 @@
   &--bold {
     font-weight: 700;
   }
+  
   // font
   &--roboto {
     font-family: 'Roboto', sans-serif;
