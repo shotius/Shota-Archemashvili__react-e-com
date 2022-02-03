@@ -6,6 +6,7 @@ import basketSelectors from '../../../../../redux/features/basket/basketSelector
 import { addItemToBasket } from '../../../../../redux/features/basket/basketSlice';
 import { setToast } from '../../../../../redux/features/globalState/globalSlice';
 import globalsSelectors from '../../../../../redux/features/globalState/globalsSelectors';
+import { isObjectEmpty } from '../../../../../utils/helpers';
 import { withParams } from '../../../../../utils/HOC/withParams';
 import { selectPrice } from '../../../../../utils/selectPrice';
 import AttributeButton from '../../../../atoms/buttons/AttributeButton';
@@ -20,8 +21,9 @@ import productPageDeatailLeftUtils from './utils';
 const {
   shouldShowMoreButtonBeVisible,
   shouldDescriptionButtonBeVisible,
-  getAttributes,
+  getSelectedAttributes,
   getUpdatedAttibutes,
+  validateAttributes,
 } = productPageDeatailLeftUtils;
 
 class ProductPageDescriptionLeft extends Component {
@@ -34,10 +36,12 @@ class ProductPageDescriptionLeft extends Component {
       selectedAttributes: {},
       fieldErrors: {},
     };
-    this.getAttributes = getAttributes.bind(this);
+    this.getSelectedAttributes = getSelectedAttributes.bind(this);
     this.shouldDescriptionButtonBeVisible =
       shouldDescriptionButtonBeVisible.bind(this);
     this.getUpdatedAttibutes = getUpdatedAttibutes.bind(this);
+    this.validateAttributes = validateAttributes.bind(this);
+    this.styleClasses = styleClasses.bind(this);
   }
 
   componentDidUpdate() {
@@ -50,38 +54,24 @@ class ProductPageDescriptionLeft extends Component {
     this.setState({ selectedAttributes: this.getUpdatedAttibutes(props) });
   };
 
-  // handle adding to the basket
   handleAddToBasket = () => {
-    const { selectedAttributes } = this.state;
-    // list all attrubute names
-    // if there are not some attributes selected give an error
-    const attributeNames = this.props.product.attributes.map((attr) => attr.id);
-    const selectedAttributeKeys = Object.keys(selectedAttributes);
+    const { addItemToBasket, setToast } = this.props;
+    const selectedAttributes = this.getSelectedAttributes();
+    const fieldErrors = this.validateAttributes();
 
-    // validation
-    // go through all attributes and check if all of them are selected
-    const fieldErrors = {};
-    for (let attr of attributeNames) {
-      if (!selectedAttributeKeys.includes(attr)) {
-        fieldErrors[attr] = `${attr} is not selected`;
-      }
-    }
-
-    // set Error fields
     this.setState({ fieldErrors });
 
     // If error fields were empty - submit
-    if (!Object.keys(fieldErrors).length) {
+    if (!isObjectEmpty(fieldErrors)) {
       const { attributes, category, description, ...productForBasket } =
         this.props.product;
 
-      this.props.addItemToBasket({
+      addItemToBasket({
         ...productForBasket,
         attributes: selectedAttributes,
       });
 
-      // display notiffication
-      this.props.setToast({
+      setToast({
         title: 'Product added to the busket',
         position: 'top',
         duration: 3000,
@@ -109,7 +99,7 @@ class ProductPageDescriptionLeft extends Component {
       descriptionClass,
       productNameClass,
       descriptionExpandClass,
-    } = styleClasses.call(this);
+    } = this.styleClasses();
 
     return (
       <div className="pr-details__container">
