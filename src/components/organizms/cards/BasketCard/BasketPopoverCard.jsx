@@ -12,8 +12,9 @@ import {
 import { connect } from 'react-redux';
 import globalsSelectors from '../../../../redux/features/globalState/globalsSelectors';
 import basketPopoverCardUtils from './basketPopoverCardUtils';
-import HeadingSecondary from '../../../atoms/typography/HeadingSecondary';
 import { styleClasses } from './styleClasses';
+import { setToast } from '../../../../redux/features/globalState/globalSlice';
+import PriceWithIcon from '../../../molecules/PriceWithIcon';
 
 const { getAttrButton, getPictureWidth } = basketPopoverCardUtils;
 
@@ -23,7 +24,15 @@ class BasketPopoverCard extends Component {
     const attributesKeys = Object.keys(product.attributes);
     const price = selectPrice(product.prices, currency);
 
-    const { cardClass, brandNameClass, priceClass } = styleClasses.call(this);
+    const {
+      cardClass,
+      brandNameClass,
+      priceClass,
+      btnMinusClass,
+      btnPlusClass,
+      productCount,
+      productNameClass,
+    } = styleClasses.call(this);
 
     return (
       <div className={cardClass}>
@@ -32,13 +41,12 @@ class BasketPopoverCard extends Component {
           {/* Headings */}
           <div>
             <p className={brandNameClass}>{product.brand}</p>
-            <TextRegular>{product.name}</TextRegular>
+            <p className={productNameClass}>{product.name}</p>
           </div>
 
           {/* Price  */}
           <TextMain className={priceClass}>
-            {getCurrencyIcon(currency)}
-            {(price * product.count).toFixed(2)}
+            <PriceWithIcon price={price * product.count} />
           </TextMain>
 
           {/* Attributes  */}
@@ -51,16 +59,20 @@ class BasketPopoverCard extends Component {
 
         {/* Add remove item  */}
         <div className="basket_popover__controls">
-          <Button
-            className="btn--outline btn--small basket_popover__plus"
-            onClick={() => increase(product)}
-          >
+          <Button className={btnPlusClass} onClick={() => increase(product)}>
             +
           </Button>
-          <TextRegular>{product.count}</TextRegular>
+          <TextRegular className={productCount}>{product.count}</TextRegular>
           <Button
-            className="btn--outline btn--small basket_popover__minus"
-            onClick={() => decrease(product)}
+            className={btnMinusClass}
+            onClick={() => {
+              if (product.count === 1)
+                this.props.setToast({
+                  title: `${product.name} removed from basket`,
+                  duration: 3000,
+                });
+              decrease(product);
+            }}
           >
             -
           </Button>
@@ -92,6 +104,7 @@ const mapStateToProps = (state) => ({
 const withRedux = connect(mapStateToProps, {
   increase: addItemToBasket,
   decrease: removeItemFromBasket,
+  setToast,
 });
 
 export default withRedux(BasketPopoverCard);

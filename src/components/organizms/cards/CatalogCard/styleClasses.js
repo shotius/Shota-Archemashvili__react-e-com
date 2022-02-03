@@ -2,7 +2,7 @@ import classNames from 'classnames';
 
 export function styleClasses() {
   const { isHovered } = this.state;
-  const { product, size } = this.props;
+  const { product } = this.props;
 
   const imgClassName = classNames('catalog-card__pic', {
     'catalog-card__pic--hovered': isHovered,

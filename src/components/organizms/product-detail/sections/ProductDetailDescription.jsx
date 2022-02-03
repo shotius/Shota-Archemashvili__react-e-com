@@ -6,7 +6,6 @@ import basketSelectors from '../../../../redux/features/basket/basketSelectors';
 import { addItemToBasket } from '../../../../redux/features/basket/basketSlice';
 import { setToast } from '../../../../redux/features/globalState/globalSlice';
 import globalsSelectors from '../../../../redux/features/globalState/globalsSelectors';
-import { getCurrencyIcon } from '../../../../utils/getCurrencyIcon';
 import { withParams } from '../../../../utils/HOC/withParams';
 import { selectPrice } from '../../../../utils/selectPrice';
 import AttributeButton from '../../../atoms/buttons/AttributeButton';
@@ -14,6 +13,7 @@ import { Button } from '../../../atoms/buttons/Button';
 import ErrorText from '../../../atoms/typography/ErrorText';
 import { Heading } from '../../../atoms/typography/Heading';
 import TextMain from '../../../atoms/typography/TextMain';
+import PriceWithIcon from '../../../molecules/PriceWithIcon';
 import { styleClasses } from './styleClasses';
 
 class ProductDetailDescription extends Component {
@@ -169,8 +169,7 @@ class ProductDetailDescription extends Component {
             price:
           </Heading>
           <TextMain className="text--bold">
-            {getCurrencyIcon(currency)}
-            {price}
+            <PriceWithIcon price={price} />
           </TextMain>
         </div>
 

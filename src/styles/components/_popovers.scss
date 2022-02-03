@@ -54,7 +54,7 @@
   &__attributes {
     display: flex;
     gap: 8px;
-    margin-top: 10px;
+    margin-top: 2rem;;
   }
 
   &__controls {
@@ -72,9 +72,9 @@
     font-size: 35px;
     font-weight: 300;
   }
+
   &__total-price {
-    display: flex;
-    justify-content: space-between;
+    @include space-between;
     margin-bottom: 35px;
     margin-top: 22px;
   }

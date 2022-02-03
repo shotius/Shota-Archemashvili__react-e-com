@@ -20,9 +20,13 @@
 
   &--small {
     padding: 0;
-    border: 1.5px solid;
     width: 24px;
     height: 24px;
+  }
+
+  &--square-big {
+    width: 45px;
+    height: 45px;
   }
 
   &--primary {

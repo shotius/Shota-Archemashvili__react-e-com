@@ -11,6 +11,7 @@ import { selectPrice } from '../../../../utils/selectPrice';
 import { Button } from '../../../atoms/buttons/Button';
 import { Heading } from '../../../atoms/typography/Heading';
 import { AspectRatio } from '../../../molecules/AspectRatio';
+import PriceWithIcon from '../../../molecules/PriceWithIcon';
 import { styleClasses } from './styleClasses';
 
 class CatalogCard extends Component {
@@ -83,8 +84,7 @@ class CatalogCard extends Component {
                 {product.name}
               </Heading>
               <Heading className="catalog-card__price">
-                {getCurrencyIcon(currency)}
-                {price}
+                <PriceWithIcon price={price} />
               </Heading>
             </div>
           </div>

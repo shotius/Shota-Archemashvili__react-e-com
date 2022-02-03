@@ -4,15 +4,14 @@ import Divider from '../components/atoms/Divider';
 import HeadingSecondary from '../components/atoms/typography/HeadingSecondary';
 import TextRegular from '../components/atoms/typography/TextRegular';
 import TextRoboto from '../components/atoms/typography/TextRoboto';
+import PriceWithIcon from '../components/molecules/PriceWithIcon';
 import BasketPopoverCard from '../components/organizms/cards/BasketCard/BasketPopoverCard';
 import { PublicLayout } from '../components/templates/PublicLayout';
 import basketSelectors from '../redux/features/basket/basketSelectors';
-import globalsSelectors from '../redux/features/globalState/globalsSelectors';
-import { getCurrencyIcon } from '../utils/getCurrencyIcon';
 
 class BasketPage extends Component {
   render() {
-    const { products, currency, totalPrice } = this.props;
+    const { products, totalPrice } = this.props;
 
     return (
       <PublicLayout>
@@ -20,20 +19,30 @@ class BasketPage extends Component {
           Cart
         </HeadingSecondary>
 
+        {/* Products  */}
         {products.map((product) => (
-          <div>
+          <div key={product.id}>
             <Divider />
-            <BasketPopoverCard key={product.id} product={product} size="big" />
+            <BasketPopoverCard product={product} size="big" />
           </div>
         ))}
 
-        <div className="basket_popover__total-price">
+        {/* Basket empty text  */}
+        {!products.length && (
+          <HeadingSecondary className="page-cart__text-empty">
+            Your basket is empty
+          </HeadingSecondary>
+        )}
+
+        <Divider />
+
+        {/* Total Price  */}
+        <div className="page-cart__totalPrice">
           <TextRoboto className="text--regular text--semi-bold">
             Total:
           </TextRoboto>
           <TextRegular className="text--bold">
-            {getCurrencyIcon(currency)}
-            {totalPrice.toFixed(2)}
+            <PriceWithIcon price={totalPrice} />
           </TextRegular>
         </div>
       </PublicLayout>
@@ -45,7 +54,6 @@ class BasketPage extends Component {
 const mapStateToProps = (state) => ({
   totalPrice: basketSelectors.getTotalPrice(state),
   products: basketSelectors.getProducts(state),
-  currency: globalsSelectors.getCurrency(state),
 });
 
 const withRedux = connect(mapStateToProps);
