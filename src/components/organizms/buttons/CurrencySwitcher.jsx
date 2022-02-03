@@ -7,6 +7,7 @@ import { Button } from '../../atoms/buttons/Button';
 import { connect } from 'react-redux';
 import { getCurrencyIcon } from '../../../utils/getCurrencyIcon';
 import TextRoboto from '../../atoms/typography/TextRoboto';
+import globalsSelectors from '../../../redux/features/globalState/globalsSelectors';
 
 class CurrencySwitcher extends Component {
   render() {
@@ -40,7 +41,7 @@ CurrencySwitcher.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  currency: state.globals.currency,
+  currency: globalsSelectors.getCurrency(state),
 });
 
 export default connect(mapStateToProps)(CurrencySwitcher);

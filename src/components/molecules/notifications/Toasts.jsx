@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import TopToasts from './TopToasts';
 import BottomToasts from './BottomToasts';
 import ToastTopLeft from './ToastTopLeft';
+import globalsSelectors from '../../../redux/features/globalState/globalsSelectors';
 
 class Toasts extends Component {
   render() {
@@ -23,7 +24,7 @@ class Toasts extends Component {
 Toasts.propTypes = {};
 
 const mapStateToProps = (state) => ({
-  toasts: state.globals.toasts,
+  toasts: globalsSelectors.getToasts(state),
 });
 
 const withRedux = connect(mapStateToProps, { removeToast });

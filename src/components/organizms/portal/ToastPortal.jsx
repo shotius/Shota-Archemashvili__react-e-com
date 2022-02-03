@@ -5,6 +5,7 @@ import toastUtils from './toastUtils';
 import { connect } from 'react-redux';
 import { removeToast } from '../../../redux/features/globalState/globalSlice';
 import Toasts from '../../molecules/notifications/Toasts';
+import globalsSelectors from '../../../redux/features/globalState/globalsSelectors';
 
 const { removePortal, hasToastCreated, createRootPortal } = toastUtils;
 
@@ -56,7 +57,7 @@ class ToastPortal extends Component {
 ToastPortal.propTypes = {};
 
 const mapStateToProps = (state) => ({
-  toasts: state.globals.toasts,
+  toasts: globalsSelectors.getToasts(state),
 });
 
 const withRedux = connect(mapStateToProps, { removeToast });

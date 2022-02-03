@@ -9,6 +9,7 @@ import { CATALOG_ROUTE } from '../../../config/constants';
 import NavButton from '../../atoms/buttons/NavButton';
 import { compose } from 'redux';
 import { withRouter } from 'react-router-dom';
+import globalsSelectors from '../../../redux/features/globalState/globalsSelectors';
 
 class PageHeader extends Component {
   constructor(props) {
@@ -65,7 +66,7 @@ class PageHeader extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  defaultCategory: state.globals.defaultCategory,
+  defaultCategory: globalsSelectors.getDefaultCategory(state),
 });
 
 const withRedux = connect(mapStateToProps);

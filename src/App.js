@@ -1,6 +1,6 @@
 import CatalogPage from './pages/CatalogPage';
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
-import { BasketPage } from './pages/BasketPage';
+import CartPage from './pages/CartPage';
 import ProductPage from './pages/ProductPage';
 import { ErrorPage } from './pages/ErrorPage';
 import ToastPortal from './components/organizms/portal/ToastPortal';
@@ -33,9 +33,9 @@ class App extends Component {
               render={(props) => <ProductPage {...props} />}
             />
             <Route
-              path="/basket"
+              path="/cart"
               exact
-              render={(props) => <BasketPage {...props} />}
+              render={(props) => <CartPage {...props} />}
             />
             <Route path="*" render={(props) => <ErrorPage {...props} />} />
           </Switch>

@@ -10,6 +10,7 @@ import {
   removeItemFromBasket,
 } from '../../../redux/features/basket/basketSlice';
 import { connect } from 'react-redux';
+import globalsSelectors from '../../../redux/features/globalState/globalsSelectors';
 
 class BasketPopoverCard extends Component {
   getAttrButton = (attr) => {
@@ -100,7 +101,11 @@ BasketPopoverCard.propTypes = {
   currency: PropTypes.string,
 };
 
-const withRedux = connect(null, {
+const mapStateToProps = (state) => ({
+  currency: globalsSelectors.getCurrency(state),
+});
+
+const withRedux = connect(mapStateToProps, {
   increase: addItemToBasket,
   decrease: removeItemFromBasket,
 });

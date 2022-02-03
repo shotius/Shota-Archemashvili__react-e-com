@@ -29,6 +29,12 @@
 }
 
 @each $i in $nums {
+  .-py-#{$i} {
+    padding: 1px * $i;
+  }
+}
+
+@each $i in $nums {
   .-right-#{$i} {
     right: 1px * $i;
   }

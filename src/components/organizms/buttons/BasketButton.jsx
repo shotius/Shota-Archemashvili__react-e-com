@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import { Component } from 'react';
 import { connect } from 'react-redux';
 import basketIcon from '../../../assets/icons/basketIcon.svg';
+import basketSelectors from '../../../redux/features/basket/basketSelectors';
 import { Button } from '../../atoms/buttons/Button';
 import BasketPopover from '../popovers/BasketPopover';
 import { styleClasses } from './styleClasses';
@@ -36,9 +37,11 @@ BasketButton.propTypes = {
   onToggle: PropTypes.func.isRequired,
 };
 
+/** Export */
 const mapStateToProps = (state) => ({
-  products: state.basket.products,
+  products: basketSelectors.getProducts(state),
 });
+
 const withRedux = connect(mapStateToProps);
 
 export default withRedux(BasketButton);

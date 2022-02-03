@@ -3,6 +3,9 @@ import { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom/cjs/react-router-dom.min';
 import { compose } from 'redux';
+import { getCartRoute } from '../../../config/constants';
+import basketSelectors from '../../../redux/features/basket/basketSelectors';
+import globalsSelectors from '../../../redux/features/globalState/globalsSelectors';
 import { getCurrencyIcon } from '../../../utils/getCurrencyIcon';
 import { selectPrice } from '../../../utils/selectPrice';
 import { Button } from '../../atoms/buttons/Button';
@@ -16,16 +19,9 @@ import { styleClasses } from './styleClasses';
 
 class BasketPopover extends Component {
   render() {
-    const { isOpen, currency, onClose, products, history } = this.props;
+    const { isOpen, currency, onClose, products, totalPrice, history } =
+      this.props;
     const { basketPopoverClass } = styleClasses.call(this);
-
-    // calculate total price
-    const totalPrice = products.length
-      ? products.reduce(
-          (acc, cur) => (acc += selectPrice(cur.prices, currency) * cur.count),
-          0
-        )
-      : 0;
 
     const totalProducts = !!products.length
       ? products.reduce((total, product) => (total += product.count), 0)
@@ -48,11 +44,7 @@ class BasketPopover extends Component {
               {/* Cards  */}
               <div className="basket_popover__cards">
                 {products.map((item, i) => (
-                  <BasketPopoverCard
-                    key={item.id + i}
-                    product={item}
-                    currency={currency}
-                  />
+                  <BasketPopoverCard key={item.id + i} product={item} />
                 ))}
               </div>
 
@@ -65,24 +57,22 @@ class BasketPopover extends Component {
                   {totalPrice.toFixed(2)}
                 </TextRegular>
               </div>
-              {/* Basket Button */}
-              <div className="-flex -justify-between">
-                <Button
-                  className="btn--outline -w-full -mr-6"
-                  onClick={() => history.push('/basket')}
-                >
-                  View Bag
-                </Button>
-                <Button className="btn--primary -w-full -ml-6">
-                  Check Out
-                </Button>
-              </div>
             </>
           ) : (
-            <HeadingSecondary className="-text-center">
+            <HeadingSecondary className="-text-center -pb-32">
               Basket is empty
             </HeadingSecondary>
           )}
+          {/* Basket Button */}
+          <div className="-flex -justify-between">
+            <Button
+              className="btn--outline -w-full -mr-6"
+              onClick={() => history.push(getCartRoute())}
+            >
+              View Bag
+            </Button>
+            <Button className="btn--primary -w-full -ml-6">Check Out</Button>
+          </div>
         </div>
       </>
     );
@@ -97,9 +87,11 @@ BasketPopover.propTypes = {
   currency: PropTypes.string,
 };
 
+/** Export */
 const mapStateToProps = (state) => ({
-  products: state.basket.products,
-  currency: state.globals.currency,
+  totalPrice: basketSelectors.getTotalPrice(state),
+  products: basketSelectors.getProducts(state),
+  currency: globalsSelectors.getCurrency(state),
 });
 const withRedux = connect(mapStateToProps);
 

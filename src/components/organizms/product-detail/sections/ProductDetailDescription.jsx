@@ -2,8 +2,10 @@ import PropTypes from 'prop-types';
 import { Component, createRef } from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
+import basketSelectors from '../../../../redux/features/basket/basketSelectors';
 import { addItemToBasket } from '../../../../redux/features/basket/basketSlice';
 import { setToast } from '../../../../redux/features/globalState/globalSlice';
+import globalsSelectors from '../../../../redux/features/globalState/globalsSelectors';
 import { getCurrencyIcon } from '../../../../utils/getCurrencyIcon';
 import { withParams } from '../../../../utils/HOC/withParams';
 import { selectPrice } from '../../../../utils/selectPrice';
@@ -201,8 +203,8 @@ ProductDetailDescription.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  currency: state.globals.currency,
-  products: state.basket.products,
+  currency: globalsSelectors.getCurrency(state),
+  products: basketSelectors.getProducts(state),
 });
 
 const withRedux = connect(mapStateToProps, {
