@@ -112,7 +112,7 @@ class ProductPageDescriptionLeft extends Component {
         {/* Attributes  */}
         {product.attributes &&
           product.attributes.map((attr) => (
-            <div className="pr-details__sizes" key={attr.id}>
+            <div key={attr.id}>
               {/* Attribute heading  */}
               <Heading className="pr-details__section-heading">
                 {attr.name}:

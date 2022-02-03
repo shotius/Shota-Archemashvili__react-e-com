@@ -1,11 +1,21 @@
 import { Component } from 'react';
-import ScrollToTop from '../components/molecules/ScrollToTop';
-import { ProductPageDescriptionLeft } from '../components/organizms/product-detail/sections/ProductPageDescriptionLeft';
-import ProductPageMoreDeatails from '../components/organizms/product-detail/sections/ProductPageMoreDeatails';
-import ProductPageSlider from '../components/organizms/Sliders/ProductPageSlider';
-import { PublicLayout } from '../components/templates/PublicLayout';
-import productServices from '../services/productServices';
-import { withParams } from '../utils/HOC/withParams';
+import ScrollToTop from '../../components/molecules/ScrollToTop';
+import { ProductPageDescriptionLeft } from '../../components/organizms/product-detail/sections/ProductPageDescriptionLeft';
+import ProductPageMoreDeatails from '../../components/organizms/product-detail/sections/ProductPageMoreDeatails';
+import ProductPageSlider from '../../components/organizms/Sliders/ProductPageSlider';
+import { PublicLayout } from '../../components/templates/PublicLayout';
+import { withParams } from '../../utils/HOC/withParams';
+import productPageUtils from './utils';
+
+const {
+  getCachedProduct,
+  getProductId,
+  updateProductWithCache,
+  updateProductWithPartialProduct,
+  upateProductWithCachAndPartial,
+  getProductCategory,
+  fetchAndUpdateProduct,
+} = productPageUtils;
 
 class ProductPage extends Component {
   constructor(props) {
@@ -16,43 +26,23 @@ class ProductPage extends Component {
       descriptionExpanded: false,
       loadingPartialProduct: false,
     };
+    this.getCachedProduct = getCachedProduct.bind(this);
+    this.getProductId = getProductId.bind(this);
+    this.updateProductWithCache = updateProductWithCache.bind(this);
+    this.updateProductWithPartialProduct =
+      updateProductWithPartialProduct.bind(this);
+    this.getProductCategory = getProductCategory.bind(this);
+    this.upateProductWithCachAndPartial =
+      upateProductWithCachAndPartial.bind(this);
+    this.fetchAndUpdateProduct = fetchAndUpdateProduct.bind(this);
   }
 
   /** update product on mount: from cache or from the server */
   componentDidMount = async () => {
-    const { productId: id, category } = this.props.params;
-
-    // get product data from the apollo cache
-    const cacheProduct = await productServices.getProductFromCache({
-      category,
-      id,
-    });
-
-    // if product is in apollo cache use it and add remaining data to it
-    if (cacheProduct) {
-      this.setState({ product: cacheProduct, loadingPartialProduct: true });
-
-      // get remaining info for the cache product
-      const partialProduct = await productServices.getPartialProduct(id);
-
-      // update ui
-      this.setState({
-        product: {
-          ...this.state.product,
-          ...partialProduct,
-        },
-        loadingPartialProduct: false,
-      });
-    } else {
-      // if product is not in the cache get whole product from the server
-      this.setState({ loadingProduct: true });
-      const [product, { loading }] = await productServices.getSinglProduct(id);
-
-      this.setState({
-        product,
-        loadingProduct: loading,
-      });
-    }
+    const cachedProduct = await this.getCachedProduct();
+    cachedProduct
+      ? this.upateProductWithCachAndPartial(cachedProduct)
+      : this.fetchAndUpdateProduct();
   };
 
   handleToggleDescription = () => {

@@ -10,7 +10,7 @@ const client = GlobalApp.apolloClient;
 
 /**
  * @description Get product with all properties
- * @param {id} id 
+ * @param {id} id
  * @returns {Product}
  */
 const getSinglProduct = async (id) => {
@@ -19,12 +19,12 @@ const getSinglProduct = async (id) => {
     variables: { id },
   });
 
-  return [response.data.product, {loading: response.loading}];
+  return [response.data.product, { loading: response.loading }];
 };
 
 /**
  * @description function returns single product with specific properties
- * @param {string} id 
+ * @param {string} id
  * @returns {Product}
  */
 const getPartialProduct = async (id) => {
@@ -90,10 +90,10 @@ const getCachedCategory = async (category) => {
  */
 const getProductFromCache = async ({ id, category }) => {
   try {
-    const products = await getCachedCategory(category);
+    const cachedProducts = await getCachedCategory(category);
 
-    if (products) {
-      return products.find((product) => product.id === id);
+    if (cachedProducts) {
+      return cachedProducts.find((product) => product.id === id);
     } else {
       return null;
     }
