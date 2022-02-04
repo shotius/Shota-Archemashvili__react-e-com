@@ -1,8 +1,8 @@
-- basket
 - more than 5 photos in the slider
 - Picture in the basket popover
 - animation number on the basket
 - error page
+- attributes on basket page
 
 + The selected options of added to cart products should be visible in cart overlay and in cart page.
 + Ability to add/remove products and change their amounts in cart - on the cart page itself, PLP and PDP should be provided.

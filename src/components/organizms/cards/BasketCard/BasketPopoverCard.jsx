@@ -3,7 +3,6 @@ import TextRegular from '../../../atoms/typography/TextRegular';
 import PropTypes from 'prop-types';
 import TextMain from '../../../atoms/typography/TextMain';
 import { Button } from '../../../atoms/buttons/Button';
-import { getCurrencyIcon } from '../../../../utils/getCurrencyIcon';
 import { selectPrice } from '../../../../utils/selectPrice';
 import {
   addItemToBasket,
@@ -16,12 +15,28 @@ import { styleClasses } from './styleClasses';
 import { setToast } from '../../../../redux/features/globalState/globalSlice';
 import PriceWithIcon from '../../../molecules/PriceWithIcon';
 
-const { getAttrButton, getPictureWidth } = basketPopoverCardUtils;
+const {
+  getAttrButtonSmall,
+  getPictureWidth,
+  getAttrButtonBig,
+  handleEncrease,
+  getAttributeButton,
+} = basketPopoverCardUtils;
 
 class BasketPopoverCard extends Component {
+  constructor(props) {
+    super(props);
+    this.getAttrButtonSmall = getAttrButtonSmall.bind(this);
+    this.getAttrButtonBig = getAttrButtonBig.bind(this);
+    this.handleEncrease = handleEncrease.bind(this);
+    this.getAttributeButton = getAttributeButton.bind(this);
+  }
+
   render() {
-    const { currency, product, increase, decrease, size } = this.props;
-    const attributesKeys = Object.keys(product.attributes);
+    const { currency, product, increase, size } = this.props;
+    const attributes = product.attributes;
+
+    const attributesKeys = Object.keys(attributes) || [];
     const price = selectPrice(product.prices, currency);
 
     const {
@@ -51,9 +66,7 @@ class BasketPopoverCard extends Component {
 
           {/* Attributes  */}
           <div className="basket_popover__attributes">
-            {/* Only sizes and colors will be displayed  */}
-            {attributesKeys &&
-              attributesKeys.map((attr) => getAttrButton.call(this, attr))}
+            {attributesKeys.map((attr) => this.getAttributeButton(attr))}
           </div>
         </div>
 
@@ -63,17 +76,7 @@ class BasketPopoverCard extends Component {
             +
           </Button>
           <TextRegular className={productCount}>{product.count}</TextRegular>
-          <Button
-            className={btnMinusClass}
-            onClick={() => {
-              if (product.count === 1)
-                this.props.setToast({
-                  title: `${product.name} removed from basket`,
-                  duration: 3000,
-                });
-              decrease(product);
-            }}
-          >
+          <Button className={btnMinusClass} onClick={this.handleEncrease}>
             -
           </Button>
         </div>

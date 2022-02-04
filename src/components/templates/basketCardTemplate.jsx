@@ -33,7 +33,7 @@ class basketCardTemplate extends Component {
           <div className="-flex -gap-8">
             {/* Only sizes and colors will be displayed  */}
             {attributesKeys &&
-              attributesKeys.map((attr) => this.getAttrButton(attr))}
+              attributesKeys.map((attr) => this.getAttrButtonSmall(attr))}
           </div>
         </div>
 
