@@ -23,7 +23,7 @@
     background-color: transparent;
     z-index: 1;
     cursor: initial;
-    
+
     &--active {
       display: block;
     }
@@ -33,7 +33,7 @@
       text-align: center;
       display: block;
       color: black;
-      opacity: .4;
+      opacity: 0.4;
     }
   }
   &__picture-container {
@@ -81,5 +81,69 @@
   &__price {
     font-size: 1.8rem;
     font-weight: 500;
+  }
+}
+
+.cart-item-card {
+  display: flex;
+  gap: 10px;
+  margin: 22px 0px 44px;
+  transition: all $snile;
+  overflow: hidden;
+  &:last-child {
+    margin-bottom: 30px;
+  }
+  &--big {
+    min-height: 183px;
+  }
+  &--small {
+    max-height: 130px;
+    max-height: 1000px;
+  }
+
+  &__description {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  &__attributes {
+    display: flex;
+    gap: 8px;
+    margin-top: 2rem;
+    max-width: 100%;
+    flex-wrap: wrap;
+  }
+
+  &__controls {
+    @include center;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  &__plus {
+    font-size: 32px;
+    font-weight: 300;
+    &--big {
+      font-size: 55px; 
+      font-weight: 200;
+    }
+  }
+
+  &__minus {
+    font-family: 'Roboto';
+    font-size: 35px;
+    font-weight: 300;
+    &--big {
+      font-size: 55px;
+      font-weight: 100;
+    }
+  }
+
+  &__total-price {
+    @include space-between;
+    margin-bottom: 35px;
+    margin-top: 22px;
   }
 }

@@ -30,7 +30,14 @@
 
 @each $i in $nums {
   .-py-#{$i} {
-    padding: 1px * $i;
+    padding-top: 1px * $i;
+    padding-bottom: 1px * $i;
+  }
+}
+@each $i in $nums {
+  .-px-#{$i} {
+    padding-right: 1px * $i;
+    padding-left: 1px * $i;
   }
 }
 

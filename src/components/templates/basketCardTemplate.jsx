@@ -20,9 +20,9 @@ class basketCardTemplate extends Component {
     const price = selectPrice(product.prices, currency);
 
     return (
-      <div className="basket_popover__card">
+      <div className="basket-popover__card">
         {/* Description  */}
-        <div className="v-stack basket_popover__description">
+        <div className="v-stack basket-popover__description">
           <TextRegular>{product.name}</TextRegular>
           <TextMain>
             {getCurrencyIcon(currency)}
@@ -38,16 +38,16 @@ class basketCardTemplate extends Component {
         </div>
 
         {/* Add remove item  */}
-        <div className="basket_popover__controls">
+        <div className="basket-popover__controls">
           <Button
-            className="btn--outline btn--small basket_popover__plus"
+            className="btn--outline btn--small basket-popover__plus"
             onClick={() => increase(product)}
           >
             +
           </Button>
           <TextRegular>{product.count}</TextRegular>
           <Button
-            className="btn--outline btn--small basket_popover__minus"
+            className="btn--outline btn--small basket-popover__minus"
             onClick={() => decrease(product)}
           >
             -

@@ -57,3 +57,10 @@
     background-color: $lightGray;
   }
 }
+
+.attribute-button {
+  min-width: 24px;
+  &--small {
+    padding: 2px 4px; 
+  }
+}

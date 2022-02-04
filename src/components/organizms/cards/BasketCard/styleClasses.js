@@ -3,8 +3,9 @@ import classNames from 'classnames';
 export function styleClasses() {
   const { size } = this.props;
 
-  const cardClass = classNames('basket_popover__card', {
-    'basket_popover__card--big': size === 'big',
+  const cardClass = classNames('cart-item-card', {
+    'cart-item-card--big': size === 'big',
+    'cart-item-card--small': size === 'small',
   });
 
   const brandNameClass = classNames({
@@ -23,19 +24,19 @@ export function styleClasses() {
   });
 
   const attrubuteBtnClass = classNames('btn--outline', {
-    'btn--small': size === 'small',
+    '-py-0 -px-4': size === 'small',
   });
 
   const btnPlusClass = classNames(
-    'btn--outline btn--small basket_popover__plus',
-    { 'btn--square-big': size === 'big' }
+    'btn--outline btn--small cart-item-card__plus',
+    { 'btn--square-big cart-item-card__plus--big': size === 'big' }
   );
 
   const productCount = classNames({ 'text--big': size === 'big' });
 
   const btnMinusClass = classNames(
-    'btn--outline btn--small basket_popover__minus',
-    { 'btn--square-big': size === 'big' }
+    'btn--outline btn--small cart-item-card__minus',
+    { 'btn--square-big cart-item-card__minus--big': size === 'big' }
   );
 
   return {

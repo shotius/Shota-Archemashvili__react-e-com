@@ -5,7 +5,7 @@ import HeadingSecondary from '../components/atoms/typography/HeadingSecondary';
 import TextRegular from '../components/atoms/typography/TextRegular';
 import TextRoboto from '../components/atoms/typography/TextRoboto';
 import PriceWithIcon from '../components/molecules/PriceWithIcon';
-import BasketPopoverCard from '../components/organizms/cards/BasketCard/BasketPopoverCard';
+import CartItemCard from '../components/organizms/cards/BasketCard/CartItemCard';
 import { PublicLayout } from '../components/templates/PublicLayout';
 import basketSelectors from '../redux/features/basket/basketSelectors';
 
@@ -23,7 +23,7 @@ class BasketPage extends Component {
         {products.map((product) => (
           <div key={product.id}>
             <Divider />
-            <BasketPopoverCard product={product} size="big" />
+            <CartItemCard product={product} size="big" />
           </div>
         ))}
 

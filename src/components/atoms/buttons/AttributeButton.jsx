@@ -6,12 +6,12 @@ import { styleClasses } from './styleClasses';
 // style depends if attribute is swatch or if it selected
 class AttributeButton extends Component {
   render() {
-    const { attr, value, selectedAttributes, ...rest } = this.props;
+    const { attr, value: innerText, selectedAttributes, ...rest } = this.props;
     const { sizeButtonClass } = styleClasses();
 
-    // If type is swatch 
+    // If type is swatch
     const isSwatch = attr.type === 'swatch';
-    const isSelected = selectedAttributes[attr.id] === value;
+    const isSelected = selectedAttributes[attr.id] === innerText;
 
     return (
       <Button
@@ -20,12 +20,12 @@ class AttributeButton extends Component {
           isSwatch,
         })}
         style={{
-          backgroundColor: isSwatch && value,
+          backgroundColor: isSwatch && innerText,
           transform: isSelected && isSwatch && 'scale(1.2)',
         }}
         {...rest}
       >
-        {!isSwatch && value}
+        {!isSwatch && innerText}
       </Button>
     );
   }

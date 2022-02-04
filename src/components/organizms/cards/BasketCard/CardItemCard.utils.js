@@ -1,8 +1,8 @@
+import AttributeButton from '../../../atoms/buttons/AttributeButton';
 import { Button } from '../../../atoms/buttons/Button';
 import { styleClasses } from './styleClasses';
 
-function getAttrButtonSmall(attr) {
-  const { attributes } = this.props.product;
+function getAttrButtonSmall(attributes, attr) {
   const { attrubuteBtnClass } = styleClasses.call(this);
 
   switch (attr) {
@@ -22,16 +22,12 @@ function getAttrButtonSmall(attr) {
         />
       );
     default:
-      return null;
+      return (
+        <Button className={attrubuteBtnClass} key={attr} display={'none'}>
+          {attr}
+        </Button>
+      );
   }
-}
-
-function getAttrButtonBig(attribute) {
-  const { attrubuteBtnClass } = styleClasses.call(this);
-  if (isYesOrNo(attribute)) {
-    return <Button className={attrubuteBtnClass}>{attribute}</Button>;
-  }
-  return <Button className={attrubuteBtnClass}>{attribute}</Button>;
 }
 
 function handleEncrease() {
@@ -46,11 +42,6 @@ function handleEncrease() {
   decrease(product);
 }
 
-function getAttributeButton(attr) {
-  if (this.props.size === 'small') return this.getAttrButtonSmall(attr);
-  return this.getAttrButtonBig(attr);
-}
-
 function getPictureWidth(size) {
   switch (size) {
     case 'big':
@@ -58,6 +49,10 @@ function getPictureWidth(size) {
     default:
       return '105px';
   }
+}
+
+function isYes(value) {
+  return value === 'Yes';
 }
 
 function isYesOrNo(value) {
@@ -68,8 +63,7 @@ const basketPopoverCardUtils = {
   getAttrButtonSmall,
   getPictureWidth,
   isYesOrNo,
-  getAttrButtonBig,
-  getAttributeButton,
+  isYes,
   handleEncrease,
 };
 

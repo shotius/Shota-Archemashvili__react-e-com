@@ -10,31 +10,49 @@ import {
 } from '../../../../redux/features/basket/basketSlice';
 import { connect } from 'react-redux';
 import globalsSelectors from '../../../../redux/features/globalState/globalsSelectors';
-import basketPopoverCardUtils from './basketPopoverCardUtils';
+import basketPopoverCardUtils from './CardItemCard.utils';
 import { styleClasses } from './styleClasses';
 import { setToast } from '../../../../redux/features/globalState/globalSlice';
 import PriceWithIcon from '../../../molecules/PriceWithIcon';
+import CartAttributeButton from '../../../atoms/buttons/AttributeButton/CartAttributeButton';
 
 const {
   getAttrButtonSmall,
   getPictureWidth,
-  getAttrButtonBig,
   handleEncrease,
-  getAttributeButton,
+  isYes,
+  isYesOrNo,
 } = basketPopoverCardUtils;
 
-class BasketPopoverCard extends Component {
+class CartItemCard extends Component {
   constructor(props) {
     super(props);
     this.getAttrButtonSmall = getAttrButtonSmall.bind(this);
-    this.getAttrButtonBig = getAttrButtonBig.bind(this);
     this.handleEncrease = handleEncrease.bind(this);
-    this.getAttributeButton = getAttributeButton.bind(this);
   }
+
+  getAttributeButton = (attributes, attr) => {
+    const size = this.props.size;
+    if (isYesOrNo(attributes[attr])) {
+      if (isYes(attributes[attr]))
+        return (
+          <CartAttributeButton key={attr} size={size}>
+            {attr}
+          </CartAttributeButton>
+        );
+      return null;
+    }
+
+    return (
+      <CartAttributeButton key={attr} size={size}>
+        {attributes[attr]}
+      </CartAttributeButton>
+    );
+  };
 
   render() {
     const { currency, product, increase, size } = this.props;
-    const attributes = product.attributes;
+    const attributes = product.attributes || [];
 
     const attributesKeys = Object.keys(attributes) || [];
     const price = selectPrice(product.prices, currency);
@@ -52,7 +70,7 @@ class BasketPopoverCard extends Component {
     return (
       <div className={cardClass}>
         {/* Description  */}
-        <div className="v-stack basket_popover__description">
+        <div className="v-stack cart-item-card__description">
           {/* Headings */}
           <div>
             <p className={brandNameClass}>{product.brand}</p>
@@ -65,13 +83,15 @@ class BasketPopoverCard extends Component {
           </TextMain>
 
           {/* Attributes  */}
-          <div className="basket_popover__attributes">
-            {attributesKeys.map((attr) => this.getAttributeButton(attr))}
+          <div className="cart-item-card__attributes">
+            {attributesKeys.map((attr) =>
+              this.getAttributeButton(attributes, attr)
+            )}
           </div>
         </div>
 
         {/* Add remove item  */}
-        <div className="basket_popover__controls">
+        <div className="cart-item-card__controls">
           <Button className={btnPlusClass} onClick={() => increase(product)}>
             +
           </Button>
@@ -82,12 +102,16 @@ class BasketPopoverCard extends Component {
         </div>
 
         {/* Picture  */}
-        <div>
+        <div
+          style={{
+            overflow: 'hidden',
+            width: getPictureWidth(size),
+          }}
+        >
           <img
             src={product.gallery[0]}
             alt="product"
-            height="100%"
-            width={getPictureWidth(size)}
+            style={{ width: '100%', height: '100%', objectFit: 'contain' }}
           />
         </div>
       </div>
@@ -95,7 +119,7 @@ class BasketPopoverCard extends Component {
   }
 }
 
-BasketPopoverCard.propTypes = {
+CartItemCard.propTypes = {
   product: PropTypes.any,
   size: PropTypes.oneOf(['big', 'small']).isRequired,
 };
@@ -110,4 +134,4 @@ const withRedux = connect(mapStateToProps, {
   setToast,
 });
 
-export default withRedux(BasketPopoverCard);
+export default withRedux(CartItemCard);

@@ -13,7 +13,7 @@ import TextRegular from '../../atoms/typography/TextRegular';
 import TextRoboto from '../../atoms/typography/TextRoboto';
 import { ModalOverlay } from '../../molecules/overlays/ModalOverlay';
 import { PopoverOverlay } from '../../molecules/overlays/Overlay';
-import BasketPopoverCard from '../cards/BasketCard/BasketPopoverCard';
+import CartItemCard from '../cards/BasketCard/CartItemCard';
 import { styleClasses } from './styleClasses';
 
 class BasketPopover extends Component {
@@ -45,17 +45,13 @@ class BasketPopover extends Component {
               </TextRegular>
 
               {/* Cards  */}
-              <div className="basket_popover__cards">
+              <div className="basket-popover__cards">
                 {products.map((item, i) => (
-                  <BasketPopoverCard
-                    key={item.id + i}
-                    product={item}
-                    size="small"
-                  />
+                  <CartItemCard key={item.id + i} product={item} size="small" />
                 ))}
               </div>
 
-              <div className="basket_popover__total-price">
+              <div className="basket-popover__total-price">
                 <TextRoboto className="text--regular text--semi-bold">
                   Total:
                 </TextRoboto>
