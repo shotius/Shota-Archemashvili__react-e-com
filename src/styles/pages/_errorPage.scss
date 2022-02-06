@@ -1,0 +1,11 @@
+.error-page {
+  height: 50vh;
+  @include center;
+  flex-direction: column;
+  &__go-home {
+    font-size: 14px;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}

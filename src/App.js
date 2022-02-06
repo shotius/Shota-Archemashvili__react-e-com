@@ -1,6 +1,6 @@
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 import CartPage from './pages/CartPage';
-import { ErrorPage } from './pages/ErrorPage';
+import ErrorPage from './pages/ErrorPage';
 import ToastPortal from './components/organizms/portal/ToastPortal';
 import { Component } from 'react';
 import { ProductPage } from './pages/ProductPage';

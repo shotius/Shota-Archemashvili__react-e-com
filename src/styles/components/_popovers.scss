@@ -30,4 +30,9 @@
       background: $lightGray;
     }
   }
+  &__total-price {
+    @include space-between;
+    margin-bottom: 35px;
+    margin-top: 22px;
+  }
 }

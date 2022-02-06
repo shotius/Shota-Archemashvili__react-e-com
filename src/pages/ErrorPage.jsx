@@ -1,9 +1,28 @@
-import { Component } from "react";
+import { Component } from 'react';
+import { withRouter } from 'react-router-dom/cjs/react-router-dom.min';
+import { Button } from '../components/atoms/buttons/Button';
+import HeadingSecondary from '../components/atoms/typography/HeadingSecondary';
+import { PublicLayout } from '../components/templates/PublicLayout';
 
-export class ErrorPage extends Component {
+class ErrorPage extends Component {
   render() {
+    const history = this.props.history;
+
     return (
-      <h1>ErrorPage</h1>
-    )
+      <PublicLayout>
+        <div className="error-page">
+          <HeadingSecondary>Page not found</HeadingSecondary>
+          <HeadingSecondary>404</HeadingSecondary>
+          <Button
+            className="error-page__go-home"
+            onClick={() => history.replace('/')}
+          >
+            go on home page
+          </Button>
+        </div>
+      </PublicLayout>
+    );
   }
 }
+
+export default withRouter(ErrorPage);
