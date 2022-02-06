@@ -1,0 +1,15 @@
+.animation--easyload {
+  opacity: 0;
+  &--snile {
+    transition: all $snile ease;
+  }
+  &--rabbit {
+    transition: all $rabbit ease;
+  }
+  &--mouse {
+    transition: all $mouse ease;
+  }
+  &--leapart {
+    transition: all $leapard ease;
+  }
+}

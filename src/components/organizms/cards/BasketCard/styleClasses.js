@@ -10,7 +10,7 @@ export function styleClasses() {
 
   const brandNameClass = classNames({
     'heading heading--secondary heading--semi-bold': size === 'big',
-    '-display-none': size === 'small',
+    'text text--regular': size === 'small',
   });
 
   const productNameClass = classNames({

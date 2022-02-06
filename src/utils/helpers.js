@@ -8,4 +8,10 @@ export const uuid = () => {
   });
 };
 
+export const loadDefaultImage = (e, fallbackSrc) => {
+  e.target.src =
+    fallbackSrc ||
+    'https://skirtingboardsdirect.com/wp-content/uploads/2014/12/Fallback-Image-400x400.png';
+};
+
 export const isObjectEmpty = (obj) => Object.keys(obj).length;

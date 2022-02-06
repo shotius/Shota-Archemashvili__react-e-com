@@ -8,6 +8,7 @@ import { CATALOG_ROUTE } from '../../../../config/constants';
 import globalsSelectors from '../../../../redux/features/globalState/globalsSelectors';
 import { selectPrice } from '../../../../utils/selectPrice';
 import { Button } from '../../../atoms/buttons/Button';
+import Image from '../../../atoms/Image/Image';
 import { Heading } from '../../../atoms/typography/Heading';
 import { AspectRatio } from '../../../molecules/AspectRatio';
 import PriceWithIcon from '../../../molecules/PriceWithIcon';
@@ -67,11 +68,12 @@ class CatalogCard extends Component {
           <div className="v-stack v-stack--spacing-20">
             <div className="catalog-card__picture-container">
               <AspectRatio ratio={356 / 338} maxWidth="350px">
-                <img
+                <Image
                   src={product.gallery[0]}
                   alt="card pic"
                   className={imgClassName}
                   width="100%"
+                  fadeIn={true}
                 />
               </AspectRatio>
               <Button className={bsktBtnClass}>
