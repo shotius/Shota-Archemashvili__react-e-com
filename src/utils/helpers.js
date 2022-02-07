@@ -11,7 +11,8 @@ export const uuid = () => {
 export const loadDefaultImage = (e, fallbackSrc) => {
   e.target.src =
     fallbackSrc ||
-    'https://skirtingboardsdirect.com/wp-content/uploads/2014/12/Fallback-Image-400x400.png';
+    'https://res.cloudinary.com/car-space-v1/image/upload/v1644194330/image-not-found_yuufij.jpg';
+  e.target.style['object-fit'] = 'contain';
 };
 
 export const isObjectEmpty = (obj) => Object.keys(obj).length;

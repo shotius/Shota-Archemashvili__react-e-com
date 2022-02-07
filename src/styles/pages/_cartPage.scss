@@ -1,4 +1,3 @@
-/** Cart cart */
 @mixin arrow-button {
   position: absolute;
   top: 0;
@@ -12,6 +11,7 @@
   }
 }
 
+/** Cart cart */
 .page-cart {
   &__totalPrice {
     @include space-between;
@@ -37,6 +37,7 @@
     }
     &--big {
       width: 146px;
+      height: 200px;
     }
 
     img {

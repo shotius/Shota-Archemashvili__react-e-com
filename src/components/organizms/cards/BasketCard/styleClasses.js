@@ -39,10 +39,6 @@ export function styleClasses() {
     { 'btn--square-big cart-item-card__minus--big': size === 'big' }
   );
 
-  const pibtureContainer = classNames('page-cart__picture-container', [
-    `page-cart__picture-container--${size}`,
-  ]);
-
   return {
     attrubuteBtnClass,
     brandNameClass,
@@ -52,6 +48,5 @@ export function styleClasses() {
     btnPlusClass,
     productCount,
     productNameClass,
-    pibtureContainer,
   };
 }
