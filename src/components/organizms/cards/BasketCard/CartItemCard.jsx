@@ -15,15 +15,13 @@ import { styleClasses } from './styleClasses';
 import { setToast } from '../../../../redux/features/globalState/globalSlice';
 import PriceWithIcon from '../../../molecules/PriceWithIcon';
 import CartAttributeButton from '../../../atoms/buttons/AttributeButton/CartAttributeButton';
-import CartPageSlider from '../../Sliders/CartPageSlider';
+import CartPageSlider from '../../Sliders/CartPageSlider/CartPageSlider';
 
-const { getAttrButtonSmall, handleEncrease, isYes, isYesOrNo } =
-  basketPopoverCardUtils;
+const { handleEncrease, isYes, isYesOrNo } = basketPopoverCardUtils;
 
 class CartItemCard extends Component {
   constructor(props) {
     super(props);
-    this.getAttrButtonSmall = getAttrButtonSmall.bind(this);
     this.handleEncrease = handleEncrease.bind(this);
   }
 

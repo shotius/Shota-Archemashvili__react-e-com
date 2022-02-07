@@ -1,35 +1,3 @@
-import AttributeButton from '../../../atoms/buttons/AttributeButton';
-import { Button } from '../../../atoms/buttons/Button';
-import { styleClasses } from './styleClasses';
-
-function getAttrButtonSmall(attributes, attr) {
-  const { attrubuteBtnClass } = styleClasses.call(this);
-
-  switch (attr) {
-    case 'Size':
-      return (
-        <Button className={attrubuteBtnClass} key={attr} display={'none'}>
-          {attributes[attr]}
-        </Button>
-      );
-
-    case 'Color':
-      return (
-        <Button
-          className={attrubuteBtnClass}
-          style={{ backgroundColor: attributes[attr] }}
-          key={attr}
-        />
-      );
-    default:
-      return (
-        <Button className={attrubuteBtnClass} key={attr} display={'none'}>
-          {attr}
-        </Button>
-      );
-  }
-}
-
 function handleEncrease() {
   const { product, decrease, setToast } = this.props;
   // if last one is removed from the cars show notification
@@ -51,7 +19,6 @@ function isYesOrNo(value) {
 }
 
 const basketPopoverCardUtils = {
-  getAttrButtonSmall,
   isYesOrNo,
   isYes,
   handleEncrease,

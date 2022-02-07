@@ -1,10 +1,10 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Button } from '../../atoms/buttons/Button';
-import classNames from 'classnames';
-import arrowNext from '../../../assets/icons/greaterThan.svg';
-import arrowPrev from '../../../assets/icons/lessThanArrow.svg';
-import Image from '../../atoms/Image/Image';
+import { Button } from '../../../atoms/buttons/Button';
+import arrowNext from '../../../../assets/icons/greaterThan.svg';
+import arrowPrev from '../../../../assets/icons/lessThanArrow.svg';
+import Image from '../../../atoms/Image/Image';
+import { styleClasses } from './styleClasses';
 
 class CartPageSlider extends Component {
   state = {
@@ -29,22 +29,20 @@ class CartPageSlider extends Component {
     if (activeSlide === 0) {
       this.setState({ activeSlide: gallery.length - 1 });
     } else {
-      this.setState({ activeSlide: 0 });
+      this.setState({ activeSlide: activeSlide - 1 });
     }
   };
 
   render() {
-    const { gallery, size } = this.props;
+    const { gallery } = this.props;
     const { activeSlide } = this.state;
 
-    const pibtureContainer = classNames('page-cart__picture-container', [
-      `page-cart__picture-container--${size}`,
-    ]);
+    const { pictureContainer, pictureContainerClass } = styleClasses.call(this);
 
     return (
-      <div className={pibtureContainer}>
+      <div className={pictureContainer}>
         <Image src={gallery[activeSlide]} alt="product" />
-        <div className="page-cart__picture-container__navigation">
+        <div className={pictureContainerClass}>
           <Button
             className="page-cart__picture-container__btn-right"
             onClick={this.handleNextSlide}

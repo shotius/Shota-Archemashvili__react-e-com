@@ -1,8 +1,8 @@
-- carousel on cart page
 - more than 5 photos in the slider
 - links form cart items
 - animation number on the basket
 
++ carousel on cart page
 + Picture in the basket popover
 + attributes on basket page
 + error page
