@@ -15,14 +15,11 @@ import { styleClasses } from './styleClasses';
 import { setToast } from '../../../../redux/features/globalState/globalSlice';
 import PriceWithIcon from '../../../molecules/PriceWithIcon';
 import CartAttributeButton from '../../../atoms/buttons/AttributeButton/CartAttributeButton';
+import arrowNext from '../../../../assets/icons/greaterThan.svg';
+import arrowPrev from '../../../../assets/icons/lessThanArrow.svg';
 
-const {
-  getAttrButtonSmall,
-  getPictureWidth,
-  handleEncrease,
-  isYes,
-  isYesOrNo,
-} = basketPopoverCardUtils;
+const { getAttrButtonSmall, handleEncrease, isYes, isYesOrNo } =
+  basketPopoverCardUtils;
 
 class CartItemCard extends Component {
   constructor(props) {
@@ -51,7 +48,7 @@ class CartItemCard extends Component {
   };
 
   render() {
-    const { currency, product, increase, size } = this.props;
+    const { currency, product, increase } = this.props;
     const attributes = product.attributes || [];
 
     const attributesKeys = Object.keys(attributes) || [];
@@ -65,6 +62,7 @@ class CartItemCard extends Component {
       btnPlusClass,
       productCount,
       productNameClass,
+      pibtureContainer,
     } = styleClasses.call(this);
 
     return (
@@ -102,17 +100,16 @@ class CartItemCard extends Component {
         </div>
 
         {/* Picture  */}
-        <div
-          style={{
-            overflow: 'hidden',
-            width: getPictureWidth(size),
-          }}
-        >
-          <img
-            src={product.gallery[0]}
-            alt="product"
-            style={{ width: '100%', height: '100%', objectFit: 'contain' }}
-          />
+        <div className={pibtureContainer}>
+          <img src={product.gallery[0]} alt="product" />
+          <div className="page-cart__picture-container__navigation">
+            <Button className="page-cart__picture-container__btn-right">
+              <img src={arrowNext} alt="button next" />
+            </Button>
+            <Button className="page-cart__picture-container__btn-left">
+              <img src={arrowPrev} alt="button next" />
+            </Button>
+          </div>
         </div>
       </div>
     );

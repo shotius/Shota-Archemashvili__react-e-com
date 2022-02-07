@@ -1,3 +1,17 @@
+/** Cart cart */
+@mixin arrow-button {
+  position: absolute;
+  top: 0;
+  width: 50%;
+  height: 100%;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  &:active {
+    opacity: 0.7;
+  }
+}
+
 .page-cart {
   &__totalPrice {
     @include space-between;
@@ -13,5 +27,46 @@
     text-align: center;
     margin-bottom: 1.6rem;
     margin-top: -1.6rem;
+  }
+
+  &__picture-container {
+    overflow: hidden;
+    position: relative;
+    &--small {
+      width: 105px;
+    }
+    &--big {
+      width: 146px;
+    }
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    &__navigation {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 100%;
+    }
+
+    &__btn-right {
+      @include arrow-button;
+      right: 0;
+      justify-content: flex-end;
+      img {
+        width: 38px;
+      }
+    }
+    &__btn-left {
+      @include arrow-button;
+      padding-left: 10px;
+      justify-content: flex-start;
+      img {
+        width: 20px;
+      }
+    }
   }
 }

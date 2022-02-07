@@ -42,15 +42,6 @@ function handleEncrease() {
   decrease(product);
 }
 
-function getPictureWidth(size) {
-  switch (size) {
-    case 'big':
-      return '145px';
-    default:
-      return '105px';
-  }
-}
-
 function isYes(value) {
   return value === 'Yes';
 }
@@ -61,7 +52,6 @@ function isYesOrNo(value) {
 
 const basketPopoverCardUtils = {
   getAttrButtonSmall,
-  getPictureWidth,
   isYesOrNo,
   isYes,
   handleEncrease,
