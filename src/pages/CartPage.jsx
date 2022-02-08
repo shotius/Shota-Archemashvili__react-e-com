@@ -23,7 +23,7 @@ class BasketPage extends Component {
         {products.map((product) => (
           <div key={product.id}>
             <Divider />
-            <CartItemCard product={product} size="big" />
+            <CartItemCard product={product} size="big" text/>
           </div>
         ))}
 

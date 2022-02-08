@@ -16,7 +16,6 @@ import { setToast } from '../../../../redux/features/globalState/globalSlice';
 import PriceWithIcon from '../../../molecules/PriceWithIcon';
 import CartAttributeButton from '../../../atoms/buttons/AttributeButton/CartAttributeButton';
 import CartPageSlider from '../../Sliders/CartPageSlider/CartPageSlider';
-import { Link } from 'react-router-dom';
 import { CATALOG_ROUTE } from '../../../../config/constants';
 import { compose } from 'redux';
 import { withRouter } from 'react-router-dom/cjs/react-router-dom.min';
@@ -40,7 +39,7 @@ class CartItemCard extends Component {
     if (isYesOrNo(attributes[attr])) {
       if (isYes(attributes[attr]))
         return (
-          <CartAttributeButton key={attr} size={size}>
+          <CartAttributeButton key={attr} size={size} text>
             {attr}
           </CartAttributeButton>
         );
@@ -48,14 +47,14 @@ class CartItemCard extends Component {
     }
 
     return (
-      <CartAttributeButton key={attr} size={size}>
+      <CartAttributeButton key={attr} size={size} text>
         {attributes[attr]}
       </CartAttributeButton>
     );
   };
 
   render() {
-    const { currency, product, increase, size, onClose } = this.props;
+    const { currency, product, increase, size } = this.props;
     const attributes = product.attributes || [];
 
     const attributesKeys = Object.keys(attributes) || [];

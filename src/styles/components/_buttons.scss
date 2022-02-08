@@ -61,6 +61,9 @@
 .attribute-button {
   min-width: 24px;
   &--small {
-    padding: 2px 4px; 
+    padding: 2px 4px;
+  }
+  &--text {
+    cursor: text;
   }
 }

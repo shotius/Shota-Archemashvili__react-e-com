@@ -41,7 +41,7 @@ class BasketPopover extends Component {
               {/* heading  */}
               <TextRegular>
                 <b>My bag, </b>
-                {totalProducts} items
+                {products.length} items
               </TextRegular>
 
               {/* Cards  */}
