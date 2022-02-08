@@ -1,22 +1,11 @@
 import { gql } from '@apollo/client';
-import { CORE_PRODUCT_FIELDS } from './fragments/productFragment';
+import { PRODUCT_WITH_ATTRIBUTES } from './fragments/productFragment';
 
-// ${CORE_PRODUCT_FIELDS}
 export const PARTIAL_SINGLE_PRODUCT = gql`
+  ${PRODUCT_WITH_ATTRIBUTES}
   query getPartialProduct($id: String!) {
     product(id: $id) {
-      description
-      brand
-      attributes {
-        id
-        name
-        type
-        items {
-          displayValue
-          value
-          id
-        }
-      }
+      ...ProductWithAttribute
     }
   }
 `;

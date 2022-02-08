@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client';
 
-export const CORE_PRODUCT_FIELDS = gql`
-  fragment CoreProductFields on Product {
+export const PRODUCT_WITH_ATTRIBUTES = gql`
+  fragment ProductWithAttribute on Product {
     description
     brand
     attributes {
@@ -13,6 +13,20 @@ export const CORE_PRODUCT_FIELDS = gql`
         value
         id
       }
+    }
+  }
+`;
+
+export const PRODUCT_WITH_PRICE = gql`
+  fragment ProductWithPrice on Product {
+    id
+    name
+    gallery
+    inStock
+    category
+    prices {
+      currency
+      amount
     }
   }
 `;
