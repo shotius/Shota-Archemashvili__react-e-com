@@ -2,6 +2,7 @@ import { Component } from 'react';
 import { withRouter } from 'react-router-dom/cjs/react-router-dom.min';
 import { Button } from '../components/atoms/buttons/Button';
 import HeadingSecondary from '../components/atoms/typography/HeadingSecondary';
+import TextOnMiddleOfPage from '../components/molecules/TextOnMiddleOfPage';
 import { PublicLayout } from '../components/templates/PublicLayout';
 
 class ErrorPage extends Component {
@@ -10,7 +11,7 @@ class ErrorPage extends Component {
 
     return (
       <PublicLayout>
-        <div className="error-page">
+        <TextOnMiddleOfPage>
           <HeadingSecondary>404</HeadingSecondary>
           <HeadingSecondary>Page not found</HeadingSecondary>
           <Button
@@ -19,7 +20,7 @@ class ErrorPage extends Component {
           >
             go on home page
           </Button>
-        </div>
+        </TextOnMiddleOfPage>
       </PublicLayout>
     );
   }

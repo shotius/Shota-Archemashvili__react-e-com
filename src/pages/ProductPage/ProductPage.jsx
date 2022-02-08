@@ -1,11 +1,14 @@
 import { Component } from 'react';
+import { Heading } from '../../components/atoms/typography/Heading';
+import HeadingSecondary from '../../components/atoms/typography/HeadingSecondary';
 import ScrollToTop from '../../components/molecules/ScrollToTop';
+import TextOnMiddleOfPage from '../../components/molecules/TextOnMiddleOfPage';
 import { ProductPageDescriptionLeft } from '../../components/organizms/product-detail/sections/ProductPageDescriptionLeft';
 import ProductPageMoreDeatails from '../../components/organizms/product-detail/sections/ProductPageMoreDeatails';
 import ProductPageSlider from '../../components/organizms/Sliders/ProductPageSlider/ProductPageSlider';
 import { PublicLayout } from '../../components/templates/PublicLayout';
 import { withParams } from '../../utils/HOC/withParams';
-import productPageUtils from './utils';
+import productPageUtils from './productPage.utils';
 
 const {
   getCachedProduct,
@@ -15,6 +18,7 @@ const {
   upateProductWithCachAndPartial,
   getProductCategory,
   fetchAndUpdateProduct,
+  isProductMissing,
 } = productPageUtils;
 
 class ProductPage extends Component {
@@ -35,14 +39,12 @@ class ProductPage extends Component {
     this.upateProductWithCachAndPartial =
       upateProductWithCachAndPartial.bind(this);
     this.fetchAndUpdateProduct = fetchAndUpdateProduct.bind(this);
+    this.isProductMissing = isProductMissing.bind(this);
   }
 
   /** update product on mount: from cache or from the server */
   componentDidMount = async () => {
-    const cachedProduct = await this.getCachedProduct();
-    cachedProduct
-      ? this.upateProductWithCachAndPartial(cachedProduct)
-      : this.fetchAndUpdateProduct();
+    this.handleProductFetch();
   };
 
   componentDidUpdate = (prevProps) => {
@@ -50,8 +52,15 @@ class ProductPage extends Component {
     const location = this.props.location.pathname;
 
     if (prevLocation !== location) {
-      this.fetchAndUpdateProduct();
+      this.handleProductFetch();
     }
+  };
+
+  handleProductFetch = async () => {
+    const cachedProduct = await this.getCachedProduct();
+    cachedProduct
+      ? this.upateProductWithCachAndPartial(cachedProduct)
+      : this.fetchAndUpdateProduct();
   };
 
   handleToggleDescription = () => {
@@ -68,14 +77,24 @@ class ProductPage extends Component {
 
     let thumbs = [];
 
-    
     if (product) {
       thumbs = product.gallery;
+    }
+
+    if (this.isProductMissing()) {
+      return (
+        <PublicLayout>
+          <TextOnMiddleOfPage>
+            <HeadingSecondary>Product not found</HeadingSecondary>
+          </TextOnMiddleOfPage>
+        </PublicLayout>
+      );
     }
 
     return (
       <PublicLayout>
         <ScrollToTop />
+        {}
         <div className="product-page page-container--outer">
           <div className="product-page__container">
             <ProductPageSlider thumbs={thumbs} />

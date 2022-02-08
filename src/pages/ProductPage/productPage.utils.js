@@ -53,6 +53,11 @@ async function fetchAndUpdateProduct() {
   });
 }
 
+function isProductMissing() {
+  const { product, loadingProduct, loadingPartialProduct } = this.state;
+  return !loadingPartialProduct && !loadingProduct && !product;
+}
+
 const productPageUtils = {
   getCachedProduct,
   getProductId,
@@ -61,6 +66,7 @@ const productPageUtils = {
   updateProductWithPartialProduct,
   upateProductWithCachAndPartial,
   fetchAndUpdateProduct,
+  isProductMissing
 };
 
 export default productPageUtils;

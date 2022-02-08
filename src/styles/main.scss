@@ -1,6 +1,7 @@
 // abstract
 @import './abstact/variables';
 @import './abstact/mixins';
+@import "./abstact/animations";
 
 // base style
 @import './base/base';
@@ -27,7 +28,7 @@
 
 // layout
 @import './layout/containers';
-@import './layout/animations';
+@import "./layout/middlePageContent";
 
 // pages
 @import './pages/catalog';
