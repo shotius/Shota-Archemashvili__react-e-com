@@ -12,20 +12,15 @@ import { withRouter } from 'react-router-dom';
 import globalsSelectors from '../../../redux/features/globalState/globalsSelectors';
 
 class PageHeader extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { isCurrencyOpen: false, isBasketPopoverOpen: false };
-    this.handleCurrencyToggle = this.handleCurrencyToggle.bind(this);
-    this.handeBasketToggle = this.handeBasketToggle.bind(this);
-  }
+  state = { isCurrencyOpen: false, isBasketPopoverOpen: false };
 
-  handleCurrencyToggle() {
+  handleCurrencyToggle = () => {
     this.setState({ isCurrencyOpen: !this.state.isCurrencyOpen });
-  }
+  };
 
-  handeBasketToggle() {
+  handeBasketToggle = () => {
     this.setState({ isBasketPopoverOpen: !this.state.isBasketPopoverOpen });
-  }
+  };
 
   render() {
     const { isBasketPopoverOpen, isCurrencyOpen } = this.state;

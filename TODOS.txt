@@ -1,7 +1,8 @@
-- more than 5 photos in the slider
+- product not found
 - links form cart items
 - animation number on the basket
 
++ more than 5 photos in the slider
 + carousel on cart page
 + Picture in the basket popover
 + attributes on basket page

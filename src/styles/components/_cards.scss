@@ -101,6 +101,15 @@
     max-height: 1000px;
   }
 
+  &__brand-name {
+    text-decoration: none;
+    cursor: pointer;
+    display: inline-block;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
   &__description {
     display: flex;
     flex: 1;
@@ -126,7 +135,7 @@
     font-size: 32px;
     font-weight: 300;
     &--big {
-      font-size: 55px; 
+      font-size: 55px;
       font-weight: 200;
     }
   }

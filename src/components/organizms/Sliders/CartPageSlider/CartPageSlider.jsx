@@ -5,15 +5,18 @@ import arrowNext from '../../../../assets/icons/greaterThan.svg';
 import arrowPrev from '../../../../assets/icons/lessThanArrow.svg';
 import Image from '../../../atoms/Image/Image';
 import { styleClasses } from './styleClasses';
+import { stopPropagation } from '../../../../utils/helpers';
 
 class CartPageSlider extends Component {
   state = {
     activeSlide: 0,
   };
 
-  handleNextSlide = () => {
+  handleNextSlide = (e) => {
     const { gallery } = this.props;
     const { activeSlide } = this.state;
+
+    stopPropagation(e);
 
     if (activeSlide === gallery.length - 1) {
       this.setState({ activeSlide: 0 });
@@ -22,9 +25,11 @@ class CartPageSlider extends Component {
     }
   };
 
-  handlePrevSlide = () => {
+  handlePrevSlide = (e) => {
     const { gallery } = this.props;
     const { activeSlide } = this.state;
+
+    stopPropagation(e);
 
     if (activeSlide === 0) {
       this.setState({ activeSlide: gallery.length - 1 });
@@ -34,13 +39,13 @@ class CartPageSlider extends Component {
   };
 
   render() {
-    const { gallery } = this.props;
+    const { gallery, ...rest } = this.props;
     const { activeSlide } = this.state;
 
     const { pictureContainer, pictureContainerClass } = styleClasses.call(this);
 
     return (
-      <div className={pictureContainer}>
+      <div className={pictureContainer} {...rest}>
         <Image src={gallery[activeSlide]} alt="product" />
         <div className={pictureContainerClass}>
           <Button

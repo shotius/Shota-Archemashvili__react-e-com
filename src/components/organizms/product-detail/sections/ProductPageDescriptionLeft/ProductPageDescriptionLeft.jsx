@@ -63,7 +63,7 @@ class ProductPageDescriptionLeft extends Component {
 
     // If error fields were empty - submit
     if (!isObjectEmpty(fieldErrors)) {
-      const { attributes, category, description, ...productForBasket } =
+      const { attributes, description, ...productForBasket } =
         this.props.product;
 
       addItemToBasket({

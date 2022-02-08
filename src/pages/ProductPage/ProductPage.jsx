@@ -2,7 +2,7 @@ import { Component } from 'react';
 import ScrollToTop from '../../components/molecules/ScrollToTop';
 import { ProductPageDescriptionLeft } from '../../components/organizms/product-detail/sections/ProductPageDescriptionLeft';
 import ProductPageMoreDeatails from '../../components/organizms/product-detail/sections/ProductPageMoreDeatails';
-import ProductPageSlider from '../../components/organizms/Sliders/ProductPageSlider';
+import ProductPageSlider from '../../components/organizms/Sliders/ProductPageSlider/ProductPageSlider';
 import { PublicLayout } from '../../components/templates/PublicLayout';
 import { withParams } from '../../utils/HOC/withParams';
 import productPageUtils from './utils';
@@ -45,6 +45,15 @@ class ProductPage extends Component {
       : this.fetchAndUpdateProduct();
   };
 
+  componentDidUpdate = (prevProps) => {
+    const prevLocation = prevProps.location.pathname;
+    const location = this.props.location.pathname;
+
+    if (prevLocation !== location) {
+      this.fetchAndUpdateProduct();
+    }
+  };
+
   handleToggleDescription = () => {
     this.setState({ descriptionExpanded: !this.state.descriptionExpanded });
   };
@@ -59,6 +68,7 @@ class ProductPage extends Component {
 
     let thumbs = [];
 
+    
     if (product) {
       thumbs = product.gallery;
     }

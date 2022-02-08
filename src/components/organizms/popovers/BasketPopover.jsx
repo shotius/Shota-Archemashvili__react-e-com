@@ -47,7 +47,12 @@ class BasketPopover extends Component {
               {/* Cards  */}
               <div className="basket-popover__cards">
                 {products.map((item, i) => (
-                  <CartItemCard key={item.id + i} product={item} size="small" />
+                  <CartItemCard
+                    key={item.id + i}
+                    product={item}
+                    size="small"
+                    onClose={onClose}
+                  />
                 ))}
               </div>
 

@@ -11,8 +11,8 @@ class ErrorPage extends Component {
     return (
       <PublicLayout>
         <div className="error-page">
-          <HeadingSecondary>Page not found</HeadingSecondary>
           <HeadingSecondary>404</HeadingSecondary>
+          <HeadingSecondary>Page not found</HeadingSecondary>
           <Button
             className="error-page__go-home"
             onClick={() => history.replace('/')}

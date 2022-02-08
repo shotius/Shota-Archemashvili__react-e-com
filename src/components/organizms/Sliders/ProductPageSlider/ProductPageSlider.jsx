@@ -1,19 +1,19 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
-import { AspectRatio } from '../../molecules/AspectRatio';
-import { loadDefaultImage } from '../../../utils/helpers';
-import Image from '../../atoms/Image/Image';
+import { AspectRatio } from '../../../molecules/AspectRatio';
+import { loadDefaultImage } from '../../../../utils/helpers';
+import Image from '../../../atoms/Image/Image';
+import productPageSliderUtils from './productPageSlider.utils';
+
+const { shouldSelectedPictureBeUpdated } = productPageSliderUtils;
 
 class ProductPageSlider extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { selectedImage: null };
-  }
+  state = { selectedImage: null };
 
   componentDidUpdate() {
     const { thumbs } = this.props;
     const { selectedImage } = this.state;
-    if (thumbs.length > 0 && !selectedImage) {
+    if (shouldSelectedPictureBeUpdated(thumbs, selectedImage)) {
       this.setState({ selectedImage: thumbs[0] });
     }
   }
@@ -48,7 +48,7 @@ class ProductPageSlider extends Component {
               src={this.state.selectedImage}
               alt="slider main"
               fadeIn={true}
-              speed = "mouse"
+              speed="mouse"
               style={{ maxWidth: '100%', maxHeight: '100%' }}
             />
           )}

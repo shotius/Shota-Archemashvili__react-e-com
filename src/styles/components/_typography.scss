@@ -27,17 +27,16 @@
   &--bold {
     font-weight: 700;
   }
-  
 }
 
 .text {
-  padding: 1rem 0px ;
-  color: inherit; 
+  padding: 1rem 0px;
+  color: inherit;
   line-height: 2.39rem;
   font-weight: 400;
   font-family: 'Raleway', sans-serif;
   padding: 0;
-  
+
   // size
   &--regular {
     font-size: 1.6rem;
@@ -49,6 +48,11 @@
   // type
   &--error {
     color: red;
+    // to give a fixed height
+    &::after {
+      content: 'error text';
+      visibility: hidden;
+    }
   }
   // weight
   &--light {
@@ -60,7 +64,7 @@
   &--bold {
     font-weight: 700;
   }
-  
+
   // font
   &--roboto {
     font-family: 'Roboto', sans-serif;

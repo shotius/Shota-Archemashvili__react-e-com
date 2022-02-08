@@ -16,6 +16,10 @@ import { setToast } from '../../../../redux/features/globalState/globalSlice';
 import PriceWithIcon from '../../../molecules/PriceWithIcon';
 import CartAttributeButton from '../../../atoms/buttons/AttributeButton/CartAttributeButton';
 import CartPageSlider from '../../Sliders/CartPageSlider/CartPageSlider';
+import { Link } from 'react-router-dom';
+import { CATALOG_ROUTE } from '../../../../config/constants';
+import { compose } from 'redux';
+import { withRouter } from 'react-router-dom/cjs/react-router-dom.min';
 
 const { handleEncrease, isYes, isYesOrNo } = basketPopoverCardUtils;
 
@@ -25,6 +29,12 @@ class CartItemCard extends Component {
     this.handleEncrease = handleEncrease.bind(this);
   }
 
+  handleRedirect = () => {
+    const { history, product, onClose: closeModal } = this.props;
+    closeModal && closeModal();
+    history.push(`${CATALOG_ROUTE}/${product.category}/${product.id}`);
+  };
+  
   getAttributeButton = (attributes, attr) => {
     const size = this.props.size;
     if (isYesOrNo(attributes[attr])) {
@@ -45,7 +55,7 @@ class CartItemCard extends Component {
   };
 
   render() {
-    const { currency, product, increase, size } = this.props;
+    const { currency, product, increase, size, onClose } = this.props;
     const attributes = product.attributes || [];
 
     const attributesKeys = Object.keys(attributes) || [];
@@ -67,7 +77,9 @@ class CartItemCard extends Component {
         <div className="v-stack cart-item-card__description">
           {/* Headings */}
           <div>
-            <p className={brandNameClass}>{product.brand}</p>
+            <p className={brandNameClass} onClick={this.handleRedirect}>
+              {product.brand}
+            </p>
             <p className={productNameClass}>{product.name}</p>
           </div>
 
@@ -96,7 +108,11 @@ class CartItemCard extends Component {
         </div>
 
         {/* Picture  */}
-        <CartPageSlider size={size} gallery={product.gallery} />
+        <CartPageSlider
+          size={size}
+          gallery={product.gallery}
+          onClick={this.handleRedirect}
+        />
       </div>
     );
   }
@@ -117,4 +133,6 @@ const withRedux = connect(mapStateToProps, {
   setToast,
 });
 
-export default withRedux(CartItemCard);
+const enhance = compose(withRedux, withRouter);
+
+export default enhance(CartItemCard);

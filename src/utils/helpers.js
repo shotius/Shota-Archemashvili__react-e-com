@@ -15,4 +15,8 @@ export const loadDefaultImage = (e, fallbackSrc) => {
   e.target.style['object-fit'] = 'contain';
 };
 
+export const stopPropagation = (e) => {
+  if (e.stopPropagation) e.stopPropagation();
+};
+
 export const isObjectEmpty = (obj) => Object.keys(obj).length;

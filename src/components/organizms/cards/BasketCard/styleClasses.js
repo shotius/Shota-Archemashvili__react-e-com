@@ -8,7 +8,7 @@ export function styleClasses() {
     'cart-item-card--small': size === 'small',
   });
 
-  const brandNameClass = classNames({
+  const brandNameClass = classNames('cart-item-card__brand-name', {
     'heading heading--secondary heading--semi-bold': size === 'big',
     'text text--regular': size === 'small',
   });
