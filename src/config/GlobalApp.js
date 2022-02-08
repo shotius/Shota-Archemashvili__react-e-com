@@ -12,12 +12,15 @@ class GlobalApp {
       return this.client;
     }
 
-    // I disabled typename in the cache because I had an issue
-    // with sizes cache in clothes category
     const client = new ApolloClient({
       uri: BACKEND_URL,
       cache: new InMemoryCache({
-        addTypename: false,
+        typePolicies: {
+          // To solve attribute caching cohesion, shoes and clothes had the same cache ids
+          AttributeSet: {
+            keyFields: ['id', 'items', ['value']],
+          },
+        },
       }),
     });
 

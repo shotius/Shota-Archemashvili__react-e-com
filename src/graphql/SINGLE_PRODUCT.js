@@ -1,8 +1,8 @@
 import { gql } from '@apollo/client';
 import { CORE_PRODUCT_FIELDS } from './fragments/productFragment';
 
+  // ${CORE_PRODUCT_FIELDS}
 export const SINGLE_PRODUCT = gql`
-  ${CORE_PRODUCT_FIELDS}
   query getProduct($id: String!) {
     product(id: $id) {
       id
@@ -14,7 +14,16 @@ export const SINGLE_PRODUCT = gql`
         currency
         amount
       }
-      ...CoreProductFields
+      attributes {
+        id
+        name
+        type
+        items {
+          displayValue
+          value
+          id
+        }
+      }
     }
   }
 `;
