@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { Component, createRef } from 'react';
+import { Component } from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import basketSelectors from '../../../../../redux/features/basket/basketSelectors';

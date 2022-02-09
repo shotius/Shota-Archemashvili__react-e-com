@@ -3,11 +3,10 @@ $line-height: 1.4;
 $lines-to-show: 3;
 
 .product-page {
-  padding-top: 3rem;
-  &__container {
-    display: flex;
-    gap: 100px;
-  }
+  padding-top: 5rem;
+  display: flex;
+  gap: 100px;
+
   &__slider {
     flex-basis: 65%;
     height: 500px;

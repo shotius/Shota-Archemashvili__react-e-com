@@ -61,11 +61,7 @@ class ProductPage extends Component {
   };
 
   render() {
-    const {
-      product,
-      loadingProduct,
-      loadingPartialProduct,
-    } = this.state;
+    const { product, loadingProduct, loadingPartialProduct } = this.state;
 
     let thumbs = [];
 
@@ -86,7 +82,7 @@ class ProductPage extends Component {
     return (
       <PublicLayout>
         <ScrollToTop />
-        <div className="product-page__container">
+        <div className="product-page">
           <ProductPageSlider thumbs={thumbs} />
           <div className="product-page__pr-details pr-details">
             <ProductPageDescriptionLeft
