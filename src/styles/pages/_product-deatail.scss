@@ -40,7 +40,7 @@ $lines-to-show: 3;
     &__container {
       display: flex;
       flex-direction: column;
-      gap: 3.5rem;
+      gap: 1.7rem;
       max-width: 300px;
       width: 100%;
     }
@@ -71,6 +71,7 @@ $lines-to-show: 3;
     &__price {
       font-size: 24px;
       font-weight: 700;
+      margin-bottom: 1.2rem;
     }
     &__description {
       display: block; /* Fallback for non-webkit */

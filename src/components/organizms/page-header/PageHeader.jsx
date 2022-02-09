@@ -11,6 +11,8 @@ import { compose } from 'redux';
 import { withRouter } from 'react-router-dom';
 import globalsSelectors from '../../../redux/features/globalState/globalsSelectors';
 
+
+
 class PageHeader extends Component {
   state = { isCurrencyOpen: false, isBasketPopoverOpen: false };
 

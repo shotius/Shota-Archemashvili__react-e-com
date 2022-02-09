@@ -2,7 +2,7 @@ import { Component } from 'react';
 import PropTypes from 'prop-types';
 import { loadDefaultImage } from '../../../utils/helpers';
 import classNames from 'classnames';
-import imageUtils from './utils';
+import imageUtils from './image.utils';
 const { giveOpacity } = imageUtils;
 
 class Image extends Component {

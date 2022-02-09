@@ -1,6 +1,6 @@
-- product not found
 - animation number on the basket
 
++ product not found
 + links form cart items
 + more than 5 photos in the slider
 + carousel on cart page

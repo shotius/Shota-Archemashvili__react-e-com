@@ -1,10 +1,9 @@
 import { Component } from 'react';
-import { Heading } from '../../components/atoms/typography/Heading';
 import HeadingSecondary from '../../components/atoms/typography/HeadingSecondary';
 import ScrollToTop from '../../components/molecules/ScrollToTop';
 import TextOnMiddleOfPage from '../../components/molecules/TextOnMiddleOfPage';
+import ProductPageDescriptionBottom from '../../components/organizms/product-detail/sections/ProductPageDescriptionBottom';
 import { ProductPageDescriptionLeft } from '../../components/organizms/product-detail/sections/ProductPageDescriptionLeft';
-import ProductPageMoreDeatails from '../../components/organizms/product-detail/sections/ProductPageMoreDeatails';
 import ProductPageSlider from '../../components/organizms/Sliders/ProductPageSlider/ProductPageSlider';
 import { PublicLayout } from '../../components/templates/PublicLayout';
 import { withParams } from '../../utils/HOC/withParams';
@@ -109,7 +108,7 @@ class ProductPage extends Component {
             </div>
           </div>
         </div>
-        <ProductPageMoreDeatails
+        <ProductPageDescriptionBottom
           product={product}
           descriptionVisible={descriptionExpanded}
           toggleDescription={this.handleToggleDescription}

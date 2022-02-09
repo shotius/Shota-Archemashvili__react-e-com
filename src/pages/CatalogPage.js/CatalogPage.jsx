@@ -5,7 +5,7 @@ import CatalogCard from '../../components/organizms/cards/CatalogCard/CatalogCar
 import { PublicLayout } from '../../components/templates/PublicLayout';
 import productServices from '../../services/productServices';
 import { withParams } from '../../utils/HOC/withParams';
-import catalogProductUtils from './utils';
+import catalogProductUtils from './catalogPage.utils';
 
 const { getSingleCategory } = productServices;
 const { updateCategoryData } = catalogProductUtils;

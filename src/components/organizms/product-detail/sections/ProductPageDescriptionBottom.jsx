@@ -4,7 +4,7 @@ import { Heading } from '../../../atoms/typography/Heading';
 import classNames from 'classnames';
 import { Button } from '../../../atoms/buttons/Button';
 
-class ProductPageMoreDeatails extends Component {
+class ProductPageDescriptionBottom extends Component {
   render() {
     const { descriptionVisible, product, toggleDescription } = this.props;
 
@@ -30,10 +30,10 @@ class ProductPageMoreDeatails extends Component {
   }
 }
 
-ProductPageMoreDeatails.propTypes = {
+ProductPageDescriptionBottom.propTypes = {
   descriptionVisible: PropTypes.bool.isRequired,
   toggleDescription: PropTypes.func.isRequired,
   product: PropTypes.any,
 };
 
-export default ProductPageMoreDeatails;
+export default ProductPageDescriptionBottom;

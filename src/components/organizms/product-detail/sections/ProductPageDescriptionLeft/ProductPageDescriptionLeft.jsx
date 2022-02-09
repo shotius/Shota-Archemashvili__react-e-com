@@ -16,7 +16,7 @@ import { Heading } from '../../../../atoms/typography/Heading';
 import TextMain from '../../../../atoms/typography/TextMain';
 import PriceWithIcon from '../../../../molecules/PriceWithIcon';
 import { styleClasses } from './styleClasses';
-import productPageDeatailLeftUtils from './utils';
+import productPageDeatailLeftUtils from './productPageDescriptionLeft.utils';
 
 const {
   shouldShowMoreButtonBeVisible,
