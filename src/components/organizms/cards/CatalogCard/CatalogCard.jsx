@@ -1,4 +1,4 @@
-import PropTypes from 'prop-types';
+import PropTypes, { string } from 'prop-types';
 import { Component, createRef } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
@@ -102,7 +102,10 @@ CatalogCard.propTypes = {
     name: PropTypes.string,
     prices: PropTypes.arrayOf(
       PropTypes.shape({
-        currency: PropTypes.string,
+        currency: PropTypes.shape({
+          label: PropTypes.string,
+          symbol: PropTypes.string,
+        }),
         amount: PropTypes.number,
       })
     ),

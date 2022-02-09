@@ -22,11 +22,13 @@ const {
 class ProductPage extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
       product: null,
       loadingProduct: false,
       loadingPartialProduct: false,
     };
+    
     this.getCachedProduct = getCachedProduct.bind(this);
     this.getProductId = getProductId.bind(this);
     this.updateProductWithCache = updateProductWithCache.bind(this);

@@ -46,6 +46,12 @@ class CurrencyPopover extends Component {
             >
               ₽ RUB
             </button>
+            <button
+              className="btn btn--rect"
+              onClick={() => handleClick('AUD')}
+            >
+              A$ AUD
+            </button>
           </div>
         </div>
       </>

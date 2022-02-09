@@ -1,4 +1,3 @@
-
 /** uuid */
 export const uuid = () => {
   let dt = new Date().getTime();
@@ -26,6 +25,8 @@ export const getCurrencyIcon = (currencyString) => {
       return '¥';
     case 'RUB':
       return '₽';
+    case 'AUD':
+      return 'A$';
     default:
       return '$';
   }

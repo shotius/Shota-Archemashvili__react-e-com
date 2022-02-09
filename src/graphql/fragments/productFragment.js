@@ -25,7 +25,10 @@ export const PRODUCT_WITH_PRICE = gql`
     inStock
     category
     prices {
-      currency
+      currency {
+        label
+        symbol
+      }
       amount
     }
   }
