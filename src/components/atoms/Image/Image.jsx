@@ -1,14 +1,13 @@
-import { Component } from 'react';
 import PropTypes from 'prop-types';
-import { loadDefaultImage } from '../../../utils/helpers';
-import classNames from 'classnames';
+import { Component } from 'react';
 import imageUtils from './image.utils';
-const { giveOpacity } = imageUtils;
+import { styleClasses } from './styleClasses';
+const { setOpacity, loadDefaultImage } = imageUtils;
 
 class Image extends Component {
   onLoad = (e) => {
     const { fadeIn } = this.props;
-    fadeIn && giveOpacity(e.target, '1');
+    fadeIn && setOpacity(e.target, '1');
   };
 
   onError = (e) => {
@@ -17,19 +16,9 @@ class Image extends Component {
   };
 
   render() {
-    const {
-      alt,
-      fallbackSrc,
-      speed = 'mouse',
-      fadeIn,
-      className,
-      ...rest
-    } = this.props;
+    const { alt, fallbackSrc, fadeIn, className, ...rest } = this.props;
 
-    const cn = classNames(
-      { [`animation--easyload animation--easyload--${speed}`]: fadeIn },
-      className
-    );
+    const { cn } = styleClasses.call(this);
 
     return (
       <img

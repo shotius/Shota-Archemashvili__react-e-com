@@ -1,7 +1,5 @@
-import { Component } from 'react';
 import PropTypes from 'prop-types';
-import { AspectRatio } from '../../../molecules/AspectRatio';
-import { loadDefaultImage } from '../../../../utils/helpers';
+import { Component } from 'react';
 import Image from '../../../atoms/Image/Image';
 import productPageSliderUtils from './productPageSlider.utils';
 
@@ -30,16 +28,11 @@ class ProductPageSlider extends Component {
 
     return (
       <div className="product-page__slider">
-        <div className="product-page__slider__thumbs">
+        <div className="product-page__thumbs">
           {thumbs.map((thumb, i) => (
-            <AspectRatio
-              ratio={1}
-              maxWidth="80px"
-              key={`${thumb}${i}`}
-              onClick={() => this.handleThumbClick(thumb)}
-            >
-              <img src={thumb} alt="slider thumb" onError={loadDefaultImage} />
-            </AspectRatio>
+            <div className="product-page__thumb-container">
+              <Image src={thumb} onClick={() => this.handleThumbClick(thumb)} />
+            </div>
           ))}
         </div>
         <div className="product-page__slider__img">

@@ -2,8 +2,6 @@ import { Component, createRef } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-//TEST_MODE
-
 // Component will receive prop `ratio="width/height"` and maxWidth="some px"
 export class AspectRatio extends Component {
   constructor(props) {

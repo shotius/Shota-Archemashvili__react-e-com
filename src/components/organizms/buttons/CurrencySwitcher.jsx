@@ -5,7 +5,7 @@ import classNames from 'classnames';
 import CurrencyPopover from '../popovers/CurrencyPopover';
 import { Button } from '../../atoms/buttons/Button';
 import { connect } from 'react-redux';
-import { getCurrencyIcon } from '../../../utils/getCurrencyIcon';
+import { getCurrencyIcon } from '../../../utils/helpers';
 import TextRoboto from '../../atoms/typography/TextRoboto';
 import globalsSelectors from '../../../redux/features/globalState/globalsSelectors';
 

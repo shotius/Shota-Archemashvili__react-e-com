@@ -1,3 +1,5 @@
+
+/** uuid */
 export const uuid = () => {
   let dt = new Date().getTime();
 
@@ -8,15 +10,23 @@ export const uuid = () => {
   });
 };
 
-export const loadDefaultImage = (e, fallbackSrc) => {
-  e.target.src =
-    fallbackSrc ||
-    'https://res.cloudinary.com/car-space-v1/image/upload/v1644194330/image-not-found_yuufij.jpg';
-  e.target.style['object-fit'] = 'contain';
-};
-
 export const stopPropagation = (e) => {
   if (e.stopPropagation) e.stopPropagation();
 };
 
 export const isObjectEmpty = (obj) => Object.keys(obj).length;
+
+export const getCurrencyIcon = (currencyString) => {
+  switch (currencyString) {
+    case 'USD':
+      return '$';
+    case 'GBP':
+      return '£';
+    case 'JPY':
+      return '¥';
+    case 'RUB':
+      return '₽';
+    default:
+      return '$';
+  }
+};

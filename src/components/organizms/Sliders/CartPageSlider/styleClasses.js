@@ -1,18 +1,18 @@
 import classNames from 'classnames';
 
 export function styleClasses() {
-  const { size } = this.props;
+  const { size, gallery } = this.props;
   const pictureContainer = classNames('page-cart__picture-container', [
     `page-cart__picture-container--${size}`,
   ]);
 
-  const pictureContainerClass = classNames(
+  const navigationContainer = classNames(
     'page-cart__picture-container__navigation',
-    { '-display-none': size === 'small' }
+    { '-display-none': size === 'small' || gallery.length <= 1 }
   );
 
   return {
     pictureContainer,
-    pictureContainerClass,
+    navigationContainer,
   };
 }

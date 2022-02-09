@@ -1,8 +1,8 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
-import { getCurrencyIcon } from '../../utils/getCurrencyIcon';
 import globalsSelectors from '../../redux/features/globalState/globalsSelectors';
 import { connect } from 'react-redux';
+import { getCurrencyIcon } from '../../utils/helpers';
 
 class PriceWithIcon extends Component {
   render() {

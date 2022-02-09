@@ -42,12 +42,13 @@ class CartPageSlider extends Component {
     const { gallery, ...rest } = this.props;
     const { activeSlide } = this.state;
 
-    const { pictureContainer, pictureContainerClass } = styleClasses.call(this);
+    const { pictureContainer, navigationContainer } = styleClasses.call(this);
 
     return (
       <div className={pictureContainer} {...rest}>
         <Image src={gallery[activeSlide]} alt="product" />
-        <div className={pictureContainerClass}>
+        
+        <div className={navigationContainer}>
           <Button
             className="page-cart__picture-container__btn-right"
             onClick={this.handleNextSlide}
