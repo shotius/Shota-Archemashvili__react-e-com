@@ -18,38 +18,21 @@ import PriceWithIcon from '../../../../molecules/PriceWithIcon';
 import { styleClasses } from './styleClasses';
 import productPageDeatailLeftUtils from './productPageDescriptionLeft.utils';
 
-const {
-  shouldShowMoreButtonBeVisible,
-  shouldDescriptionButtonBeVisible,
-  getSelectedAttributes,
-  getUpdatedAttibutes,
-  validateAttributes,
-} = productPageDeatailLeftUtils;
+const { getSelectedAttributes, getUpdatedAttibutes, validateAttributes } =
+  productPageDeatailLeftUtils;
 
 class ProductPageDescriptionLeft extends Component {
   constructor(props) {
     super(props);
-    this.descriptionContainerRef = createRef();
-    this.descriptionRef = createRef();
-
     this.state = {
-      isDescriptionButtonShown: false,
       selectedAttributes: {},
       fieldErrors: {},
     };
-    
+
     this.getSelectedAttributes = getSelectedAttributes.bind(this);
-    this.shouldDescriptionButtonBeVisible =
-      shouldDescriptionButtonBeVisible.bind(this);
     this.getUpdatedAttibutes = getUpdatedAttibutes.bind(this);
     this.validateAttributes = validateAttributes.bind(this);
     this.styleClasses = styleClasses.bind(this);
-  }
-
-  componentDidUpdate() {
-    if (shouldShowMoreButtonBeVisible.call(this)) {
-      this.setState({ isDescriptionButtonShown: true });
-    }
   }
 
   handleSelectAttr = (props) => {
@@ -85,7 +68,7 @@ class ProductPageDescriptionLeft extends Component {
   render() {
     let price = 0;
 
-    const { currency, product, toggleDescription } = this.props;
+    const { currency, product } = this.props;
     const { fieldErrors } = this.state;
 
     if (!product) {
@@ -96,12 +79,8 @@ class ProductPageDescriptionLeft extends Component {
     price = selectPrice(product.prices, currency);
 
     // css classes
-    const {
-      productBrandClass,
-      descriptionClass,
-      productNameClass,
-      descriptionExpandClass,
-    } = this.styleClasses();
+    const { productBrandClass, descriptionClass, productNameClass } =
+      this.styleClasses();
 
     return (
       <div className="pr-details__container">
@@ -158,15 +137,9 @@ class ProductPageDescriptionLeft extends Component {
         </Button>
 
         {/* Description  */}
-        <div className={descriptionClass} ref={this.descriptionContainerRef}>
-          <div
-            ref={this.descriptionRef}
-            dangerouslySetInnerHTML={{ __html: product.description }}
-          />
+        <div className={descriptionClass}>
+          <div dangerouslySetInnerHTML={{ __html: product.description }} />
         </div>
-        <Button className={descriptionExpandClass} onClick={toggleDescription}>
-          show more details
-        </Button>
       </div>
     );
   }
@@ -176,8 +149,6 @@ ProductPageDescriptionLeft.propTypes = {
   loadingPartialProduct: PropTypes.bool.isRequired,
   loadingProduct: PropTypes.bool.isRequired,
   product: PropTypes.any,
-  descriptionExpanded: PropTypes.bool.isRequired,
-  toggleDescription: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({

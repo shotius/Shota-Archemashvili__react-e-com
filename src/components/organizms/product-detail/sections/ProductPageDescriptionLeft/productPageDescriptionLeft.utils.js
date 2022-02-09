@@ -1,20 +1,3 @@
-// returns true if product is fetched and product description is enough to fill the container
-function shouldDescriptionButtonBeVisible() {
-  return (
-    this.props.product &&
-    this.descriptionContainerRef.current &&
-    this.descriptionRef.current &&
-    this.descriptionContainerRef.current.clientHeight <=
-      this.descriptionRef.current.clientHeight
-  );
-}
-
-function shouldShowMoreButtonBeVisible() {
-  return (
-    !this.state.isDescriptionButtonShown &&
-    shouldDescriptionButtonBeVisible.call(this)
-  );
-}
 
 function getSelectedAttributes() {
   return { ...this.state.selectedAttributes };
@@ -52,8 +35,6 @@ function validateAttributes() {
 }
 
 const productPageDeatailLeftUtils = {
-  shouldDescriptionButtonBeVisible,
-  shouldShowMoreButtonBeVisible,
   getSelectedAttributes,
   getUpdatedAttibutes,
   validateAttributes,

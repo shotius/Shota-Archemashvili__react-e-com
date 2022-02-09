@@ -2,7 +2,6 @@ import { Component } from 'react';
 import HeadingSecondary from '../../components/atoms/typography/HeadingSecondary';
 import ScrollToTop from '../../components/molecules/ScrollToTop';
 import TextOnMiddleOfPage from '../../components/molecules/TextOnMiddleOfPage';
-import ProductPageDescriptionBottom from '../../components/organizms/product-detail/sections/ProductPageDescriptionBottom';
 import { ProductPageDescriptionLeft } from '../../components/organizms/product-detail/sections/ProductPageDescriptionLeft';
 import ProductPageSlider from '../../components/organizms/Sliders/ProductPageSlider/ProductPageSlider';
 import { PublicLayout } from '../../components/templates/PublicLayout';
@@ -26,7 +25,6 @@ class ProductPage extends Component {
     this.state = {
       product: null,
       loadingProduct: false,
-      descriptionExpanded: false,
       loadingPartialProduct: false,
     };
     this.getCachedProduct = getCachedProduct.bind(this);
@@ -62,16 +60,11 @@ class ProductPage extends Component {
       : this.fetchAndUpdateProduct();
   };
 
-  handleToggleDescription = () => {
-    this.setState({ descriptionExpanded: !this.state.descriptionExpanded });
-  };
-
   render() {
     const {
       product,
       loadingProduct,
       loadingPartialProduct,
-      descriptionExpanded,
     } = this.state;
 
     let thumbs = [];
@@ -93,26 +86,16 @@ class ProductPage extends Component {
     return (
       <PublicLayout>
         <ScrollToTop />
-        {}
-        <div className="product-page page-container--outer">
-          <div className="product-page__container">
-            <ProductPageSlider thumbs={thumbs} />
-            <div className="product-page__pr-details pr-details">
-              <ProductPageDescriptionLeft
-                descriptionExpanded={this.state.descriptionExpanded}
-                loadingPartialProduct={loadingPartialProduct}
-                loadingProduct={loadingProduct}
-                product={product}
-                toggleDescription={this.handleToggleDescription}
-              />
-            </div>
+        <div className="product-page__container">
+          <ProductPageSlider thumbs={thumbs} />
+          <div className="product-page__pr-details pr-details">
+            <ProductPageDescriptionLeft
+              loadingPartialProduct={loadingPartialProduct}
+              loadingProduct={loadingProduct}
+              product={product}
+            />
           </div>
         </div>
-        <ProductPageDescriptionBottom
-          product={product}
-          descriptionVisible={descriptionExpanded}
-          toggleDescription={this.handleToggleDescription}
-        />
       </PublicLayout>
     );
   }
