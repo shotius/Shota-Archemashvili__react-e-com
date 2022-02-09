@@ -31,11 +31,13 @@ class ProductPageDescriptionLeft extends Component {
     super(props);
     this.descriptionContainerRef = createRef();
     this.descriptionRef = createRef();
+
     this.state = {
       isDescriptionButtonShown: false,
       selectedAttributes: {},
       fieldErrors: {},
     };
+    
     this.getSelectedAttributes = getSelectedAttributes.bind(this);
     this.shouldDescriptionButtonBeVisible =
       shouldDescriptionButtonBeVisible.bind(this);

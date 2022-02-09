@@ -1,10 +1,10 @@
 import PropTypes from 'prop-types';
-import { Component } from 'react';
+import { PureComponent } from 'react';
 import imageUtils from './image.utils';
 import { styleClasses } from './styleClasses';
 const { setOpacity, loadDefaultImage } = imageUtils;
 
-class Image extends Component {
+class Image extends PureComponent {
   onLoad = (e) => {
     const { fadeIn } = this.props;
     fadeIn && setOpacity(e.target, '1');

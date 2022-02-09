@@ -29,13 +29,13 @@ class ProductPageSlider extends Component {
     return (
       <div className="product-page__slider">
         <div className="product-page__thumbs">
-          {thumbs.map((thumb, i) => (
-            <div className="product-page__thumb-container">
+          {thumbs.map((thumb) => (
+            <div key={thumb} className="product-page__thumb-container">
               <Image src={thumb} onClick={() => this.handleThumbClick(thumb)} />
             </div>
           ))}
         </div>
-        <div className="product-page__slider__img">
+        <div className="product-page__img-container">
           {selectedImage && (
             <Image
               src={this.state.selectedImage}
