@@ -23,7 +23,7 @@ $lines-to-show: 3;
     flex-direction: column;
     gap: 2.5rem;
     overflow-y: scroll;
-    width: 115px;
+    min-width: 115px;
     @include mobile-scroll;
   }
   &__thumb-container {
