@@ -42,7 +42,6 @@ class ProductPageSlider extends Component {
               alt="slider main"
               fadeIn={true}
               speed="mouse"
-              style={{ maxWidth: '100%', maxHeight: '100%' }}
             />
           )}
         </div>

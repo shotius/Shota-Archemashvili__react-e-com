@@ -1,4 +1,4 @@
-import PropTypes, { string } from 'prop-types';
+import PropTypes from 'prop-types';
 import { Component, createRef } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
@@ -51,6 +51,8 @@ class CatalogCard extends Component {
     const { imgClassName, catalogWrapperClass, bsktBtnClass, overlayClass } =
       styleClasses.call(this);
 
+    console.log('product: ', product);
+
     return (
       <div className="catalog-card">
         <div className={overlayClass}>
@@ -82,7 +84,7 @@ class CatalogCard extends Component {
             </div>
             <div className="catalog-card__description">
               <Heading className="catalog-card__heading">
-                {product.name}
+                {product.brand} {product.name}
               </Heading>
               <Heading className="catalog-card__price">
                 <PriceWithIcon price={price} />

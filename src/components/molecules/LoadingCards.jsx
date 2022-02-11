@@ -5,14 +5,7 @@ class LoadingCards extends Component {
     return (
       <>
         {[null, null, null].map((_, i) => (
-          <div
-            key={i}
-            className="skeleton"
-            style={{
-              flexBasis: '32%',
-              height: '400px',
-            }}
-          />
+          <div key={i} className="skeleton skeleton--card" />
         ))}
       </>
     );

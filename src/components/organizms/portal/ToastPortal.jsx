@@ -1,6 +1,5 @@
 import { Component } from 'react';
 import ReactDOM from 'react-dom';
-import PropTypes from 'prop-types';
 import toastUtils from './toastUtils';
 import { connect } from 'react-redux';
 import { removeToast } from '../../../redux/features/globalState/globalSlice';

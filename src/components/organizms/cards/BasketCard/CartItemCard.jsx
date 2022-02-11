@@ -84,7 +84,7 @@ class CartItemCard extends Component {
 
           {/* Price  */}
           <TextMain className={priceClass}>
-            <PriceWithIcon price={price * product.count} />
+            <PriceWithIcon price={price} />
           </TextMain>
 
           {/* Attributes  */}
