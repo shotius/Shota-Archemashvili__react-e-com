@@ -1,22 +1,23 @@
 import PropTypes from 'prop-types';
 import { Component } from 'react';
-import dropdownIcon from '../../../assets/icons/dropdownIcon.svg';
-import { CATALOG_ROUTE } from '../../../config/constants';
-import { Button } from '../../atoms/buttons/Button';
-import NavButton from '../../atoms/buttons/NavButton';
-import { PopoverOverlay } from '../../molecules/overlays/Overlay';
-import { Popover } from '../../molecules/Popover/inex';
-import PopoverBody from '../../molecules/Popover/PopoverBody';
-import PopoverTrigger from '../../molecules/Popover/PopoverTrigger';
-import VStack from '../../molecules/VStack';
+import dropdownIcon from '../../../../assets/icons/dropdownIcon.svg';
+import { CATALOG_ROUTE } from '../../../../config/constants';
+import { Button } from '../../../atoms/buttons/Button';
+import NavButton from '../../../atoms/buttons/NavButton';
+import { PopoverOverlay } from '../../../molecules/overlays/Overlay';
+import { Popover } from '../../../molecules/Popover/inex';
+import PopoverBody from '../../../molecules/Popover/PopoverBody';
+import PopoverTrigger from '../../../molecules/Popover/PopoverTrigger';
+import VStack from '../../../molecules/VStack';
 import { styleClasses } from './styleClasses';
 
 class MoreCategories extends Component {
   render() {
     const { categories, isOpen, onToggle } = this.props;
-    const { dropdownClass } = styleClasses.call(this);
+    const { categoryPopoverClass, dropdownClass } = styleClasses.call(this);
+
     return (
-      <Popover className="category-popover">
+      <Popover className={categoryPopoverClass}>
         <PopoverOverlay isOpen={isOpen} cb={onToggle} />
         <PopoverTrigger>
           <Button onClick={onToggle}>

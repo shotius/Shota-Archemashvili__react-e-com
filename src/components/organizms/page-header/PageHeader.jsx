@@ -15,7 +15,7 @@ import {
   setCurrencies,
 } from '../../../redux/features/globalState/globalSlice';
 import pageHeaderUtils from './pageHeader.utils';
-import CategoryPopover from '../popovers/MoreCategories';
+import MoreCategoryPopover from '../popovers/MoreCategoryPopover/MoreCategoriesPopover';
 
 const { getCurrenciesAndCategories } = pageHeaderUtils;
 
@@ -57,20 +57,23 @@ class PageHeader extends Component {
       categories,
     } = this.props;
 
-    const categoriesToShow = categories.concat('one', 'two');
+    const categoriesOnNavbar = categories.slice(0, 3);
+    const categoriesOnPopover = categories.slice(3).concat(['one', 'two']);
 
     return (
       <div className="header -center_content">
         <div className="container--lg -justify-between -position-relative">
           {/* navigation  */}
           <ButtonGroup>
-            {categoriesToShow.slice(0, 3).map((category) => (
+            {/* Buttons on the navigation  */}
+            {categoriesOnNavbar.map((category) => (
               <NavButton key={category} to={`${CATALOG_ROUTE}/${category}`}>
                 {category}
               </NavButton>
             ))}
-            <CategoryPopover
-              categories={['categories', 'two', 'three']}
+            {/* Buttons on the the popover  */}
+            <MoreCategoryPopover
+              categories={categoriesOnPopover}
               isOpen={isMoreCategoryPopoverOpen}
               onToggle={this.toggleMoreCategoryPopover}
             />

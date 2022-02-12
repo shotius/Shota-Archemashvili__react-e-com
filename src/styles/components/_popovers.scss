@@ -22,6 +22,9 @@
   &:hover {
     background-color: $lightGray;
   }
+  &--hidden {
+    display: none;
+  }
   &__dropdown {
     transition: all $mouse;
     &--active {

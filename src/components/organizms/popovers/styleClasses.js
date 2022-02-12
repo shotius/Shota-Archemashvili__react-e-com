@@ -11,18 +11,8 @@ export function styleClasses() {
     'popover-body--opened': isOpen,
   });
 
-  const categoryPopoverClass = classNames('category-popover', {
-    'category-popover--opened': isOpen,
-  });
-
-  const dropdownClass = classNames('category-popover__dropdown', {
-    'category-popover__dropdown--active': isOpen,
-  });
-
   return {
     basketPopoverClass,
     currencyPopoverBody,
-    categoryPopoverClass,
-    dropdownClass,
   };
 }
