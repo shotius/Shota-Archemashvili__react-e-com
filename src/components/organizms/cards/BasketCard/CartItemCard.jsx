@@ -33,13 +33,13 @@ class CartItemCard extends Component {
     closeModal && closeModal();
     history.push(`${CATALOG_ROUTE}/${product.category}/${product.id}`);
   };
-  
+
   getAttributeButton = (attributes, attr) => {
     const size = this.props.size;
     if (isYesOrNo(attributes[attr])) {
       if (isYes(attributes[attr]))
         return (
-          <CartAttributeButton key={attr} size={size} text>
+          <CartAttributeButton key={attr} size={size}>
             {attr}
           </CartAttributeButton>
         );
@@ -47,7 +47,7 @@ class CartItemCard extends Component {
     }
 
     return (
-      <CartAttributeButton key={attr} size={size} text>
+      <CartAttributeButton key={attr} size={size}>
         {attributes[attr]}
       </CartAttributeButton>
     );

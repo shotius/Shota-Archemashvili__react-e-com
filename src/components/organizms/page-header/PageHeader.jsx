@@ -6,13 +6,13 @@ import shoppingBagIcon from '../../../assets/icons/shoppingIcon.svg';
 import { CATALOG_ROUTE } from '../../../config/constants';
 import {
   setCategories,
-  setCurrencies,
+  setCurrencies
 } from '../../../redux/features/globalState/globalSlice';
 import globalsSelectors from '../../../redux/features/globalState/globalsSelectors';
 import { Button } from '../../atoms/buttons/Button';
 import NavButton from '../../atoms/buttons/NavButton';
 import { ButtonGroup } from '../../molecules/ButtonGroup';
-import BasketButton from '../buttons/BasketButton';
+import { BasketPopover } from '../popovers/BasketPopover';
 import { CurrencySwitcherPopover } from '../popovers/CurrencySwitcherPopover';
 import MoreCategoryPopover from '../popovers/MoreCategoryPopover/MoreCategoriesPopover';
 import pageHeaderUtils from './pageHeader.utils';
@@ -95,7 +95,7 @@ class PageHeader extends Component {
               isOpen={isCurrencyOpen}
               onToggle={this.toggleCurrencyPopover}
             />
-            <BasketButton
+            <BasketPopover
               isOpen={isBasketPopoverOpen}
               onToggle={this.toggleBasketPopover}
             />

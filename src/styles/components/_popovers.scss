@@ -8,11 +8,7 @@
   @include popover;
   box-shadow: $shadownSmall;
   z-index: $popover;
-  opacity: 1;
   background-color: white;
-  &__container {
-    position: relative;
-  }
 }
 
 /** Specific Popovers */
@@ -43,12 +39,14 @@
 }
 
 .basket-popover {
-  @include popover;
-  background-color: white;
-  top: 100%;
-  width: 326px;
-  right: 10px;
-  padding: 0.8rem 1.6rem 2rem;
+  @include center;
+  .popover-body {
+    background-color: white;
+    top: 100%;
+    width: 326px;
+    right: 10px;
+    padding: 0.8rem 1.6rem 2rem;
+  }
 
   &__cards {
     max-height: 400px;
