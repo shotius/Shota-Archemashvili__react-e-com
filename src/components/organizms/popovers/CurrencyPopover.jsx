@@ -2,13 +2,13 @@ import PropTypes from 'prop-types';
 import { Component } from 'react';
 import { connect } from 'react-redux';
 import { setCurrency } from '../../../redux/features/globalState/globalSlice';
+import globalsSelectors from '../../../redux/features/globalState/globalsSelectors';
 import { PopoverOverlay } from '../../molecules/overlays/Overlay';
 import { styleClasses } from './styleClasses';
 
 class CurrencyPopover extends Component {
   render() {
-    const { isOpen, onClose } = this.props;
-    const setCurrency = this.props.setCurrency;
+    const { isOpen, onClose, currencies, setCurrency } = this.props;
 
     const { popoverContainer } = styleClasses.call(this);
 
@@ -22,36 +22,15 @@ class CurrencyPopover extends Component {
         <PopoverOverlay isOpen={isOpen} cb={onClose} />
         <div className={popoverContainer}>
           <div className="v-stack ">
-            <button
-              className="btn btn--rect"
-              onClick={() => handleClick('USD')}
-            >
-              $ USD
-            </button>
-            <button
-              className="btn btn--rect"
-              onClick={() => handleClick('GBP')}
-            >
-              £ GBP
-            </button>
-            <button
-              className="btn btn--rect"
-              onClick={() => handleClick('JPY')}
-            >
-              ¥ JPY
-            </button>
-            <button
-              className="btn btn--rect"
-              onClick={() => handleClick('RUB')}
-            >
-              ₽ RUB
-            </button>
-            <button
-              className="btn btn--rect"
-              onClick={() => handleClick('AUD')}
-            >
-              A$ AUD
-            </button>
+            {currencies.map((currency) => (
+              <button
+                key={currency.label}
+                className="btn btn--rect"
+                onClick={() => handleClick(currency.label)}
+              >
+                {currency.symbol} {currency.label}
+              </button>
+            ))}
           </div>
         </div>
       </>
@@ -64,4 +43,10 @@ CurrencyPopover.propTypes = {
   onClose: PropTypes.func.isRequired,
 };
 
-export default connect(null, { setCurrency })(CurrencyPopover);
+const mapPropsToState = (state) => ({
+  currencies: globalsSelectors.getCurrencies(state),
+});
+
+const withRedux = connect(mapPropsToState, { setCurrency });
+
+export default withRedux(CurrencyPopover);

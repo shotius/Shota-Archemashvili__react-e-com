@@ -15,6 +15,7 @@ import {
   setCurrencies,
 } from '../../../redux/features/globalState/globalSlice';
 import pageHeaderUtils from './pageHeader.utils';
+
 const { getCurrenciesAndCategories } = pageHeaderUtils;
 
 class PageHeader extends Component {
@@ -83,7 +84,6 @@ class PageHeader extends Component {
 const mapPropsToState = (state) => ({
   defaultCategory: globalsSelectors.getDefaultCategory(state),
   categories: globalsSelectors.getCategories(state),
-  currencies: globalsSelectors.getCurrencies(state),
 });
 
 const withRedux = connect(mapPropsToState, {

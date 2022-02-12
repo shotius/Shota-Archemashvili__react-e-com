@@ -4,7 +4,8 @@ const { formatToast, removeToastFrom, formatCategories, formatCurrencies } =
   globalsService;
 
 const initalState = {
-  currency: 'USD', // "GBP", "AUD" , "JPY", "RUB"
+  // currency: { label: 'USD', symbol: '$' }, // "GBP", "AUD" , "JPY", "RUB"
+  currency: 'USD',
   defaultCategory: 'clothes',
   toasts: [],
   categories: [],
