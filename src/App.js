@@ -15,7 +15,7 @@ class App extends Component {
             <Route
               path="/"
               exact
-              render={() => <Redirect to="/catalog/tech" />}
+              render={() => <Redirect to="/catalog/clothes" />}
             />
             <Route
               path="/catalog"

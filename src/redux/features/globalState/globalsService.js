@@ -27,11 +27,24 @@ const formatToast = (toast) => {
   };
 };
 
+const formatCategories = (categories) => {
+  return categories.map((category) => category.name);
+};
+
+const formatCurrencies = (currencies) => {
+  return currencies.map((curr) => {
+    const { label, symbol } = curr;
+    return { label, symbol };
+  });
+};
+
 /** Exports  */
 
 const globalsService = {
   removeToastFrom,
   formatToast,
+  formatCategories,
+  formatCurrencies,
 };
 
 export default globalsService;

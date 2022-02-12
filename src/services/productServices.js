@@ -3,10 +3,32 @@ import { PARTIAL_SINGLE_PRODUCT } from '../graphql/PARTIAL_SINGLE_PRODUCT';
 import { SINGLE_PRODUCT } from '../graphql/SINGLE_PRODUCT';
 import { SINGLE_CATEGORY } from '../graphql/SINGLE_CATEGORY';
 import { ALL_CATEGORY_PRODUCTS } from '../graphql/ALL_CATEGORIES';
+import { GET_CATEGORY_NAMES } from '../graphql/GET_CATEGORY_NAMES';
+import { GET_CURRENCIES } from '../graphql/GET_CURRENCIES';
 
 const client = GlobalApp.apolloClient;
 
 /** Reading from the server  */
+
+const getCategoryNames = async () => {
+  const response = await client.query({
+    query: GET_CATEGORY_NAMES,
+  });
+
+  return response.data.categories;
+};
+
+const getCurrencies = async () => {
+  try {
+    const response = await client.query({
+      query: GET_CURRENCIES,
+    });
+    return response.data.currencies;
+  } catch (error) {
+    console.log('could not fetch currencies');
+    return [];
+  }
+};
 
 /**
  * @description Get product with all properties
@@ -110,6 +132,8 @@ const productServices = {
   getPartialProduct,
   getCachedCategory,
   getProductFromCache,
+  getCategoryNames,
+  getCurrencies,
 };
 
 export default productServices;

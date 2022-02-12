@@ -10,11 +10,22 @@ import NavButton from '../../atoms/buttons/NavButton';
 import { compose } from 'redux';
 import { withRouter } from 'react-router-dom';
 import globalsSelectors from '../../../redux/features/globalState/globalsSelectors';
-
-
+import {
+  setCategories,
+  setCurrencies,
+} from '../../../redux/features/globalState/globalSlice';
+import pageHeaderUtils from './pageHeader.utils';
+const { getCurrenciesAndCategories } = pageHeaderUtils;
 
 class PageHeader extends Component {
   state = { isCurrencyOpen: false, isBasketPopoverOpen: false };
+
+  componentDidMount = async () => {
+    const [categories, currencies] = await getCurrenciesAndCategories();
+
+    this.props.setCategories(categories);
+    this.props.setCurrencies(currencies);
+  };
 
   handleCurrencyToggle = () => {
     this.setState({ isCurrencyOpen: !this.state.isCurrencyOpen });
@@ -26,15 +37,22 @@ class PageHeader extends Component {
 
   render() {
     const { isBasketPopoverOpen, isCurrencyOpen } = this.state;
-    const { defaultCategory: selectedCategory, history } = this.props;
+    const {
+      defaultCategory: selectedCategory,
+      history,
+      categories,
+    } = this.props;
 
     return (
       <div className="header -center_content">
         <div className="container--lg -justify-between -position-relative">
           {/* navigation  */}
           <ButtonGroup>
-            <NavButton to={`${CATALOG_ROUTE}/clothes`}>Clothes</NavButton>
-            <NavButton to={`${CATALOG_ROUTE}/tech`}>Tech</NavButton>
+            {categories.map((category) => (
+              <NavButton key={category} to={`${CATALOG_ROUTE}/${category}`}>
+                {category}
+              </NavButton>
+            ))}
           </ButtonGroup>
 
           {/* Logo */}
@@ -62,11 +80,17 @@ class PageHeader extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({
+const mapPropsToState = (state) => ({
   defaultCategory: globalsSelectors.getDefaultCategory(state),
+  categories: globalsSelectors.getCategories(state),
+  currencies: globalsSelectors.getCurrencies(state),
 });
 
-const withRedux = connect(mapStateToProps);
+const withRedux = connect(mapPropsToState, {
+  setCategories,
+  setCurrencies,
+});
+
 const enhance = compose(withRouter, withRedux);
 
 export default enhance(PageHeader);

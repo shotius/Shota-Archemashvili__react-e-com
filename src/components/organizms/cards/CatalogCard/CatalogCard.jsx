@@ -51,8 +51,6 @@ class CatalogCard extends Component {
     const { imgClassName, catalogWrapperClass, bsktBtnClass, overlayClass } =
       styleClasses.call(this);
 
-    console.log('product: ', product);
-
     return (
       <div className="catalog-card">
         <div className={overlayClass}>
