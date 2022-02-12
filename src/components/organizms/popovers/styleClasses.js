@@ -7,8 +7,8 @@ export function styleClasses() {
     'basket-popover--opened': isOpen,
   });
 
-  const popoverContainer = classNames('currency_popover', '-zIndex-modal', {
-    'currency_popover--opened': isOpen,
+  const currencyPopoverBody = classNames('popover-body', '-zIndex-modal', {
+    'popover-body--opened': isOpen,
   });
 
   const categoryPopoverClass = classNames('category-popover', {
@@ -21,7 +21,7 @@ export function styleClasses() {
 
   return {
     basketPopoverClass,
-    popoverContainer,
+    currencyPopoverBody,
     categoryPopoverClass,
     dropdownClass,
   };

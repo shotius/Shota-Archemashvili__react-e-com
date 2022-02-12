@@ -1,3 +1,5 @@
+/** Parts of Popover */
+
 .popover-trigger {
   position: relative;
 }
@@ -13,6 +15,8 @@
   }
 }
 
+/** Specific Popovers */
+
 .category-popover {
   @include center;
   &:hover {
@@ -27,11 +31,12 @@
 }
 
 .currency_popover {
-  @include popover;
-  width: 115px;
-  box-shadow: $shadownSmall;
-  padding: 0.8rem 0px;
-  background-color: white;
+  @include center;
+  .popover-body {
+    width: 115px;
+    box-shadow: $shadownSmall;
+    padding: 0.8rem 0px;
+  }
 }
 
 .basket-popover {

@@ -6,7 +6,11 @@ import dropdownIcon from '../../../assets/icons/dropdownIcon.svg';
 import globalsSelectors from '../../../redux/features/globalState/globalsSelectors';
 import { Button } from '../../atoms/buttons/Button';
 import TextRoboto from '../../atoms/typography/TextRoboto';
-import CurrencyPopover from '../popovers/CurrencyPopover';
+import { PopoverOverlay } from '../../molecules/overlays/Overlay';
+import { Popover } from '../../molecules/Popover/inex';
+import PopoverBody from '../../molecules/Popover/PopoverBody';
+import PopoverTrigger from '../../molecules/Popover/PopoverTrigger';
+import CurrencyList from '../popovers/CurrencyList';
 
 class CurrencySwitcher extends Component {
   render() {
@@ -17,19 +21,24 @@ class CurrencySwitcher extends Component {
     });
 
     return (
-      <>
-        <Button className="nav__btn_currency" onClick={onToggle}>
-          <TextRoboto className="text--big text--light -pr-4">
-            {currency.symbol}
-          </TextRoboto>
-          <img
-            src={dropdownIcon}
-            className={className}
-            alt="currentcy change dropwdown"
-          />
-        </Button>
-        <CurrencyPopover isOpen={isOpen} onClose={onToggle} />
-      </>
+      <Popover onClick={onToggle} className={'currency_popover'}>
+        <PopoverOverlay isOpen={isOpen} cb={onToggle} />
+        <PopoverTrigger>
+          <Button className="nav__btn_currency">
+            <TextRoboto className="text--big text--light -pr-4">
+              {currency.symbol}
+            </TextRoboto>
+            <img
+              src={dropdownIcon}
+              className={className}
+              alt="currentcy change dropwdown"
+            />
+          </Button>
+        </PopoverTrigger>
+        <PopoverBody isOpen={isOpen}>
+          <CurrencyList onClose={onToggle} />
+        </PopoverBody>
+      </Popover>
     );
   }
 }
