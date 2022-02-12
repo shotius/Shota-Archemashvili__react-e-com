@@ -1,21 +1,21 @@
 import { Component } from 'react';
 import { connect } from 'react-redux';
-import shoppingBagIcon from '../../../assets/icons/shoppingIcon.svg';
-import { Button } from '../../atoms/buttons/Button';
-import { ButtonGroup } from '../../molecules/ButtonGroup';
-import BasketButton from '../buttons/BasketButton';
-import CurrencySwitcher from '../buttons/CurrencySwitcher';
-import { CATALOG_ROUTE } from '../../../config/constants';
-import NavButton from '../../atoms/buttons/NavButton';
-import { compose } from 'redux';
 import { withRouter } from 'react-router-dom';
-import globalsSelectors from '../../../redux/features/globalState/globalsSelectors';
+import { compose } from 'redux';
+import shoppingBagIcon from '../../../assets/icons/shoppingIcon.svg';
+import { CATALOG_ROUTE } from '../../../config/constants';
 import {
   setCategories,
   setCurrencies,
 } from '../../../redux/features/globalState/globalSlice';
-import pageHeaderUtils from './pageHeader.utils';
+import globalsSelectors from '../../../redux/features/globalState/globalsSelectors';
+import { Button } from '../../atoms/buttons/Button';
+import NavButton from '../../atoms/buttons/NavButton';
+import { ButtonGroup } from '../../molecules/ButtonGroup';
+import BasketButton from '../buttons/BasketButton';
+import { CurrencySwitcherPopover } from '../popovers/CurrencySwitcherPopover';
 import MoreCategoryPopover from '../popovers/MoreCategoryPopover/MoreCategoriesPopover';
+import pageHeaderUtils from './pageHeader.utils';
 
 const { getCurrenciesAndCategories } = pageHeaderUtils;
 
@@ -39,12 +39,14 @@ class PageHeader extends Component {
     }));
   };
 
-  handleCurrencyToggle = () => {
-    this.setState({ isCurrencyOpen: !this.state.isCurrencyOpen });
+  toggleCurrencyPopover = () => {
+    this.setState((state) => ({ isCurrencyOpen: !state.isCurrencyOpen }));
   };
 
-  handeBasketToggle = () => {
-    this.setState({ isBasketPopoverOpen: !this.state.isBasketPopoverOpen });
+  toggleBasketPopover = () => {
+    this.setState((state) => ({
+      isBasketPopoverOpen: !state.isBasketPopoverOpen,
+    }));
   };
 
   render() {
@@ -58,7 +60,7 @@ class PageHeader extends Component {
     } = this.props;
 
     const categoriesOnNavbar = categories.slice(0, 3);
-    const categoriesOnPopover = categories.slice(3).concat(['one', 'two']);
+    const categoriesOnPopover = categories.slice(3);
 
     return (
       <div className="header -center_content">
@@ -89,13 +91,13 @@ class PageHeader extends Component {
 
           {/* Switchers  */}
           <div className="header__btn_group">
-            <CurrencySwitcher
+            <CurrencySwitcherPopover
               isOpen={isCurrencyOpen}
-              onToggle={this.handleCurrencyToggle}
+              onToggle={this.toggleCurrencyPopover}
             />
             <BasketButton
               isOpen={isBasketPopoverOpen}
-              onToggle={this.handeBasketToggle}
+              onToggle={this.toggleBasketPopover}
             />
           </div>
         </div>

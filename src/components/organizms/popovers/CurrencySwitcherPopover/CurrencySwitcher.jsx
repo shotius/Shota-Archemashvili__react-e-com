@@ -2,35 +2,32 @@ import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import { Component } from 'react';
 import { connect } from 'react-redux';
-import dropdownIcon from '../../../assets/icons/dropdownIcon.svg';
-import globalsSelectors from '../../../redux/features/globalState/globalsSelectors';
-import { Button } from '../../atoms/buttons/Button';
-import TextRoboto from '../../atoms/typography/TextRoboto';
-import { PopoverOverlay } from '../../molecules/overlays/Overlay';
-import { Popover } from '../../molecules/Popover/inex';
-import PopoverBody from '../../molecules/Popover/PopoverBody';
-import PopoverTrigger from '../../molecules/Popover/PopoverTrigger';
-import CurrencyList from '../popovers/CurrencyList';
+import dropdownIcon from '../../../../assets/icons/dropdownIcon.svg';
+import globalsSelectors from '../../../../redux/features/globalState/globalsSelectors';
+import { Button } from '../../../atoms/buttons/Button';
+import TextRoboto from '../../../atoms/typography/TextRoboto';
+import { PopoverOverlay } from '../../../molecules/overlays/Overlay';
+import { Popover } from '../../../molecules/Popover/inex';
+import PopoverBody from '../../../molecules/Popover/PopoverBody';
+import PopoverTrigger from '../../../molecules/Popover/PopoverTrigger';
+import CurrencyList from '../CurrencyList';
+import { styleClasses } from './styleClasses';
 
 class CurrencySwitcher extends Component {
   render() {
     const { isOpen, onToggle, currency } = this.props;
-
-    const className = classNames('nav__btn_dropdown', {
-      'nav__btn_dropdown--opened': isOpen,
-    });
-
+    const { dropdownClass } = styleClasses.call(this);
     return (
-      <Popover onClick={onToggle} className={'currency_popover'}>
+      <Popover className={'currency_popover'}>
         <PopoverOverlay isOpen={isOpen} cb={onToggle} />
         <PopoverTrigger>
-          <Button className="nav__btn_currency">
+          <Button className="nav__btn_currency" onClick={onToggle}>
             <TextRoboto className="text--big text--light -pr-4">
               {currency.symbol}
             </TextRoboto>
             <img
               src={dropdownIcon}
-              className={className}
+              className={dropdownClass}
               alt="currentcy change dropwdown"
             />
           </Button>

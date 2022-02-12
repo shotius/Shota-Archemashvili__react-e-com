@@ -33,6 +33,14 @@
         font-weight: 600;
       }
 
+      // hidden bottom border
+      &::after {
+        display: block;
+        content: '';
+        border-bottom: 2px solid;
+        visibility: hidden;
+      }
+
       &--active {
         color: $green;
         font-weight: 600;
@@ -90,7 +98,7 @@
       }
     }
   }
-  // site logo (shopping bag) 
+  // site logo (shopping bag)
   &__btn_shopping {
     @include center-absolute;
     position: absolute;
