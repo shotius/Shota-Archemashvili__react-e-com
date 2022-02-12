@@ -10,7 +10,7 @@ import { PopoverOverlay } from '../../../molecules/overlays/Overlay';
 import { Popover } from '../../../molecules/Popover/inex';
 import PopoverBody from '../../../molecules/Popover/PopoverBody';
 import PopoverTrigger from '../../../molecules/Popover/PopoverTrigger';
-import CurrencyList from '../CurrencyList';
+import CurrencyList from './CurrencyList';
 import { styleClasses } from './styleClasses';
 
 class CurrencySwitcher extends Component {

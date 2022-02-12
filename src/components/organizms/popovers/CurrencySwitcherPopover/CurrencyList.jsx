@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types';
 import { Component } from 'react';
 import { connect } from 'react-redux';
-import { setCurrency } from '../../../redux/features/globalState/globalSlice';
-import globalsSelectors from '../../../redux/features/globalState/globalsSelectors';
-import VStack from '../../molecules/VStack';
+import { setCurrency } from '../../../../redux/features/globalState/globalSlice';
+import globalsSelectors from '../../../../redux/features/globalState/globalsSelectors';
+import VStack from '../../../molecules/VStack';
 
 class CurrencyList extends Component {
   render() {
