@@ -4,15 +4,16 @@ import { NavLink } from 'react-router-dom';
 
 class NavButton extends Component {
   render() {
-    const to = this.props.to;
+    const { to, children, ...rest } = this.props;
     return (
       <NavLink
-        title={this.props.children}
+        title={children}
         className="nav__btn"
         activeClassName="nav__btn--active"
         to={to}
+        {...rest}
       >
-        {this.props.children}
+        {children}
       </NavLink>
     );
   }

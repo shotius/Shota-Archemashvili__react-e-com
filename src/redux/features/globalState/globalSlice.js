@@ -4,8 +4,7 @@ const { formatToast, removeToastFrom, formatCategories, formatCurrencies } =
   globalsService;
 
 const initalState = {
-  // currency: { label: 'USD', symbol: '$' }, // "GBP", "AUD" , "JPY", "RUB"
-  currency: 'USD',
+  appCurrency: { label: 'USD', symbol: '$' },
   defaultCategory: 'clothes',
   toasts: [],
   categories: [],
@@ -17,7 +16,7 @@ export const globalSlice = createSlice({
   initialState: initalState,
   reducers: {
     setCurrency: (state, action) => {
-      state.currency = action.payload;
+      state.appCurrency = action.payload;
     },
     setToast: (state, action) => {
       // add necessary fields to raw tast object

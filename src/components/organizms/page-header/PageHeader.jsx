@@ -15,17 +15,28 @@ import {
   setCurrencies,
 } from '../../../redux/features/globalState/globalSlice';
 import pageHeaderUtils from './pageHeader.utils';
+import CategoryPopover from '../popovers/MoreCategories';
 
 const { getCurrenciesAndCategories } = pageHeaderUtils;
 
 class PageHeader extends Component {
-  state = { isCurrencyOpen: false, isBasketPopoverOpen: false };
+  state = {
+    isCurrencyOpen: false,
+    isBasketPopoverOpen: false,
+    isMoreCategoryPopoverOpen: false,
+  };
 
   componentDidMount = async () => {
     const [categories, currencies] = await getCurrenciesAndCategories();
 
     this.props.setCategories(categories);
     this.props.setCurrencies(currencies);
+  };
+
+  toggleMoreCategoryPopover = () => {
+    this.setState((state) => ({
+      isMoreCategoryPopoverOpen: !state.isMoreCategoryPopoverOpen,
+    }));
   };
 
   handleCurrencyToggle = () => {
@@ -37,23 +48,32 @@ class PageHeader extends Component {
   };
 
   render() {
-    const { isBasketPopoverOpen, isCurrencyOpen } = this.state;
+    const { isBasketPopoverOpen, isCurrencyOpen, isMoreCategoryPopoverOpen } =
+      this.state;
+
     const {
       defaultCategory: selectedCategory,
       history,
       categories,
     } = this.props;
 
+    const categoriesToShow = categories.concat('one', 'two');
+
     return (
       <div className="header -center_content">
         <div className="container--lg -justify-between -position-relative">
           {/* navigation  */}
           <ButtonGroup>
-            {categories.map((category) => (
+            {categoriesToShow.slice(0, 3).map((category) => (
               <NavButton key={category} to={`${CATALOG_ROUTE}/${category}`}>
                 {category}
               </NavButton>
             ))}
+            <CategoryPopover
+              categories={['categories', 'two', 'three']}
+              isOpen={isMoreCategoryPopoverOpen}
+              onToggle={this.toggleMoreCategoryPopover}
+            />
           </ButtonGroup>
 
           {/* Logo */}

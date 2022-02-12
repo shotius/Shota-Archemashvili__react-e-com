@@ -1,4 +1,4 @@
-const getCurrency = (state) => state.globals.currency;
+const getCurrency = (state) => state.globals.appCurrency;
 
 const getToasts = (state) => state.globals.toasts;
 

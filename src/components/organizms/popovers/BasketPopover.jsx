@@ -17,14 +17,8 @@ import { styleClasses } from './styleClasses';
 
 class BasketPopover extends Component {
   render() {
-    const {
-      isOpen,
-      onClose,
-      products,
-      totalPrice,
-      totalProducts,
-      history,
-    } = this.props;
+    const { isOpen, onClose, products, totalPrice, totalProducts, history } =
+      this.props;
 
     const { basketPopoverClass } = styleClasses.call(this);
 

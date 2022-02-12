@@ -21,12 +21,12 @@ class CurrencyPopover extends Component {
       <>
         <PopoverOverlay isOpen={isOpen} cb={onClose} />
         <div className={popoverContainer}>
-          <div className="v-stack ">
+          <div className="v-stack">
             {currencies.map((currency) => (
               <button
                 key={currency.label}
                 className="btn btn--rect"
-                onClick={() => handleClick(currency.label)}
+                onClick={() => handleClick(currency)}
               >
                 {currency.symbol} {currency.label}
               </button>

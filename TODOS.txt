@@ -6,7 +6,8 @@ It should be possible to add a product to the cart from PLP.
 + Cart item price shouldn't update on cart item quantity change. Only cart totals should recalculate.
 + Please don't use the style prop with constant values. Move such styles to CSS.
 dangerouslySetInnerHTML is dangerous. Please try to find a safer way.
-Don't hardcode the currency icon. You already have it from the API.
-Don't hardcode the currency list. Fetch it from the API.
-Don't hardcode the category list. Fetch it from the API.
-There are three categories in the API.
++ Don't hardcode the currency icon. You already have it from the API.
++ Don't hardcode the currency list. Fetch it from the API.
++ Don't hardcode the category list. Fetch it from the API.
++ There are three categories in the API.
+more than 4 products

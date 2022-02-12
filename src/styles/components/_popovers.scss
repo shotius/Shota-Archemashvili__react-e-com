@@ -1,3 +1,31 @@
+.popover-trigger {
+  position: relative;
+}
+
+.popover-body {
+  @include popover;
+  box-shadow: $shadownSmall;
+  z-index: $popover;
+  opacity: 1;
+  background-color: white;
+  &__container {
+    position: relative;
+  }
+}
+
+.category-popover {
+  @include center;
+  &:hover {
+    background-color: $lightGray;
+  }
+  &__dropdown {
+    transition: all $mouse;
+    &--active {
+      transform: rotate(180deg);
+    }
+  }
+}
+
 .currency_popover {
   @include popover;
   width: 115px;

@@ -5,4 +5,4 @@
  * @returns {Number} amount
  */
 export const selectPrice = (prices, currency) =>
-  prices.find((price) => price.currency.label === currency).amount;
+  prices.find((price) => price.currency.label === currency.label).amount;

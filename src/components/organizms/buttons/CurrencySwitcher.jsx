@@ -1,13 +1,12 @@
-import { Component } from 'react';
-import PropTypes from 'prop-types';
-import dropdownIcon from '../../../assets/icons/dropdownIcon.svg';
 import classNames from 'classnames';
-import CurrencyPopover from '../popovers/CurrencyPopover';
-import { Button } from '../../atoms/buttons/Button';
+import PropTypes from 'prop-types';
+import { Component } from 'react';
 import { connect } from 'react-redux';
-import { getCurrencyIcon } from '../../../utils/helpers';
-import TextRoboto from '../../atoms/typography/TextRoboto';
+import dropdownIcon from '../../../assets/icons/dropdownIcon.svg';
 import globalsSelectors from '../../../redux/features/globalState/globalsSelectors';
+import { Button } from '../../atoms/buttons/Button';
+import TextRoboto from '../../atoms/typography/TextRoboto';
+import CurrencyPopover from '../popovers/CurrencyPopover';
 
 class CurrencySwitcher extends Component {
   render() {
@@ -21,7 +20,7 @@ class CurrencySwitcher extends Component {
       <>
         <Button className="nav__btn_currency" onClick={onToggle}>
           <TextRoboto className="text--big text--light -pr-4">
-            {getCurrencyIcon(currency)}
+            {currency.symbol}
           </TextRoboto>
           <img
             src={dropdownIcon}

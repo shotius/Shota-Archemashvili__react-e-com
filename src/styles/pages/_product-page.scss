@@ -25,7 +25,7 @@ $lines-to-show: 3;
   &__thumbs {
     display: flex;
     flex-direction: column;
-    gap: 2.5rem;
+    gap: 2.4rem;
     overflow-y: scroll;
     min-width: 115px;
     @include mobile-scroll;
