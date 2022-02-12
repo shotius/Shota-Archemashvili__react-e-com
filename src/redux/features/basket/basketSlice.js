@@ -8,6 +8,7 @@ const {
   encreaseItemCount,
   addItem,
   isLastItem,
+  formatProductForBasket,
 } = basketServices;
 
 const initialState = {
@@ -21,13 +22,15 @@ const basketSlice = createSlice({
     addItemToBasket: (state, action) => {
       const { count, ...item } = action.payload;
       const products = current(state.products);
+      const product = formatProductForBasket(item);
+
       // If product already in the basket encrease the count
-      const foundItem = findItem(products, item);
+      const foundItem = findItem(products, product);
 
       // if there is an item alreade - encrease count, else add an item
       state.products = foundItem
-        ? encreaseItemCount(products, item)
-        : addItem(products, item);
+        ? encreaseItemCount(products, product)
+        : addItem(products, product);
     },
 
     removeItemFromBasket: (state, action) => {

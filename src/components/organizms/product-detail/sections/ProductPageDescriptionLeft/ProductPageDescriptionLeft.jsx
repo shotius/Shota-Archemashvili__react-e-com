@@ -40,7 +40,7 @@ class ProductPageDescriptionLeft extends Component {
   };
 
   handleAddToBasket = () => {
-    const { addItemToBasket, setToast } = this.props;
+    const { addItemToBasket, setToast, product } = this.props;
     const selectedAttributes = this.getSelectedAttributes();
     const fieldErrors = this.validateAttributes();
 
@@ -48,11 +48,8 @@ class ProductPageDescriptionLeft extends Component {
 
     // If error fields were empty - submit
     if (!isObjectEmpty(fieldErrors)) {
-      const { attributes, description, ...productForBasket } =
-        this.props.product;
-
       addItemToBasket({
-        ...productForBasket,
+        ...product,
         attributes: selectedAttributes,
       });
 

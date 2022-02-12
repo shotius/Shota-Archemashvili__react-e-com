@@ -15,9 +15,7 @@ import { styleClasses } from './styleClasses';
 class BasketPopover extends Component {
   render() {
     const { isOpen, onToggle, totalProducts } = this.props;
-
     const { getBadgeClass, basketClass } = styleClasses.call(this);
-
     return (
       <Popover className="basket-popover">
         <PopoverOverlay cb={onToggle} isOpen={isOpen} isColored={false} />

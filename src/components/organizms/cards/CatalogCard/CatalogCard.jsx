@@ -4,42 +4,59 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { compose } from 'redux';
 import basketIcon from '../../../../assets/icons/basketLarge.svg';
-import { CATALOG_ROUTE } from '../../../../config/constants';
+
+import { addItemToBasket } from '../../../../redux/features/basket/basketSlice';
+import { setToast } from '../../../../redux/features/globalState/globalSlice';
 import globalsSelectors from '../../../../redux/features/globalState/globalsSelectors';
+import { stopPropagation } from '../../../../utils/helpers';
 import { selectPrice } from '../../../../utils/selectPrice';
 import { Button } from '../../../atoms/buttons/Button';
 import Image from '../../../atoms/Image/Image';
 import { Heading } from '../../../atoms/typography/Heading';
 import { AspectRatio } from '../../../molecules/AspectRatio';
 import PriceWithIcon from '../../../molecules/PriceWithIcon';
+import catalogCardUtils from './catalogCard.utils';
 import { styleClasses } from './styleClasses';
+
+const {
+  setDefaultAttributes,
+  handleMouseOver,
+  handleMouseOut,
+  handleNavigation,
+} = catalogCardUtils;
 
 class CatalogCard extends Component {
   constructor(props) {
     super(props);
-    this.state = { isHovered: false };
+    this.state = { isHovered: false, defaultSelectedAttributes: {} };
     this.cardRef = createRef();
-    this.handleMouseOut = this.handleMouseOut.bind(this);
-    this.handleMouseOver = this.handleMouseOver.bind(this);
-    this.handleNavigation = this.handleNavigation.bind(this);
+    this.handleMouseOut = handleMouseOut.bind(this);
+    this.handleMouseOver = handleMouseOver.bind(this);
+    this.handleNavigation = handleNavigation.bind(this);
+    this.setDefaultAttributes = setDefaultAttributes.bind(this);
   }
 
-  handleMouseOver() {
-    this.setState({
-      isHovered: true,
+  componentDidMount = () => {
+    this.setDefaultAttributes();
+  };
+
+  handleAddTobasket = (e) => {
+    stopPropagation(e);
+    const { defaultSelectedAttributes } = this.state;
+    const { product, setToast } = this.props;
+
+    this.props.addItemToBasket({
+      ...product,
+      attributes: defaultSelectedAttributes,
     });
-  }
 
-  handleMouseOut() {
-    this.setState({
-      isHovered: false,
+    setToast({
+      title: 'Product added to the busket',
+      position: 'top',
+      duration: 3000,
+      status: 'success',
     });
-  }
-
-  handleNavigation() {
-    const { id, category } = this.props.product;
-    this.props.history.push(`${CATALOG_ROUTE}/${category}/${id}`);
-  }
+  };
 
   render() {
     const { product, currency } = this.props;
@@ -76,7 +93,7 @@ class CatalogCard extends Component {
                   fadeIn={true}
                 />
               </AspectRatio>
-              <Button className={bsktBtnClass}>
+              <Button className={bsktBtnClass} onClick={this.handleAddTobasket}>
                 <img src={basketIcon} alt="add to basket" />
               </Button>
             </div>
@@ -117,7 +134,7 @@ const mapStateToProps = (state) => ({
   currency: globalsSelectors.getCurrency(state),
 });
 
-const withRedux = connect(mapStateToProps);
+const withRedux = connect(mapStateToProps, { addItemToBasket, setToast });
 const enhance = compose(withRouter, withRedux);
 
 export default enhance(CatalogCard);

@@ -1,16 +1,13 @@
 import { gql } from '@apollo/client';
-import {
-  PRODUCT_WITH_ATTRIBUTES,
-  PRODUCT_WITH_PRICE,
-} from './fragments/productFragment';
+import { CORE_PRODUCT, PRODUCT_DESCRIPTION } from './fragments/productFragment';
 
 export const SINGLE_PRODUCT = gql`
   query getProduct($id: String!) {
     product(id: $id) {
-      ...ProductWithPrice
-      ...ProductWithAttribute
+      ...CoreProduct
+      ...ProductDescription
     }
   }
-  ${PRODUCT_WITH_ATTRIBUTES}
-  ${PRODUCT_WITH_PRICE}
+  ${CORE_PRODUCT}
+  ${PRODUCT_DESCRIPTION}
 `;

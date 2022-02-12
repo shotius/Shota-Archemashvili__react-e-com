@@ -16,7 +16,6 @@ class BasketPopover extends Component {
   render() {
     const { onClose, products, totalPrice, totalProducts, history } =
       this.props;
-
     return (
       <>
         {!!totalProducts ? (

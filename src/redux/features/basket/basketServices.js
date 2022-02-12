@@ -53,6 +53,11 @@ function isLastItem(products, item) {
   return findItem(products, item).count === 1;
 }
 
+function formatProductForBasket(product) {
+  const { __typename, description, ...productForBasket } = product;
+  return productForBasket;
+}
+
 /** Exports */
 
 const basketServices = {
@@ -62,6 +67,7 @@ const basketServices = {
   removeItem,
   addItem,
   isLastItem,
+  formatProductForBasket,
 };
 
 export default basketServices;
