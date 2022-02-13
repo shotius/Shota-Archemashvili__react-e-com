@@ -1,5 +1,4 @@
 import { Component } from 'react';
-import PropTypes from 'prop-types';
 import { removeToast } from '../../../redux/features/globalState/globalSlice';
 import { connect } from 'react-redux';
 import TopToasts from './TopToasts';

@@ -1,5 +1,4 @@
 import { Component } from 'react';
-import PropTypes from 'prop-types';
 import Toast from './Toast';
 
 class ToastTopLeft extends Component {

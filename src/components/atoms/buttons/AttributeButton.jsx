@@ -6,7 +6,13 @@ import { styleClasses } from './styleClasses';
 // style depends if attribute is swatch or if it selected
 class AttributeButton extends Component {
   render() {
-    const { attr, value: innerText, selectedAttributes, ...rest } = this.props;
+    const {
+      attr,
+      value: innerText,
+      isDisabled,
+      selectedAttributes,
+      ...rest
+    } = this.props;
     const { sizeButtonClass } = styleClasses();
 
     // If type is swatch
@@ -22,6 +28,8 @@ class AttributeButton extends Component {
         style={{
           backgroundColor: isSwatch && innerText,
           transform: isSelected && isSwatch && 'scale(1.2)',
+          opacity: isDisabled && '0.5',
+          cursor: isDisabled ? "text" : "pointer"
         }}
         {...rest}
       >
@@ -36,6 +44,7 @@ AttributeButton.propTypes = {
   value: PropTypes.string,
   onClick: PropTypes.func.isRequired,
   selectedAttributes: PropTypes.object,
+  isDisabled: PropTypes.bool,
 };
 
 export default AttributeButton;

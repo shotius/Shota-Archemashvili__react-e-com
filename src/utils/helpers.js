@@ -1,3 +1,6 @@
+import parse from 'html-react-parser';
+import DOMPurify from 'dompurify';
+
 /** uuid */
 export const uuid = () => {
   let dt = new Date().getTime();
@@ -14,3 +17,10 @@ export const stopPropagation = (e) => {
 };
 
 export const isObjectEmpty = (obj) => Object.keys(obj).length;
+
+/**
+ * Function receives stringified html and returns react component
+ * @param {*} string 
+ * @returns html
+ */
+export const htmlToReact = (string) => parse(DOMPurify.sanitize(string));

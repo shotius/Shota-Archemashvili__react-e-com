@@ -1,7 +1,7 @@
-- It should be possible to add a product to the cart from PLP.
 - dangerouslySetInnerHTML is dangerous. Please try to find a safer way.
 - Category label should represent the category name.
 
++ It should be possible to add a product to the cart from PLP.
 + All eslint errors must be fixed.
 + It should be possible to navigate to an out-of-stock product page.
 + The product brand is missing on PLP.

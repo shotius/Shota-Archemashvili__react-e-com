@@ -6,7 +6,7 @@ import basketSelectors from '../../../../../redux/features/basket/basketSelector
 import { addItemToBasket } from '../../../../../redux/features/basket/basketSlice';
 import { setToast } from '../../../../../redux/features/globalState/globalSlice';
 import globalsSelectors from '../../../../../redux/features/globalState/globalsSelectors';
-import { isObjectEmpty } from '../../../../../utils/helpers';
+import { isObjectEmpty, htmlToReact } from '../../../../../utils/helpers';
 import { withParams } from '../../../../../utils/HOC/withParams';
 import { selectPrice } from '../../../../../utils/selectPrice';
 import AttributeButton from '../../../../atoms/buttons/AttributeButton';
@@ -76,8 +76,12 @@ class ProductPageDescriptionLeft extends Component {
     price = selectPrice(product.prices, currency);
 
     // css classes
-    const { productBrandClass, descriptionClass, productNameClass } =
-      this.styleClasses();
+    const {
+      productBrandClass,
+      descriptionClass,
+      productNameClass,
+      buttonSubmitClass,
+    } = this.styleClasses();
 
     return (
       <div className="pr-details__container">
@@ -102,13 +106,15 @@ class ProductPageDescriptionLeft extends Component {
                     key={value}
                     attr={attr}
                     value={value}
+                    isDisabled={!product.inStock}
                     selectedAttributes={this.state.selectedAttributes}
-                    onClick={() =>
-                      this.handleSelectAttr({
-                        attributeName: attr.id,
-                        value,
-                      })
-                    }
+                    onClick={() => {
+                      product.inStock &&
+                        this.handleSelectAttr({
+                          attributeName: attr.id,
+                          value,
+                        });
+                    }}
                   >
                     {value}
                   </AttributeButton>
@@ -129,13 +135,18 @@ class ProductPageDescriptionLeft extends Component {
         </div>
 
         {/* Add to basket  button  */}
-        <Button className="btn--primary" onClick={this.handleAddToBasket}>
+        <Button
+          className={buttonSubmitClass}
+          onClick={() => {
+            product.inStock && this.handleAddToBasket();
+          }}
+        >
           add to card
         </Button>
 
         {/* Description  */}
         <div className={descriptionClass}>
-          <div dangerouslySetInnerHTML={{ __html: product.description }} />
+          {htmlToReact(product.description)}
         </div>
       </div>
     );

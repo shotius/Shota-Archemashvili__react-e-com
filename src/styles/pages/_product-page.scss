@@ -41,6 +41,13 @@ $lines-to-show: 3;
       width: 100%;
     }
   }
+  &__out-of-stock {
+    position: absolute;
+    top: 70px;
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0.6;
+  }
 }
 
 /** Descriptions on product page*/

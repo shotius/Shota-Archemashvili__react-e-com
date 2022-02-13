@@ -7,6 +7,7 @@ import ProductPageSlider from '../../components/organizms/Sliders/ProductPageSli
 import { PublicLayout } from '../../components/templates/PublicLayout';
 import { withParams } from '../../utils/HOC/withParams';
 import productPageUtils from './productPage.utils';
+import { styleClasses } from './styleClasses';
 
 const {
   getCachedProduct,
@@ -28,7 +29,7 @@ class ProductPage extends Component {
       loadingProduct: false,
       loadingPartialProduct: false,
     };
-    
+
     this.getCachedProduct = getCachedProduct.bind(this);
     this.getProductId = getProductId.bind(this);
     this.updateProductWithCache = updateProductWithCache.bind(this);
@@ -64,6 +65,7 @@ class ProductPage extends Component {
 
   render() {
     const { product, loadingProduct, loadingPartialProduct } = this.state;
+    const { outOfStockClass } = styleClasses.call(this);
 
     let thumbs = [];
 
@@ -84,6 +86,11 @@ class ProductPage extends Component {
     return (
       <PublicLayout>
         <ScrollToTop />
+        <div className={outOfStockClass}>
+          <HeadingSecondary className="-color--red">
+            Product is out of stock! :(
+          </HeadingSecondary>
+        </div>
         <div className="product-page">
           <ProductPageSlider thumbs={thumbs} />
           <div className="product-page__pr-details pr-details">
